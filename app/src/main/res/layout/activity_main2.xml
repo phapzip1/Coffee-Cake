@@ -2,6 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
+    android:background="@color/trangduc"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,7 @@
         android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/layoutToolBar"
-            android:background="#0099ff"
+            android:background="#FFB72B"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingStart="15dp"

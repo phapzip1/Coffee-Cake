@@ -47,8 +47,9 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -56,7 +57,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardChat"
+            android:id="@+id/card2"
 
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
@@ -80,8 +81,9 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 2"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -89,7 +91,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardProfile"
+            android:id="@+id/card3"
 
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
@@ -113,8 +115,10 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 3"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -122,7 +126,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardWidgets"
+            android:id="@+id/card4"
 
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
@@ -146,8 +150,10 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 4"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -155,7 +161,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardSettings"
+            android:id="@+id/card5"
 
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
@@ -179,8 +185,10 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 5"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -189,7 +197,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardHelp"
+            android:id="@+id/card6"
 
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
@@ -213,8 +221,9 @@
                     android:layout_height="90dp"/>
                 <TextView
                     android:text="Table 6"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+                    android:textSize="18sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

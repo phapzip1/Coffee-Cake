@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <TextView
-        android:id="@+id/tvAddTable"
+        android:id="@+id/tvAddFood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:text="Add New Table Food"
+        android:text="Add New Food"
         android:textColor="@color/color_main"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -22,33 +20,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
-        android:id="@+id/edtAddTable"
+        android:id="@+id/edtAddFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="42dp"
         android:background="@drawable/round_boder"
-        android:hint="Enter table name"
+        android:hint="Enter food name"
         android:inputType="textPersonName"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddTable" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddFood" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgFood"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_coffee"
+        app:layout_constraintTop_toBottomOf="@+id/edtAddFood"
+        app:riv_corner_radius="12dp"
+        tools:layout_editor_absoluteX="0dp"></com.makeramen.roundedimageview.RoundedImageView>
+
     <Button
-        android:id="@+id/btnCreateTable"
+        android:id="@+id/btnCreateNewFood"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="42dp"
         android:background="@drawable/round_bg"
-        android:text="create table"
+        android:text="create new food"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAddTable" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imgFood" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

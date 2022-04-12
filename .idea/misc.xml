@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/circle_img.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.149" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_help.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_wave.xml" value="0.149" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/layout_nav_header.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_boder.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main2.xml" value="0.24635416666666668" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_nav_header.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/menu/menu.xml" value="0.24635416666666668" />
         <entry key="..\:/JavAProj/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.24728260869565216" />
         <entry key="..\:/JavAProj/CoffeeCake/app/src/main/res/layout/activity_main.xml" value="0.33" />

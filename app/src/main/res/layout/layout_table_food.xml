@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table1vs1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table_empty"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table1vs1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView
@@ -145,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table1vs1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView
@@ -180,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table1vs1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView
@@ -216,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:src="@drawable/ic_table_blue"
+                    android:src="@drawable/table1vs1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
                 <TextView

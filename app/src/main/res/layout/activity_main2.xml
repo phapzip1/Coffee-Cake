@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="The Little Cup"
+                android:text="Coffee Time"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />

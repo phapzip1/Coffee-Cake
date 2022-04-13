@@ -56,6 +56,8 @@
         android:layout_marginEnd="42dp"
         android:background="@drawable/round_bg"
         android:text="create new food"
+        android:textSize="16sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

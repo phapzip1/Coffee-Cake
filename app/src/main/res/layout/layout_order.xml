@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/tvOrder"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="32dp"
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:textColor="@color/black"
             android:textSize="30sp" />
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgOderFood"
+            android:id="@+id/imgOder"
+            android:outlineSpotShadowColor="@color/white"
             android:layout_marginTop="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"

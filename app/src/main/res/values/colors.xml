@@ -12,6 +12,7 @@
     <color name="camnhat">#F28945</color>
     <color name="camdam">#E27802</color>
     <color name="xanhlanhat">#B5FE83</color>
+    <color name="xanhlatuoi">#06FF00</color>
     <color name="xanhduong">#0099FF</color>
     <color name="trangduc">#F7F7F7</color>
     <color name="nau">#6A492B</color>
@@ -19,6 +20,7 @@
     <color name="xam">#B9AC92</color>
     <color name="mauda">#FECB89</color>
     <color name="dennhat">#383838</color>
+    <color name="red">#FF0000</color>
 
 
 

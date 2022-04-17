@@ -3,13 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="5"
-    android:background="#F1C8D6"
+    android:background="#ccc"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ImageView
+        android:background="#FFB72B"
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+    </ImageView>
+    <ImageView
+        android:layout_marginTop="85dp"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:src="@drawable/ic_wave">
 
+    </ImageView>
     <ImageView
         android:id="@+id/bg_layout2"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="390dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/round_bg2">
@@ -28,7 +39,6 @@
 
         <TextView
             android:id="@+id/tvOrder"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,11 +49,11 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"
             android:outlineSpotShadowColor="@color/white"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="52dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_width="match_parent"
-            android:layout_height="222dp"
+            android:layout_height="230dp"
             android:scaleType="centerCrop"
             android:src="@drawable/listts1"
             app:layout_constraintTop_toBottomOf="@+id/edtAddFood"
@@ -53,9 +63,9 @@
         <TextView
             android:text="Size:"
             android:textColor="@color/dennhat"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -99,7 +109,7 @@
         <TextView
             android:text="Quantily"
             android:textColor="@color/dennhat"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
@@ -134,25 +144,53 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-        <TextView
-            android:text="Price"
-            android:textColor="@color/dennhat"
-            android:textSize="22sp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/round_bg"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </TextView>
-        <TextView
-            android:id="@+id/tvPrice"
-            android:text="10$"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Total Price"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:text="$10"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnOrderNow"
+                android:layout_gravity="center"
+                android:text="Order Now"
+                android:textStyle="bold"
+                android:padding="12dp"
+                android:layout_marginLeft="70dp"
+                android:textColor="@color/color_main"
+                android:background="@drawable/round_bg_white_min"
+                android:layout_width="120dp"
+                android:layout_height="42dp"/>
+        </LinearLayout>
+
 
 
 

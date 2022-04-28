@@ -25,13 +25,16 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_settings.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_wave.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/layout_nav_header.xml" value="0.163" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/rouder_bg_search.xml" value="0.1645" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg2.xml" value="0.16" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_search.xml" value="0.1645" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_white.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_white_min.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_boder.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/home_slide_items.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_food.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_staff.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_table_food.xml" value="0.264" />

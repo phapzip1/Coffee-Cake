@@ -3,6 +3,9 @@ package com.example.coffee_cake;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -64,6 +67,9 @@ public class MainActivity2 extends AppCompatActivity {
         // hiện màu sắc của nav
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
+
+        NavController controller = Navigation.findNavController(this, R.id.fragmentContainerView3);
+        NavigationUI.setupWithNavController(navigationView, controller);
 
     }
     private void showToast(String message) {

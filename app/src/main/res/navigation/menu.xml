@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu"
+    app:startDestination="@id/menuHome">
+
+    <fragment
+        android:id="@+id/menuHome"
+        android:name="com.example.coffee_cake.Fragment_home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_statistic"
+            app:destination="@id/menuStatistic" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuStatistic"
+        android:name="com.example.coffee_cake.Fragment_statistic"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_fragment_statistic_to_fragment_drinks_table"
+            app:destination="@id/menuDrinkTable" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuDrinkTable"
+        android:name="com.example.coffee_cake.Fragment_drinks_table"
+        android:label="fragment_drinks_table"
+        tools:layout="@layout/fragment_drinks_table" >
+        <action
+            android:id="@+id/action_fragment_drinks_table_to_fragment_Menu"
+            app:destination="@id/menuMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuMenu"
+        android:name="com.example.coffee_cake.Fragment_Menu"
+        android:label="fragment__menu"
+        tools:layout="@layout/fragment__menu" >
+        <action
+            android:id="@+id/action_fragment_Menu_to_fragment_staff"
+            app:destination="@id/menuStaff" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuStaff"
+        android:name="com.example.coffee_cake.Fragment_staff"
+        android:label="fragment_staff"
+        tools:layout="@layout/fragment_staff" >
+        <action
+            android:id="@+id/action_fragment_staff_to_fragment_home"
+            app:destination="@id/menuHome" />
+    </fragment>
+</navigation>

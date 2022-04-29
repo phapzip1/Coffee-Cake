@@ -12,9 +12,9 @@
     <item android:title="Manage">
         <menu>
             <item
-                android:id="@+id/menuFoodTable"
+                android:id="@+id/menuDrinkTable"
                 android:icon="@drawable/ic_table_blue"
-                android:title="Food Table" />
+                android:title="Drink Table" />
             <item
                 android:id="@+id/menuMenu"
                 android:icon="@drawable/ic_restaurant_menu"

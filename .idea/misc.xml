@@ -20,8 +20,10 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_help.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_home.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1535" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_menu.xml" value="0.1745" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_message.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_phone.xml" value="0.153" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_restaurant_menu.xml" value="0.1745" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_settings.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_wave.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/layout_nav_header.xml" value="0.163" />
@@ -34,6 +36,11 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_boder.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment__menu.xml" value="0.24635416666666668" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_drinks_table.xml" value="0.24635416666666668" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_home.xml" value="0.24635416666666668" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_staff.xml" value="0.24635416666666668" />
+        <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_statistic.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/home_slide_items.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_food.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_staff.xml" value="0.24635416666666668" />

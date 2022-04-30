@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "402710027003",
+    "project_id": "coffee-cake-84ff1",
+    "storage_bucket": "coffee-cake-84ff1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402710027003:android:d0612506458a44d5abae5e",
+        "android_client_info": {
+          "package_name": "com.example.coffee_cake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402710027003-26lp2evneg0ffl2h4bh6r0hacghificd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs886M9T-V774IqpIbQK3J7vdM3tVd9SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402710027003-26lp2evneg0ffl2h4bh6r0hacghificd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

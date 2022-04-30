@@ -38,7 +38,7 @@
 
             <ImageView
                 android:id="@+id/imageLogout"
-                android:layout_marginLeft="170dp"
+                android:layout_marginLeft="160dp"
                 android:src="@drawable/ic_exit_to_app"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>

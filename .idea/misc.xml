@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Code/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Code/Coffee-Cake/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Code/Coffee-Cake/app/src/main/res/layout/fragment_drinks_table.xml" value="0.25416666666666665" />
+        <entry key="..\:/Code/Coffee-Cake/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Code/Coffee-Cake/app/src/main/res/layout/fragment_staff.xml" value="0.25416666666666665" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/circle_img.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/circle_img_blue_dam.xml" value="0.153" />
@@ -20,23 +25,24 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_help.xml" value="0.163" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_home.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1535" />
-        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_menu.xml" value="0.1745" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_message.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_phone.xml" value="0.153" />
+<<<<<<< HEAD
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_restaurant_menu.xml" value="0.1745" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_search.xml" value="0.1745" />
+=======
+>>>>>>> 11b16ab4b43026c892d8fa1e742d809c8d5e7898
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_settings.xml" value="0.1535" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/ic_wave.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/layout_nav_header.xml" value="0.163" />
-        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/rouder_bg_search.xml" value="0.1645" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg2.xml" value="0.16" />
-        <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_search.xml" value="0.1645" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_white.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_bg_white_min.xml" value="0.153" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/drawable/round_boder.xml" value="0.149" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+<<<<<<< HEAD
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment__menu.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_coffee.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_drinks_table.xml" value="0.24635416666666668" />
@@ -52,6 +58,8 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/fragment_statistic.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/home_slide_items.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_drink.xml" value="0.24635416666666668" />
+=======
+>>>>>>> 11b16ab4b43026c892d8fa1e742d809c8d5e7898
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_food.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_staff.xml" value="0.24635416666666668" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_add_table.xml" value="0.24635416666666668" />
@@ -69,6 +77,7 @@
         <entry key="..\:/Coffee-Cake/app/src/main/res/layout/layout_table_food.xml" value="0.264" />
         <entry key="..\:/Coffee-Cake/app/src/main/res/menu/menu.xml" value="0.24635416666666668" />
         <entry key="..\:/JavAProj/Coffee-Cake/app/src/main/res/layout/activity_main.xml" value="0.24728260869565216" />
+        <entry key="..\:/JavAProj/Coffee-Cake/app/src/main/res/layout/fragment_statistic.xml" value="0.371875" />
         <entry key="..\:/JavAProj/CoffeeCake/app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>
     </option>

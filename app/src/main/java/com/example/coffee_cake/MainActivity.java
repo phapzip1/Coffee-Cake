@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<User> user;
+
 
     private FirebaseAuth mAuth;
     @Override
@@ -26,15 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        User user1 = new User("admin", "123");
-        User user2 = new User("staff1", "123");
-        User user3 = new User("staff2", "123");
-        User user4 = new User("admin@gmail.com", "123456789");
-        user = new ArrayList<>();
-        user.add(user1);
-        user.add(user2);
-        user.add(user3);
-        user.add(user4);
+
 
         EditText edtUsername = findViewById(R.id.inputUsername);
         EditText edtPassword = findViewById(R.id.inputPassword);

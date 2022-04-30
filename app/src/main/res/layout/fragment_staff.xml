@@ -33,7 +33,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="8dp"
-                    android:layout_marginLeft="322dp"
+                    android:layout_marginLeft="303dp"
                     android:background="@drawable/round_bg_white"
                     android:gravity="center"
                     android:src="@drawable/ic_add"

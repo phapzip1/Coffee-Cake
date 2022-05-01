@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E6E6E6"
     android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_staff_info">
+    tools:context=".Fragment_staff_edit">
+
+    <!-- TODO: Update blank fragment layout -->
     <ImageView
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
         android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="284dp"
+        android:layout_height="200dp"
         android:src="@drawable/round_bg_white_min">
     </ImageView>
-
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -68,15 +67,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            <!--                Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
-            <!--                1. Admin-->
-            <!--                2. Staff-->
-            <!--                <Spinner-->
-            <!--                    android:layout_marginTop="8dp"-->
-            <!--                    android:id="@+id/spinner"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content" />-->
-                <TextView
+                <!--                Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
+                <!--                1. Admin-->
+                <!--                2. Staff-->
+                <!--                <Spinner-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:id="@+id/spinner"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content" />-->
+                <Spinner
                     android:text="Manager"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
@@ -106,16 +105,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            <!--   Giới tính,Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
-            <!--   1. Nam-->
-            <!--   2. Nữ-->
-            <!--   3. Khác-->
-            <!--                <Spinner-->
-            <!--                    android:layout_marginTop="8dp"-->
-            <!--                    android:id="@+id/spinner2"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content" />-->
-                <TextView
+                <!--   Giới tính,Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
+                <!--   1. Nam-->
+                <!--   2. Nữ-->
+                <!--   3. Khác-->
+                <!--                <Spinner-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:id="@+id/spinner2"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content" />-->
+                <Spinner
                     android:text="Female"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
@@ -123,45 +122,6 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="42dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imgEmail"
-                android:padding="12dp"
-                android:src="@drawable/ic_email"
-                android:gravity="center"
-                android:background="@drawable/circle_img_blue_dam"
-                android:textColor="@color/white"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
-            <ImageView
-                android:id="@+id/imgMessage"
-                android:padding="12dp"
-                android:src="@drawable/ic_message"
-                android:gravity="center"
-                android:background="@drawable/circle_img"
-                android:layout_marginLeft="32dp"
-                android:textSize="25sp"
-                android:textColor="@color/white"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
-            <ImageView
-                android:id="@+id/imgPhone"
-                android:padding="12dp"
-                android:src="@drawable/ic_phone"
-                android:gravity="center"
-                android:background="@drawable/circle_img_green_nhat"
-                android:layout_marginLeft="32dp"
-                android:textSize="25sp"
-                android:textColor="@color/white"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
 
         </LinearLayout>
         <TextView
@@ -172,7 +132,7 @@
             android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
+        <EditText
             android:id="@+id/tvUsername1"
             android:text="misthycute123"
             android:textSize="20dp"
@@ -186,7 +146,7 @@
             android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
+        <EditText
             android:id="@+id/tvPassword1"
             android:text="misthy123"
             android:textSize="20dp"
@@ -214,7 +174,7 @@
             android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <TextView
+        <EditText
             android:id="@+id/tvPhone1"
             android:text="0968686868"
             android:textSize="20sp"
@@ -229,7 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
+        <EditText
             android:id="@+id/tvEmail"
             android:text="misthycute@gmail.com"
             android:textSize="20sp"
@@ -238,6 +198,7 @@
 
 
     </LinearLayout>
+
 
 
 </FrameLayout>

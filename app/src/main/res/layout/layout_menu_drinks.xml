@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ccc"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="12dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:padding="12dp"
                 android:layout_marginLeft="12dp"
                 android:orientation="vertical"
-                android:layout_width="212dp"
+                android:layout_width="208dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="Tea Milk"
@@ -58,8 +58,8 @@
             <ImageView
                 android:background="@drawable/ic_more_vert"
                 android:layout_gravity="center"
-                android:layout_width="32dp"
-                android:layout_height="40dp">
+                android:layout_width="28dp"
+                android:layout_height="38dp">
 
             </ImageView>
 

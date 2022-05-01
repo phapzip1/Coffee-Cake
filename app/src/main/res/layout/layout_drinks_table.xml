@@ -30,11 +30,7 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-        <ImageView
-            android:layout_marginLeft="140dp"
-            android:src="@drawable/ic_more_vert"
-            android:layout_width="30dp"
-            android:layout_height="60dp"/>
+
 
     </androidx.cardview.widget.CardView>
 

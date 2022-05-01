@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ccc"
+    android:paddingTop="10dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:orientation="vertical"
     tools:context=".Fragment_staff">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="#ccc"
+    <ImageView
+        android:id="@+id/btnAddInfo"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:padding="5dp"
+        android:layout_marginLeft="322dp"
+        android:background="@drawable/round_bg_white"
+        android:gravity="center"
+        android:src="@drawable/ic_add"
+        android:textColor="@color/white"
+        />
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </ListView>
 
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
+<<<<<<< HEAD
+</LinearLayout>
+=======
 <!--                <ImageView-->
 <!--                    android:id="@+id/btnBack"-->
 <!--                    android:src="@drawable/ic_arrow_back_ios"-->
@@ -297,3 +306,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
+>>>>>>> 11b16ab4b43026c892d8fa1e742d809c8d5e7898

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="5"
     android:background="#ccc"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Fragment_order">
+
+    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:background="#FFB72B"
         android:layout_width="match_parent"
@@ -56,6 +58,7 @@
             android:layout_height="230dp"
             android:scaleType="centerCrop"
             android:src="@drawable/listts1"
+            android:background="@drawable/round_bg"
             app:layout_constraintTop_toBottomOf="@+id/edtAddFood"
             app:riv_corner_radius="12dp"
             >
@@ -196,5 +199,6 @@
 
 
     </LinearLayout>
+
 
 </FrameLayout>

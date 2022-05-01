@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#ccc"
+    android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Fragment_staff_info">
 
     <ImageView
         android:layout_marginTop="70dp"
-        android:padding="18dp"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
+        android:layout_height="284dp"
         android:src="@drawable/round_bg_white_min">
 
     </ImageView>
@@ -21,7 +23,6 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_margin="16dp"
             android:src="@drawable/ic_arrow_back_ios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -65,14 +66,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-<!--                Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
-<!--                1. Admin-->
-<!--                2. Staff-->
-<!--                <Spinner-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:id="@+id/spinner"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" />-->
+            <!--                Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
+            <!--                1. Admin-->
+            <!--                2. Staff-->
+            <!--                <Spinner-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:id="@+id/spinner"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content" />-->
                 <TextView
                     android:text="Manager"
                     android:textSize="18sp"
@@ -81,13 +82,14 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
             <ImageView
                 android:layout_marginLeft="40dp"
-
                 android:layout_gravity="center"
                 android:background="#ccc"
                 android:layout_width="2dp"
                 android:layout_height="30dp"/>
+
             <LinearLayout
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="10dp"
@@ -102,15 +104,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <!--   Giới tính,Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
-                <!--   1. Nam-->
-                <!--   2. Nữ-->
-                <!--   3. Khác-->
-<!--                <Spinner-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:id="@+id/spinner2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" />-->
+            <!--   Giới tính,Sử dụng Spinner để khi ấn vào nút tam giác nó sẽ xổ ra các lựa chọn-->
+            <!--   1. Nam-->
+            <!--   2. Nữ-->
+            <!--   3. Khác-->
+            <!--                <Spinner-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:id="@+id/spinner2"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content" />-->
                 <TextView
                     android:text="Female"
                     android:textSize="18sp"
@@ -159,11 +161,9 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"/>
 
-
         </LinearLayout>
         <TextView
             android:layout_marginTop="42dp"
-            android:layout_marginLeft="18dp"
             android:text="Username:"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -174,13 +174,10 @@
             android:id="@+id/tvUsername1"
             android:text="misthycute123"
             android:textSize="20dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="18dp"
             android:text="Password:"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -191,13 +188,10 @@
             android:id="@+id/tvPassword1"
             android:text="misthy123"
             android:textSize="20dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="18dp"
             android:text="Address:"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -208,13 +202,10 @@
             android:id="@+id/tvAddress"
             android:text="Tp.Ho Chi Minh"
             android:textSize="20sp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
             android:text="Phone Number:"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -225,30 +216,24 @@
             android:id="@+id/tvPhone1"
             android:text="0968686868"
             android:textSize="20sp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="18dp"
             android:text="Email:"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tvEmail"
             android:text="misthycute@gmail.com"
             android:textSize="20sp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
     </LinearLayout>
-
 
 </FrameLayout>

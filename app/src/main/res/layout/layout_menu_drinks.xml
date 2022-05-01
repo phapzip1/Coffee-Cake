@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ccc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="24dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+            <com.makeramen.roundedimageview.RoundedImageView
+                app:riv_oval="true"
+                android:src="@drawable/ts"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+            </com.makeramen.roundedimageview.RoundedImageView>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:padding="12dp"
+                android:layout_marginLeft="12dp"
+                android:orientation="vertical"
+                android:layout_width="212dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Tea Milk"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Descript"
+                    android:textColor="@color/xanhlatuoi"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Price: $10"
+                    android:textColor="@color/dennhat"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <ImageView
+                android:background="@drawable/ic_more_vert"
+                android:layout_gravity="center"
+                android:layout_width="32dp"
+                android:layout_height="40dp">
+
+            </ImageView>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

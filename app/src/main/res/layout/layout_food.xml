@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="24dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -13,21 +15,23 @@
             android:textStyle="bold|italic"
             android:textSize="25sp"
             android:textColor="#FF8C32"
-            android:text="Food"
+            android:text="Drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:textStyle="bold|italic"
             android:textSize="25sp"
             android:layout_marginLeft="4dp"
-            android:text="Menu"
+            android:text="Stack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
     </LinearLayout>
+    <ListView
+        android:id="@+id/lvDrinkStack"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-
-
+    </ListView>
 
 </LinearLayout>

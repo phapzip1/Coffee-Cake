@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +60,19 @@ public class Fragment_staff_info extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff_info, container, false);
+        View root = inflater.inflate(R.layout.fragment_staff_info, container, false);
+
+        Bundle staffInfo = getArguments();
+
+        ((TextView)root.findViewById(R.id.edtName)).setText(staffInfo.getString("Fullname"));
+        ((TextView)root.findViewById(R.id.tvPosition)).setText(staffInfo.getString("Position"));
+        ((TextView)root.findViewById(R.id.tvGender)).setText(staffInfo.getString("Gender"));
+        ((TextView)root.findViewById(R.id.tvCCCD)).setText(staffInfo.getString("CCCD"));
+        ((TextView)root.findViewById(R.id.tvDob)).setText(staffInfo.getString("Dob"));
+        ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
+        ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
+        ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getFloat("HSL"));
+
+        return root;
     }
 }

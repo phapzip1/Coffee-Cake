@@ -1,19 +1,21 @@
 package com.example.coffee_cake;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 class Staff {
-    private String MANV, HOTEN, NGAYSINH, SDT, NGVL, CHUCVU, CCCD;
+    private String MANV, HOTEN, NGAYSINH, GIOITINH, SDT, NGVL, CHUCVU, CCCD;
     private float HESOLUONG;
-
     public Staff(String ma_nha_vien,
                 String ho_va_ten,
                 String ngay_thang_nam_sinh,
+                String gioi_tinh,
                 String so_dien_thoai,
                 String ngay_vao_lam,
                 String chuc_vu,
@@ -22,6 +24,7 @@ class Staff {
         MANV = ma_nha_vien;
         HOTEN = ho_va_ten;
         NGAYSINH = ngay_thang_nam_sinh;
+        GIOITINH = gioi_tinh;
         SDT = so_dien_thoai;
         NGVL = ngay_vao_lam;
         CHUCVU = chuc_vu;
@@ -60,6 +63,10 @@ class Staff {
     public String NgayThangNamSinh() {
         return NGAYSINH;
     }
+
+    public String GioiTinh() {
+        return GIOITINH;
+    }
 }
 
 public class StaffAdapter extends BaseAdapter {
@@ -92,6 +99,13 @@ public class StaffAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        return null;
+        view = LayoutInflater.from(m_Context).inflate(m_Layout, null);
+
+        ((TextView)view.findViewById(R.id.tvName)).setText(m_data.get(i).HoVaTen());
+        ((TextView)view.findViewById(R.id.tvPosition)).setText(m_data.get(i).ChucVu());
+        ((TextView)view.findViewById(R.id.tvPhone)).setText(m_data.get(i).SoDienThoai());
+        ((TextView)view.findViewById(R.id.tvGender)).setText(m_data.get(i).GioiTinh());
+
+        return view;
     }
 }

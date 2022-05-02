@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="10/10/2022"
+                    android:text="Ngày vào làm:"
                     android:textColor="@color/dennhat"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -215,7 +215,7 @@
                     android:id="@+id/tvBeginDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="misthy123"
+                    android:text="10/10/2022"
                     android:textSize="20dp" />
 
                 <TextView

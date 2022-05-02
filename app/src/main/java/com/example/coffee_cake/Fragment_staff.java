@@ -1,12 +1,19 @@
 package com.example.coffee_cake;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.os.Binder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +62,53 @@ public class Fragment_staff extends Fragment {
         }
     }
 
+    ArrayList<Staff> staffs;
+    StaffAdapter adapter;
+    ListView listView ;
+
+    @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff, container, false);
+        View root = inflater.inflate(R.layout.fragment_staff, container, false);
+
+        DBHelper db = new DBHelper(getActivity());
+
+        staffs = new ArrayList<>();
+        adapter = new StaffAdapter(getActivity(), R.layout.layout_staff_manage, staffs);
+        listView = (ListView) root.findViewById(R.id.ListOfStaffs);
+        listView.setAdapter(adapter);
+        staffs.clear();
+        Cursor cs = db.getReadableDatabase().rawQuery("SELECT * FROM NHANVIEN", null);
+        while(cs.moveToNext())
+        {
+            String CCCD = cs.getString(cs.getColumnIndex("CCCD")),
+                    HOTEN = cs.getString(cs.getColumnIndex("HOTEN")),
+                    NGAYSINH = cs.getString(cs.getColumnIndex("NGAYSINH")),
+                    GIOITINH = cs.getString(cs.getColumnIndex("GIOITINH")),
+                    SDT = cs.getString(cs.getColumnIndex("SDT")),
+                    NGVL = cs.getString(cs.getColumnIndex("NGVL")),
+                    CHUCVU = cs.getString(cs.getColumnIndex("CHUCVU")),
+                    MANV = cs.getString(cs.getColumnIndex("MANV"));
+            float HeSoLuong = cs.getFloat(cs.getColumnIndex("HESOLUONG"));
+            staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, HeSoLuong));
+        }
+        adapter.notifyDataSetChanged();
+
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("Fullname", staffs.get(i).HoVaTen());
+            bundle.putString("Position", staffs.get(i).ChucVu());
+            bundle.putString("Gender", staffs.get(i).GioiTinh());
+            bundle.putString("CCCD", staffs.get(i).CCDD_CMND());
+            bundle.putString("Dob", staffs.get(i).NgayThangNamSinh());
+            bundle.putString("BeginDate", staffs.get(i).NgayVaoLam());
+            bundle.putString("Phone", staffs.get(i).SoDienThoai());
+            bundle.putFloat("HSL", staffs.get(i).HeSoLuong());
+            Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_info, bundle);
+        });
+
+        return root;
     }
 }

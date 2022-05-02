@@ -2,7 +2,9 @@ package com.example.coffee_cake;
 
 import android.os.Bundle;
 
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.ContextMenu;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -69,49 +72,42 @@ public class Fragment_drinks_table extends Fragment {
 
     GridView tableList;
     ArrayList<Boolean> table;
-    boolean trangThai;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
         loadTable();
-        registerForContextMenu(tableList);
+
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                trangThai = table.get(i);
-                Toast.makeText(getContext(), "ạubgoaigbo", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(getContext(), view);
+
+                if(table.get(i)){
+                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_noempty, popupMenu.getMenu());
+                }
+                else{
+                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_empty, popupMenu.getMenu());
+                }
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getTitle() == "Tính tiền") {
+                            Toast.makeText(getContext(), "Tính toán", Toast.LENGTH_SHORT).show();
+                        } else if (item.getTitle() == "Gọi món") {
+
+                        }
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
             }
         });
-
         return view;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        if(trangThai){
-            Toast.makeText(getContext(), "6666666", Toast.LENGTH_SHORT).show();
-            inflater.inflate(R.menu.menu_for_noempty, menu);
-        }
-        else{
-            Toast.makeText(getContext(), "777777777", Toast.LENGTH_SHORT).show();
-            inflater.inflate(R.menu.menu_for_empty, menu);
-        }
-    }
-
-    // menu item select listener
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle() == "Tính tiền") {
-            Toast.makeText(getContext(), "Tính toán", Toast.LENGTH_SHORT).show();
-        } else if (item.getTitle() == "Gọi món") {
-            Toast.makeText(getContext(), "Gọi món", Toast.LENGTH_SHORT).show();
-        }
-        return super.onContextItemSelected(item);
     }
 
     private void loadTable() {

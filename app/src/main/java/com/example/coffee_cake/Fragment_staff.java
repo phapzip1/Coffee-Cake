@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -109,6 +110,10 @@ public class Fragment_staff extends Fragment {
             bundle.putFloat("HSL", staffs.get(i).HeSoLuong());
             bundle.putString("MANV", staffs.get(i).MaNhanVien());
             Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_info, bundle);
+        });
+
+        ((ImageView)root.findViewById(R.id.btnAddInfo)).setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_edit);
         });
 
         return root;

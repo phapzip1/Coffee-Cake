@@ -3,10 +3,13 @@ package com.example.coffee_cake;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -72,6 +75,10 @@ public class Fragment_staff_info extends Fragment {
         ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
         ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
         ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getFloat("HSL"));
+
+        ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_fragment_staff_edit, staffInfo);
+        });
 
         return root;
     }

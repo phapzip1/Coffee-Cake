@@ -55,4 +55,9 @@
         android:name="com.example.coffee_cake.Fragment_staff_info"
         android:label="fragment_staff_info"
         tools:layout="@layout/fragment_staff_info" />
+    <fragment
+        android:id="@+id/fragment_bill"
+        android:name="com.example.coffee_cake.Fragment_bill"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
 </navigation>

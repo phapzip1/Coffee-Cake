@@ -156,7 +156,6 @@
                     android:id="@+id/edtCCCD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="123"
                     android:textSize="20dp" />
 
                 <TextView
@@ -172,7 +171,6 @@
                     android:id="@+id/edtDob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="10/10/2002"
                     android:textSize="20sp" />
 
                 <TextView
@@ -188,7 +186,6 @@
                     android:id="@+id/edtBeginDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="10/10/2022"
                     android:textSize="20dp" />
 
                 <TextView
@@ -204,7 +201,6 @@
                     android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0968686868"
                     android:textSize="20sp" />
 
                 <TextView
@@ -220,7 +216,6 @@
                     android:id="@+id/edtHSL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>

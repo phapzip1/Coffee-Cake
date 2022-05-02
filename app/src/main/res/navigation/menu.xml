@@ -41,9 +41,6 @@
         android:label="fragment__menu"
         tools:layout="@layout/fragment__menu" >
         <action
-            android:id="@+id/action_fragment_Menu_to_fragment_staff"
-            app:destination="@id/menuStaff" />
-        <action
             android:id="@+id/action_menuMenu_to_menuDrinkTable"
             app:destination="@id/menuDrinkTable" />
     </fragment>
@@ -55,12 +52,19 @@
         <action
             android:id="@+id/action_menuStaff_to_fragment_staff_info"
             app:destination="@id/fragment_staff_info" />
+        <action
+            android:id="@+id/action_menuStaff_to_fragment_staff_edit"
+            app:destination="@id/fragment_staff_edit" />
     </fragment>
     <fragment
         android:id="@+id/fragment_staff_info"
         android:name="com.example.coffee_cake.Fragment_staff_info"
         android:label="fragment_staff_info"
-        tools:layout="@layout/fragment_staff_info" />
+        tools:layout="@layout/fragment_staff_info" >
+        <action
+            android:id="@+id/action_fragment_staff_info_to_fragment_staff_edit"
+            app:destination="@id/fragment_staff_edit" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_bill"
         android:name="com.example.coffee_cake.Fragment_bill"
@@ -70,4 +74,9 @@
             android:id="@+id/action_fragment_bill_to_menuDrinkTable"
             app:destination="@id/menuDrinkTable" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_staff_edit"
+        android:name="com.example.coffee_cake.Fragment_staff_edit"
+        android:label="fragment_staff_edit"
+        tools:layout="@layout/fragment_staff_edit" />
 </navigation>

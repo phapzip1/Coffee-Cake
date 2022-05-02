@@ -77,6 +77,7 @@
             <!--                    android:layout_width="match_parent"-->
             <!--                    android:layout_height="wrap_content" />-->
                 <TextView
+                    android:id="@+id/tvPosition"
                     android:text="Manager"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
@@ -116,6 +117,7 @@
             <!--                    android:layout_width="match_parent"-->
             <!--                    android:layout_height="wrap_content" />-->
                 <TextView
+                    android:id="@+id/tvGender"
                     android:text="Female"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
@@ -164,79 +166,97 @@
                 android:layout_height="56dp"/>
 
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="42dp"
-            android:text="Username:"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/dennhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tvUsername1"
-            android:text="misthycute123"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginTop="8dp"
-            android:text="Password:"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/dennhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tvPassword1"
-            android:text="misthy123"
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginTop="8dp"
-            android:text="Address:"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/dennhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tvAddress"
-            android:text="Tp.Ho Chi Minh"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginTop="8dp"
-            android:text="Phone Number:"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/dennhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tvPhone1"
-            android:text="0968686868"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginTop="8dp"
-            android:text="Email:"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/dennhat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:text="misthycute@gmail.com"
-            android:textSize="20sp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CCCD/CMND:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCCCD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="misthycute123"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Ngày sinh:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="misthycute@gmail.com"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Ngày vào làm"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBeginDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="misthy123"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Số điện thoại:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPhone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0968686868"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Hệ số lương"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHSL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 

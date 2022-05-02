@@ -47,7 +47,12 @@
         android:label="fragment_staff"
         tools:layout="@layout/fragment_staff" >
         <action
-            android:id="@+id/action_fragment_staff_to_fragment_home"
-            app:destination="@id/menuHome" />
+            android:id="@+id/action_menuStaff_to_fragment_staff_info"
+            app:destination="@id/fragment_staff_info" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_staff_info"
+        android:name="com.example.coffee_cake.Fragment_staff_info"
+        android:label="fragment_staff_info"
+        tools:layout="@layout/fragment_staff_info" />
 </navigation>

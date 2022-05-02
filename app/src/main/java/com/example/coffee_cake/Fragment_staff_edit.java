@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +60,43 @@ public class Fragment_staff_edit extends Fragment {
         }
     }
 
+    ArrayAdapter<String> genderAdaper;
+    ArrayList<String> gender;
+
+    ArrayAdapter<String> positionAdapter;
+    ArrayList<String> positions;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff_edit, container, false);
+        View root = inflater.inflate(R.layout.fragment_staff_edit, container, false);
+
+        //set spinner
+        gender = new ArrayList<>();
+        genderAdaper = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, gender);
+        ((Spinner)root.findViewById(R.id.editGender)).setAdapter(genderAdaper);
+        gender.add("Nam");
+        gender.add("Nữ");
+        gender.add("Khác");
+
+        if (getArguments() != null) // Che do chinh sua nhan vien
+        {
+            Bundle data = getArguments();
+
+            // hien thi thong tin co the thay doi duoc
+            ((EditText)root.findViewById(R.id.edtName)).setText(data.getString("Fullname"));
+            ((EditText)root.findViewById(R.id.edtCCCD)).setText(data.getString("CCCD"));
+            ((EditText)root.findViewById(R.id.edtDob)).setText(data.getString("Dob"));
+            ((EditText)root.findViewById(R.id.edtBeginDate)).setText(data.getString("BeginDate"));
+            ((EditText)root.findViewById(R.id.edtPhone)).setText(data.getString("Phone"));
+            ((EditText)root.findViewById(R.id.edtHSL)).setText(data.getString("HSL"));
+        }
+
+
+
+
+        return root;
     }
+
 }

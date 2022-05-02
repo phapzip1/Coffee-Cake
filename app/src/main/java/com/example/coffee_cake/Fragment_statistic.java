@@ -1,5 +1,6 @@
 package com.example.coffee_cake;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -73,13 +74,23 @@ public class Fragment_statistic extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mview = inflater.inflate(R.layout.fragment_statistic, container, false);
+
+        DBHelper db = new DBHelper(getActivity());
+        String Command = "SELECT SUM(TRIGIA) FROM HOADON WHERE NGHD LIKE ?";
+        Cursor cs = db.getReadableDatabase().rawQuery( Command, new String[] {"__/04/2002"});
+
+        int index = 1;
+
         barChart = mview.findViewById(R.id.barChart);
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        for(int i=1; i<5; i++){
-            float value = (float) (i*5.0);
-            BarEntry barEntry = new BarEntry(i, value);
-            barEntries.add(barEntry);
+
+        while (cs.moveToNext())
+        {
+            barEntries.add(new BarEntry(index, cs.getInt(0)));
+            index++;
         }
+        cs.close();
+
         BarDataSet barDataSet = new BarDataSet(barEntries, "Hue");
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         barDataSet.setDrawValues(false);

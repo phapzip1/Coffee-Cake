@@ -27,8 +27,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:text="Manager"
+            android:layout_marginLeft="8dp"
+            android:text="Manage"
             android:textSize="25sp"
             android:textStyle="bold|italic" />
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:padding="5dp"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="170dp"
             android:background="@drawable/round_bg"
             android:gravity="center"
             android:src="@drawable/ic_add"

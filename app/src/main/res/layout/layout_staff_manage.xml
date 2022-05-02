@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/tvPosition"
-                        android:text="Staff"
+                        android:text="Quản lý"
                         android:textColor="@color/xanhlatuoi"
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/tvGender"
-                        android:text="misthycute@gmail.com"
+                        android:text="misthy@gmail.com"
                         android:textColor="@color/dennhat"
                         android:textSize="18sp"
                         android:layout_width="wrap_content"

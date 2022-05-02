@@ -22,7 +22,7 @@
         android:background="@drawable/round_bg_white"
         android:drawableLeft="@drawable/ic_search"
         android:drawablePadding="9dp"
-        android:hint="Search your Coffee"
+        android:hint="Tìm kiếm Coffee"
         android:padding="10dp"
         android:textColorHint="@color/dennhat"
         android:textSize="20sp" />

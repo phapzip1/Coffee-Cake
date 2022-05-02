@@ -24,10 +24,10 @@
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:id="@+id/title1"
-                android:text="Table 1"
+                android:text="Bàn 1"
                 android:textStyle="bold"
                 android:textColor="@color/color_main"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

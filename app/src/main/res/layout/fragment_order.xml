@@ -44,9 +44,9 @@
             android:layout_marginLeft="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tea Milk"
+            android:text="Trà sữa Trân châu"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp" />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"
@@ -111,7 +111,7 @@
 
         </LinearLayout>
         <TextView
-            android:text="Quantily"
+            android:text="Số lượng:"
             android:textColor="@color/dennhat"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -157,11 +157,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Total Price"
+                    android:text="Giá tiền:"
                     android:textColor="@color/dennhat"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -186,14 +187,17 @@
             </LinearLayout>
             <Button
                 android:id="@+id/btnOrderNow"
+                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:text="Order Now"
+                android:gravity="center"
+                android:text="Thêm Ngay"
                 android:textStyle="bold"
                 android:padding="12dp"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
                 android:textColor="@color/color_main"
                 android:background="@drawable/round_bg_white_min"
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="42dp"/>
         </LinearLayout>
 

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="Admin Manager"
+        android:text="Admin"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"

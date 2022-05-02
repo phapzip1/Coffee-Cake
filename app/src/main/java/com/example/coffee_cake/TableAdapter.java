@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,9 +42,11 @@ public class TableAdapter extends BaseAdapter {
         for(int j = 0; j < 10; j++){
             if(table.get(i)){
                 view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table, viewGroup, false);
+                ((TextView)view.findViewById(R.id.title1)).setText("Bàn " + (i+1));
             }
             else {
                 view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table_empty, viewGroup, false);
+                ((TextView)view.findViewById(R.id.title2)).setText("Bàn " + (i+1));
             }
         }
         return view;

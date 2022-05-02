@@ -80,8 +80,10 @@
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content" />-->
                 <Spinner
+                    android:id="@+id/editPosition"
                     android:text="Manager"
                     android:textSize="18sp"
+                    android:spinnerMode="dropdown"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -119,6 +121,7 @@
                 <!--                    android:layout_width="match_parent"-->
                 <!--                    android:layout_height="wrap_content" />-->
                 <Spinner
+                    android:id="@+id/editGender"
                     android:text="Female"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
@@ -131,91 +134,96 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_marginTop="52dp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="300dp"
+            android:layout_marginTop="52dp">
+            <LinearLayout
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CCCD/CMND:"
-                android:textColor="@color/dennhat"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/tvCCCD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="123"
-                android:textSize="20dp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Ngày sinh:"
-                android:textColor="@color/dennhat"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CCCD/CMND:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/tvDob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="10/10/2002"
-                android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/edtCCCD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Ngày vào làm"
-                android:textColor="@color/dennhat"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Ngày sinh:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/tvBeginDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="10/10/2022"
-                android:textSize="20dp" />
+                <EditText
+                    android:id="@+id/edtDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10/10/2002"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Số điện thoại:"
-                android:textColor="@color/dennhat"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Ngày vào làm"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/tvPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0968686868"
-                android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/edtBeginDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="10/10/2022"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Hệ số lương:"
-                android:textColor="@color/dennhat"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Số điện thoại:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/tvHSL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0968686868"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Hệ số lương:"
+                    android:textColor="@color/dennhat"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtHSL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
         <Button
             android:id="@+id/btnSaveInfoStaff"
             android:text="Lưu"

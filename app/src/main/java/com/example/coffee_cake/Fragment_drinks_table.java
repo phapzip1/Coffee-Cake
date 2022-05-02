@@ -2,6 +2,7 @@ package com.example.coffee_cake;
 
 import android.os.Bundle;
 
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -71,7 +72,6 @@ public class Fragment_drinks_table extends Fragment {
 
     GridView tableList;
     ArrayList<Boolean> table;
-    boolean trangThai;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -108,17 +108,6 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
         return view;
-    }
-
-    // menu item select listener
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle() == "Tính tiền") {
-            Toast.makeText(getContext(), "Tính toán", Toast.LENGTH_SHORT).show();
-        } else if (item.getTitle() == "Gọi món") {
-            Toast.makeText(getContext(), "Gọi món", Toast.LENGTH_SHORT).show();
-        }
-        return super.onContextItemSelected(item);
     }
 
     private void loadTable() {

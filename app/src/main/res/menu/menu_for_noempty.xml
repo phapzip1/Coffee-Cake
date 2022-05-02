@@ -4,9 +4,11 @@
     <item   android:id="@+id/tinhTien"
         android:title="Tính tiền"
         android:icon="@drawable/bill"
+        app:showAsAction="ifRoom|withText"
         />
     <item android:id="@+id/goiMon"
         android:title="Gọi món"
         android:icon="@drawable/order"
+        app:showAsAction="ifRoom|withText"
         />
 </menu>

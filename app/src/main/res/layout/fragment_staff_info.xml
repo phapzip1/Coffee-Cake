@@ -23,8 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/btnBack"
-            android:src="@drawable/ic_arrow_back_ios"
+            android:id="@+id/btnEdit"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <com.makeramen.roundedimageview.RoundedImageView

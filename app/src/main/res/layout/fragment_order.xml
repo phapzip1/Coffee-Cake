@@ -11,10 +11,10 @@
     <ImageView
         android:background="#FFB72B"
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="100dp">
     </ImageView>
     <ImageView
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="95dp"
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:src="@drawable/ic_wave">

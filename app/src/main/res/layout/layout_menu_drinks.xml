@@ -14,7 +14,7 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="170dp">
             <com.makeramen.roundedimageview.RoundedImageView
                 app:riv_oval="true"
                 android:src="@drawable/ts"
@@ -51,6 +51,13 @@
                     android:text="Price: $10"
                     android:textColor="@color/dennhat"
                     android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Table X"
+                    android:textColor="@color/color_main"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

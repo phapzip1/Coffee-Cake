@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_fragment_drinks_table_to_fragment_Menu"
             app:destination="@id/menuMenu" />
+        <action
+            android:id="@+id/action_menuDrinkTable_to_fragment_bill"
+            app:destination="@id/fragment_bill" />
     </fragment>
     <fragment
         android:id="@+id/menuMenu"
@@ -40,6 +43,9 @@
         <action
             android:id="@+id/action_fragment_Menu_to_fragment_staff"
             app:destination="@id/menuStaff" />
+        <action
+            android:id="@+id/action_menuMenu_to_menuDrinkTable"
+            app:destination="@id/menuDrinkTable" />
     </fragment>
     <fragment
         android:id="@+id/menuStaff"
@@ -59,5 +65,9 @@
         android:id="@+id/fragment_bill"
         android:name="com.example.coffee_cake.Fragment_bill"
         android:label="fragment_bill"
-        tools:layout="@layout/fragment_bill" />
+        tools:layout="@layout/fragment_bill" >
+        <action
+            android:id="@+id/action_fragment_bill_to_menuDrinkTable"
+            app:destination="@id/menuDrinkTable" />
+    </fragment>
 </navigation>

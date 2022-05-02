@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -95,10 +96,12 @@ public class Fragment_drinks_table extends Fragment {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getTitle() == "Tính tiền") {
-                            Toast.makeText(getContext(), "Tính toán", Toast.LENGTH_SHORT).show();
-                        } else if (item.getTitle() == "Gọi món") {
-
+                        if (item.getTitle().equals("Tính tiền")) {
+                            Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill);
+                        } else if (item.getTitle().equals("Gọi món")) {
+                            Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu);
                         }
                         return true;
                     }
@@ -111,10 +114,9 @@ public class Fragment_drinks_table extends Fragment {
     }
 
     private void loadTable() {
-        Random rd = new Random();
         table = new ArrayList<>();
         for(int j = 0; j < 10; j++){
-            table.add(rd.nextBoolean());
+            table.add(false);
         }
         TableAdapter adapter = new TableAdapter(getContext(), table);
         tableList.setAdapter(adapter);

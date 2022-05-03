@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -77,7 +78,7 @@ public class Fragment_drinks_table extends Fragment {
     ArrayList<Boolean> table;
     private MyVM viewModel;
     int soluong = 10;
-
+    TableAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,15 +91,22 @@ public class Fragment_drinks_table extends Fragment {
 
         for(int j = 0; j < soluong; j++){
             table.add(false);
-            viewModel.setTables(j, table.get(j));
         }
+        viewModel.setTables(table);
 
         ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 table.add(false);
                 soluong++;
-                viewModel.setTables(table.size() - 1, table.get(table.size() - 1));
+                viewModel.setTables(table);
+            }
+        });
+
+        viewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Boolean>>() {
+            @Override
+            public void onChanged(ArrayList<Boolean> booleans) {
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -133,16 +141,9 @@ public class Fragment_drinks_table extends Fragment {
     }
 
     private void loadTable() {
-        table.clear();
-        for(int j = 0; j < soluong; j++){
-            table.add(viewModel.getTables()[j]);
-        }
-
-        TableAdapter adapter = new TableAdapter(getContext(), table);
+        adapter = new TableAdapter(getContext(), table);
         tableList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-    public int getSoluong(){
-        return soluong;
-    }
+
 }

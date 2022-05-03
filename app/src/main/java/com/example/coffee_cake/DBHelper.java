@@ -21,9 +21,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "ORDER BY strftime('%m', NGHD) ASC";
     }
 
-    public String getSeasonlyStatistic(int year)
+    public String getYearlyStatistic()
     {
-        return "";
+        return "SELECT strftime('%Y', NGHD) AS NAM, SUM(TRIGIA) " +
+                "FROM HOADON WHERE NGHD " +
+                "GROUP BY strftime('%Y', NGHD) " +
+                "ORDER BY strftime('%Y', NGHD) ASC";
     }
 
     public DBHelper(@Nullable Context context) {

@@ -1,5 +1,6 @@
 package com.example.coffee_cake;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +72,10 @@ public class Fragment_staff_edit extends Fragment {
     ArrayAdapter<String> positionAdapter;
     ArrayList<String> positions;
 
+    final Calendar myCalendar1 = Calendar.getInstance(),
+            myCalendar2 = Calendar.getInstance();
+    EditText edtDob, edtBegin;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,6 +90,12 @@ public class Fragment_staff_edit extends Fragment {
         gender.add("Nữ");
         gender.add("Khác");
 
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-mm-dd");
+
+        edtDob =  (EditText)root.findViewById(R.id.edtDob);
+        edtBegin = (EditText)root.findViewById(R.id.edtBeginDate);
+
+
         if (getArguments() != null) // Che do chinh sua nhan vien
         {
             Bundle data = getArguments();
@@ -90,11 +106,57 @@ public class Fragment_staff_edit extends Fragment {
             ((EditText)root.findViewById(R.id.edtDob)).setText(data.getString("Dob"));
             ((EditText)root.findViewById(R.id.edtBeginDate)).setText(data.getString("BeginDate"));
             ((EditText)root.findViewById(R.id.edtPhone)).setText(data.getString("Phone"));
-            ((EditText)root.findViewById(R.id.edtHSL)).setText(data.getString("HSL"));
+            ((EditText)root.findViewById(R.id.edtHSL)).setText(data.getFloat("HSL")+"");
+
+            try {
+                myCalendar1.setTime(dateFormat.parse(data.getString("Dob")));
+                myCalendar2.setTime(dateFormat.parse(data.getString("BeginDate")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
+        edtDob.setOnClickListener(view -> {
+
+            DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    myCalendar1.set(Calendar.YEAR, year);
+                    myCalendar1.set(Calendar.MONTH, month);
+                    myCalendar1.set(Calendar.DAY_OF_MONTH, day);
+
+                    ((EditText)view).setText(dateFormat.format(myCalendar1.getTime()));
+                }
+            };
+            new DatePickerDialog(getActivity(), date, myCalendar1.get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH), myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        edtBegin.setOnClickListener(view -> {
+            DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    myCalendar2.set(Calendar.YEAR, year);
+                    myCalendar2.set(Calendar.MONTH, month);
+                    myCalendar2.set(Calendar.DAY_OF_MONTH, day);
+
+                    ((EditText)view).setText(dateFormat.format(myCalendar2.getTime()));
+                }
+            };
+            new DatePickerDialog(getActivity(), date, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        ((Button)root.findViewById(R.id.btnSaveInfoStaff)).setOnClickListener(view ->{
 
 
+            if (getArguments() != null) // edit mode
+            {
+
+            }
+            else // add mode
+            {
+
+            }
+        });
 
         return root;
     }

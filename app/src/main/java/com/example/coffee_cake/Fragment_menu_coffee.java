@@ -1,12 +1,20 @@
 package com.example.coffee_cake;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +63,66 @@ public class Fragment_menu_coffee extends Fragment {
         }
     }
 
+    ProductAdapter adapter;
+    ArrayList<Product> arrayList;
+    ListView lvcoffee;
+    EditText edtcoffee;
+    @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_coffee, container, false);
+        View v = inflater.inflate(R.layout.fragment_menu_coffee, container, false);
+
+        DBHelper db = new DBHelper(getActivity());
+        edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
+        lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
+        arrayList = new ArrayList<>();
+        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+        lvcoffee.setAdapter(adapter);
+        arrayList.clear();
+
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+
+        while(cursor.moveToNext())
+        {
+            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+            Product temp = new Product(MASP,TENSP,GIA);
+            arrayList.add(temp);
+        }
+        edtcoffee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                    arrayList.clear();
+                    while(cursor.moveToNext())
+                    {
+                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+                        if (TENSP.contains(edtcoffee.getText().toString()))
+                        {
+                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+                            Product temp = new Product(MASP,TENSP,GIA);
+                            arrayList.add(temp);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        adapter.notifyDataSetChanged();
+        return v;
     }
 }

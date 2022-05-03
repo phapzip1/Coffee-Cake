@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.ContextMenu;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -73,13 +75,32 @@ public class Fragment_drinks_table extends Fragment {
 
     GridView tableList;
     ArrayList<Boolean> table;
+    private MyVM viewModel;
+    int soluong = 10;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
-        loadTable();
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
+        table = new ArrayList<>();
+
+        for(int j = 0; j < soluong; j++){
+            table.add(false);
+            viewModel.setTables(j, table.get(j));
+        }
+
+        ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                table.add(false);
+                soluong++;
+                viewModel.setTables(table.size() - 1, table.get(table.size() - 1));
+            }
+        });
 
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,29 +118,31 @@ public class Fragment_drinks_table extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getTitle().equals("Tính tiền")) {
-                            Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
                             Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill);
                         } else if (item.getTitle().equals("Gọi món")) {
-                            Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
                             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu);
                         }
                         return true;
                     }
                 });
-
                 popupMenu.show();
             }
         });
+        loadTable();
         return view;
     }
 
     private void loadTable() {
-        table = new ArrayList<>();
-        for(int j = 0; j < 10; j++){
-            table.add(false);
+        table.clear();
+        for(int j = 0; j < soluong; j++){
+            table.add(viewModel.getTables()[j]);
         }
+
         TableAdapter adapter = new TableAdapter(getContext(), table);
         tableList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+    public int getSoluong(){
+        return soluong;
     }
 }

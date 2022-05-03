@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -49,6 +53,7 @@ public class Product {
 class ProductAdapter extends BaseAdapter
 {
     TextView tvname,tvmasp,tvprice;
+    ImageView ava;
     private Context m_Context;
     private ArrayList<Product> m_array;
     private int m_Layout;
@@ -79,10 +84,13 @@ class ProductAdapter extends BaseAdapter
         tvname = (TextView) view.findViewById(R.id.tvname);
         tvmasp = (TextView) view.findViewById(R.id.tvmasp);
         tvprice = (TextView) view.findViewById(R.id.tvprice);
+        ava = (ImageView) view.findViewById(R.id.imageDrink);
 
         tvname.setText(m_array.get(i).getTensp());
         tvmasp.setText(m_array.get(i).getMasp());
         tvprice.setText(m_array.get(i).getGia()+"");
+        Picasso.get().load("https://i.ibb.co/d5q4hzc/IMG-0031.jpg").into(ava);
+
         return view;
     }
 }

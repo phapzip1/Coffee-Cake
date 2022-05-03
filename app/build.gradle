@@ -48,4 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc03'
     // Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

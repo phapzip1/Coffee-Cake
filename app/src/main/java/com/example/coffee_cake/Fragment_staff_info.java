@@ -67,6 +67,8 @@ public class Fragment_staff_info extends Fragment {
 
         Bundle staffInfo = getArguments();
 
+
+        // get truc tiep tu database
         ((TextView)root.findViewById(R.id.edtName)).setText(staffInfo.getString("Fullname"));
         ((TextView)root.findViewById(R.id.tvPosition)).setText(staffInfo.getString("Position"));
         ((TextView)root.findViewById(R.id.tvGender)).setText(staffInfo.getString("Gender"));
@@ -75,6 +77,7 @@ public class Fragment_staff_info extends Fragment {
         ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
         ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
         ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getFloat("HSL"));
+        // get truc tiep tu data base
 
         ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_fragment_staff_edit, staffInfo);

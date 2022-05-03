@@ -76,7 +76,7 @@ public class Fragment_statistic extends Fragment {
         View mview = inflater.inflate(R.layout.fragment_statistic, container, false);
 
         DBHelper db = new DBHelper(getActivity());
-        Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2021), null);
+        Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2022), null);
         int index = 1;
 
         barChart = mview.findViewById(R.id.barChart);

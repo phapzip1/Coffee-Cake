@@ -1,18 +1,29 @@
 package com.example.coffee_cake;
 
+import android.text.BoringLayout;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+
+
 public class MyVM extends ViewModel {
-    private MutableLiveData<Boolean[]> tables = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Boolean>> tables = new MutableLiveData<>();
 
     public void setTables(int index ,boolean values)
     {
-        this.tables.getValue()[index] = values;
+
     }
 
-    public Boolean[] getTables()
+    public ArrayList<Boolean> getTables()
     {
-        return this.tables.getValue();
+        return tables.getValue();
+    }
+
+    public void setTables(ArrayList<Boolean> values)
+    {
+        this.tables.setValue(values);
     }
 }

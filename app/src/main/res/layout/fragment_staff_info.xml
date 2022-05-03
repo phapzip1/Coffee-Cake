@@ -166,8 +166,13 @@
                 android:layout_height="56dp"/>
 
         </LinearLayout>
+
+        <ScrollView
+            android:layout_marginTop="42dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_marginTop="42dp"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -184,7 +189,7 @@
                     android:id="@+id/tvCCCD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                        android:text="123"
+                    android:text="123"
                     android:textSize="20dp" />
 
                 <TextView
@@ -251,6 +256,8 @@
                     android:text="0"
                     android:textSize="20sp" />
             </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
 

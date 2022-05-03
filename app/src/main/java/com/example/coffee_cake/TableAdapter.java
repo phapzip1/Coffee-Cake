@@ -39,9 +39,8 @@ public class TableAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        for(int j = 0; j < 10; j++){
+        for(int j = 0; j < getCount(); j++){
             if(table.get(i)){
-
                 view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table, viewGroup, false);
                 ((TextView)view.findViewById(R.id.title1)).setText("Bàn " + (i+1));
             }

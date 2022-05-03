@@ -76,9 +76,7 @@ public class Fragment_statistic extends Fragment {
         View mview = inflater.inflate(R.layout.fragment_statistic, container, false);
 
         DBHelper db = new DBHelper(getActivity());
-        String Command = "SELECT SUM(TRIGIA) FROM HOADON WHERE NGHD LIKE ?";
-        Cursor cs = db.getReadableDatabase().rawQuery( Command, new String[] {"__/04/2002"});
-
+        Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2021), null);
         int index = 1;
 
         barChart = mview.findViewById(R.id.barChart);
@@ -86,7 +84,7 @@ public class Fragment_statistic extends Fragment {
 
         while (cs.moveToNext())
         {
-            barEntries.add(new BarEntry(index, cs.getInt(0)));
+            barEntries.add(new BarEntry(index, cs.getInt(1)));
             index++;
         }
         cs.close();
@@ -95,7 +93,7 @@ public class Fragment_statistic extends Fragment {
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         barDataSet.setDrawValues(false);
         barChart.setData(new BarData(barDataSet));
-        barChart.animateY(5000);
+        barChart.animateY(3000);
         barChart.getDescription().setText("Hue CHart");
         barChart.getDescription().setTextColor(Color.BLUE);
 

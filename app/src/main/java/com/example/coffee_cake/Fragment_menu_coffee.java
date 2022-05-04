@@ -5,12 +5,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -77,8 +79,15 @@ public class Fragment_menu_coffee extends Fragment {
         DBHelper db = new DBHelper(getActivity());
         edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
+
+        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order);
+            }
+        });
         arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
         lvcoffee.setAdapter(adapter);
         arrayList.clear();
 
@@ -92,6 +101,7 @@ public class Fragment_menu_coffee extends Fragment {
             Product temp = new Product(MASP,TENSP,GIA);
             arrayList.add(temp);
         }
+//
         edtcoffee.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -118,10 +128,8 @@ public class Fragment_menu_coffee extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-
         adapter.notifyDataSetChanged();
         return v;
     }

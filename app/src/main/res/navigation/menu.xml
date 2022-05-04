@@ -86,5 +86,18 @@
         android:id="@+id/fragment_menu_coffee"
         android:name="com.example.coffee_cake.Fragment_menu_coffee"
         android:label="fragment_menu_coffee"
-        tools:layout="@layout/fragment_menu_coffee" />
+        tools:layout="@layout/fragment_menu_coffee" >
+        <action
+            android:id="@+id/action_fragment_menu_coffee_to_fragment_order"
+            app:destination="@id/fragment_order" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_order"
+        android:name="com.example.coffee_cake.Fragment_order"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_fragment_order_to_menuHome"
+            app:destination="@id/menuHome" />
+    </fragment>
 </navigation>

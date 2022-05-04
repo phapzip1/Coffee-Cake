@@ -24,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -79,6 +83,7 @@ public class Fragment_drinks_table extends Fragment {
     private MyVM viewModel;
     int soluong = 10;
     TableAdapter adapter;
+    File path;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,12 +91,15 @@ public class Fragment_drinks_table extends Fragment {
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
 
+        String fileName = "table_status.txt";
         viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
         table = new ArrayList<>();
+        path = getContext().getFilesDir();
 
         for(int j = 0; j < soluong; j++){
             table.add(false);
         }
+        writeToFile(fileName);
         viewModel.setTables(table);
 
         ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
@@ -100,6 +108,9 @@ public class Fragment_drinks_table extends Fragment {
                 table.add(false);
                 soluong++;
                 viewModel.setTables(table);
+
+                deleteFile(fileName);
+                writeToFile(fileName);
             }
         });
 
@@ -109,6 +120,7 @@ public class Fragment_drinks_table extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
 
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,8 +148,38 @@ public class Fragment_drinks_table extends Fragment {
                 popupMenu.show();
             }
         });
+
         loadTable();
         return view;
+    }
+
+    private void deleteFile(String fileName) {
+        File savedFile = new File(path + "/" + fileName);
+
+        if (!savedFile.exists())
+            Toast.makeText(getContext(), "Không tồn tại file",
+                    Toast.LENGTH_SHORT).show();
+        else {
+            savedFile.delete();
+        }
+    }
+
+    private void writeToFile(String fileName) {
+        ArrayList<String> s = new ArrayList<>();
+
+        for(int i = 0; i < table.size(); i++){
+            s.add(i, table.get(i).toString());
+        }
+
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+            for(int i = 0; i < table.size(); i++){
+                writer.write(s.get(i).getBytes());
+            }
+            writer.close();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadTable() {

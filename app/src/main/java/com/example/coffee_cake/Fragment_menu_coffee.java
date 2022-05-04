@@ -87,7 +87,7 @@ public class Fragment_menu_coffee extends Fragment {
             }
         });
         arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
         lvcoffee.setAdapter(adapter);
         arrayList.clear();
 
@@ -130,7 +130,6 @@ public class Fragment_menu_coffee extends Fragment {
             public void afterTextChanged(Editable editable) {
             }
         });
-
         adapter.notifyDataSetChanged();
         return v;
     }

@@ -95,5 +95,9 @@
         android:id="@+id/fragment_order"
         android:name="com.example.coffee_cake.Fragment_order"
         android:label="fragment_order"
-        tools:layout="@layout/fragment_order" />
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_fragment_order_to_menuHome"
+            app:destination="@id/menuHome" />
+    </fragment>
 </navigation>

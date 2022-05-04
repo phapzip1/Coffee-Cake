@@ -3,10 +3,15 @@ package com.example.coffee_cake;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,11 +59,27 @@ public class Fragment_order extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    TextView name,soluong,size,gia;
+    Button btnthemngay;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        View v = inflater.inflate(R.layout.fragment_order, container, false);
+
+        name = (TextView) v.findViewById(R.id.tvOrder);
+        soluong = (TextView) v.findViewById(R.id.tvQuantity);
+        // size = (TextView) v.findViewById(R.id.tvQuantity); // coi
+        gia = (TextView) v.findViewById(R.id.tvPrice);
+
+        btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
+        btnthemngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome);
+
+            }
+        });
+        return v;
     }
 }

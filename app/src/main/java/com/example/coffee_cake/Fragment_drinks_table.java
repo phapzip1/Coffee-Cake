@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -22,11 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -81,9 +84,9 @@ public class Fragment_drinks_table extends Fragment {
     GridView tableList;
     ArrayList<Boolean> table;
     private MyVM viewModel;
-    int soluong = 10;
     TableAdapter adapter;
     File path;
+    boolean status;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,17 +99,21 @@ public class Fragment_drinks_table extends Fragment {
         table = new ArrayList<>();
         path = getContext().getFilesDir();
 
-        for(int j = 0; j < soluong; j++){
-            table.add(false);
+        File savedFile = new File(path + "/" + fileName);
+        if(!savedFile.exists()){
+            for(int j = 0; j < 10; j++){
+                table.add(false);
+            }
+            writeToFile(fileName);
         }
-        writeToFile(fileName);
-        viewModel.setTables(table);
 
+        readFile(fileName);
+
+        viewModel.setTables(table);
         ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 table.add(false);
-                soluong++;
                 viewModel.setTables(table);
 
                 deleteFile(fileName);
@@ -153,6 +160,27 @@ public class Fragment_drinks_table extends Fragment {
         return view;
     }
 
+    private void readFile(String fileName) {
+        try {
+            FileReader rdr = new FileReader(path + "/" + fileName);
+            table.clear();
+            char[] inputBuffer = new char[1024*1024];
+            String savedData = "";
+            int charRead = rdr.read(inputBuffer);
+            int i = 0; //số bàn
+            for (int k = 0; k < charRead; k++) {
+                savedData += inputBuffer[k];
+                if(isStatus(savedData)){
+                    //table.add(i, isStatus(status));
+                    i++;
+                    savedData = "";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 
@@ -180,6 +208,14 @@ public class Fragment_drinks_table extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isStatus(String s) {
+        if(s.equals("true") || s.equals("false")){
+
+            return true;
+        }
+            return false;
     }
 
     private void loadTable() {

@@ -35,7 +35,7 @@
         <ImageView
             android:id="@+id/btnBack"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_arrow_back_ios"
+            android:src="@drawable/ic_arrow_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -69,7 +69,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
@@ -150,7 +150,6 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="50dp"
             android:layout_margin="24dp"
             android:background="@drawable/round_bg"
             android:orientation="horizontal"

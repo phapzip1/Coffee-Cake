@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:paddingTop="12dp"
+    android:paddingTop="16dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:layout_width="match_parent"
@@ -12,7 +12,7 @@
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/btnBack"
-        android:src="@drawable/ic_arrow_back_ios"
+        android:src="@drawable/ic_arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageView

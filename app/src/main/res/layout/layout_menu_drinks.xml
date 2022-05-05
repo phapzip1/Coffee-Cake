@@ -16,12 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="170dp">
             <com.makeramen.roundedimageview.RoundedImageView
-<<<<<<< HEAD
                 app:riv_corner_radius="12dp"
-=======
                 android:id="@+id/imageDrink"
                 app:riv_oval="true"
->>>>>>> 79157423f4e22e446d05d3c91ec8e8c90a4b3508
                 android:src="@drawable/ts"
                 android:layout_gravity="center"
                 app:layout_constraintStart_toStartOf="parent"

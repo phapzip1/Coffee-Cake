@@ -2,7 +2,9 @@ package com.example.coffee_cake;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,10 +57,24 @@ public class Fragment_Menu extends Fragment {
         }
     }
 
+    CardView coffee,trasua,sinhto,topping;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment__menu, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__menu, container, false);
+        coffee = (CardView) v.findViewById(R.id.cvCoffee);
+        trasua = (CardView) v.findViewById(R.id.cvTraSua);
+        sinhto = (CardView) v.findViewById(R.id.cvSinhTo);
+        topping = (CardView) v.findViewById(R.id.cvTopping);
+
+        coffee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee);
+            }
+        });
+        return v;
     }
 }

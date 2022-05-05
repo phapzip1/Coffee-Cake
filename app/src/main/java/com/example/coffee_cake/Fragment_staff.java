@@ -109,6 +109,7 @@ public class Fragment_staff extends Fragment {
             bundle.putString("Phone", staffs.get(i).SoDienThoai());
             bundle.putFloat("HSL", staffs.get(i).HeSoLuong());
             bundle.putString("MANV", staffs.get(i).MaNhanVien());
+
             Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_info, bundle);
         });
 

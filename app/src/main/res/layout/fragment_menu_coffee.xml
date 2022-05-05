@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:id="@+id/edtcoffee"
         android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +28,9 @@
         android:textColorHint="@color/dennhat"
         android:textSize="20sp" />
     <ListView
+        android:id="@+id/lvcoffee"
         android:layout_marginTop="12dp"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

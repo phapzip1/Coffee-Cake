@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,6 +67,9 @@ public class Fragment_bill extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
+        String dateTime;
+        Calendar calendar;
+        SimpleDateFormat simpleDateFormat;
 
         ((ImageView)view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +78,10 @@ public class Fragment_bill extends Fragment {
             }
         });
 
+        calendar = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("HH:mm EEEE, dd LLLL yyyy");
+        dateTime = simpleDateFormat.format(calendar.getTime()).toString();
+        ((TextView) view.findViewById(R.id.timeDate)).setText(dateTime);
 
         return view;
     }

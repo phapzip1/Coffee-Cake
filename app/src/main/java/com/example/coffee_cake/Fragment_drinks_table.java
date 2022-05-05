@@ -102,7 +102,8 @@ public class Fragment_drinks_table extends Fragment {
         File savedFile = new File(path + "/" + fileName);
         if(!savedFile.exists()){
             for(int j = 0; j < 10; j++){
-                table.add(false);
+                Random rd = new Random();
+                table.add(rd.nextBoolean());
             }
             writeToFile(fileName);
         }
@@ -171,7 +172,7 @@ public class Fragment_drinks_table extends Fragment {
             for (int k = 0; k < charRead; k++) {
                 savedData += inputBuffer[k];
                 if(isStatus(savedData)){
-                    //table.add(i, isStatus(status));
+                    table.add(i, status);
                     i++;
                     savedData = "";
                 }
@@ -212,7 +213,7 @@ public class Fragment_drinks_table extends Fragment {
 
     private boolean isStatus(String s) {
         if(s.equals("true") || s.equals("false")){
-
+            status = (s.equals("true")? true: false);
             return true;
         }
             return false;
@@ -223,5 +224,4 @@ public class Fragment_drinks_table extends Fragment {
         tableList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
 }

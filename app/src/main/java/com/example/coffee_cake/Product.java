@@ -90,7 +90,6 @@ class ProductAdapter extends BaseAdapter
         tvmasp.setText(m_array.get(i).getMasp());
         tvprice.setText(m_array.get(i).getGia()+"");
         Picasso.get().load("https://i.ibb.co/d5q4hzc/IMG-0031.jpg").into(ava);
-
         return view;
     }
 }

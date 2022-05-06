@@ -75,15 +75,6 @@ public class Fragment_order extends Fragment {
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
 
-//        ImageView back = (ImageView) v.findViewById(R.id.btnBack);
-//
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_fragment_menu_coffee);
-//            }
-//        });
-
         btnthemngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +82,6 @@ public class Fragment_order extends Fragment {
                 bundle.putString("name",name.getText().toString());
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putString("gia",gia.getText().toString());
-
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }
         });

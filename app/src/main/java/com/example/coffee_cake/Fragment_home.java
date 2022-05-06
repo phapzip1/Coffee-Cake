@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +59,8 @@ public class Fragment_home extends Fragment {
         }
     }
     ListView listDrinks;
+    ProductAdapter adapter;
+    ArrayList<Product> arrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,8 +68,24 @@ public class Fragment_home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
+        arrayList = new ArrayList<>();
 
+        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
 
+        listDrinks.setAdapter(adapter);
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null)
+        {
+            String name = bundle.getString("name");
+            String soluong = bundle.getString("soluong");
+            int gia = Integer.parseInt(bundle.getString("gia"));
+
+            Product temp = new Product(name,soluong,gia);
+            arrayList.add(temp);
+            adapter.notifyDataSetChanged();
+        }
 
         return view;
     }

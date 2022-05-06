@@ -76,8 +76,12 @@ public class Fragment_order extends Fragment {
         btnthemngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome);
+                Bundle bundle = new Bundle();
+                bundle.putString("name",name.getText().toString());
+                bundle.putString("soluong",soluong.getText().toString());
+                bundle.putString("gia",gia.getText().toString());
 
+                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }
         });
         return v;

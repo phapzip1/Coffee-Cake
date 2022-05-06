@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -73,6 +74,16 @@ public class Fragment_order extends Fragment {
         gia = (TextView) v.findViewById(R.id.tvPrice);
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
+
+//        ImageView back = (ImageView) v.findViewById(R.id.btnBack);
+//
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_fragment_menu_coffee);
+//            }
+//        });
+
         btnthemngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

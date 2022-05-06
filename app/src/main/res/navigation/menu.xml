@@ -102,5 +102,8 @@
         <action
             android:id="@+id/action_fragment_order_to_menuHome"
             app:destination="@id/menuHome" />
+        <action
+            android:id="@+id/action_fragment_order_to_fragment_menu_coffee"
+            app:destination="@id/fragment_menu_coffee" />
     </fragment>
 </navigation>

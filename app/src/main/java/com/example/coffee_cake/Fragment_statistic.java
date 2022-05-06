@@ -105,12 +105,12 @@ public class Fragment_statistic extends Fragment {
         return mview;
     }
 
-    private class AxisFormatter extends ValueFormatter
-    {
-        @Override
-        public String getFormattedValue(float value, AxisBase axis)
-        {
-
-        }
-    }
+//    private class AxisFormatter extends ValueFormatter
+//    {
+//        @Override
+//        public String getFormattedValue(float value, AxisBase axis)
+//        {
+//
+//        }
+//    }
 }

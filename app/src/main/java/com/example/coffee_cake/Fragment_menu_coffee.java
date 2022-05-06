@@ -91,7 +91,24 @@ public class Fragment_menu_coffee extends Fragment {
         lvcoffee.setAdapter(adapter);
         arrayList.clear();
 
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+        Bundle bundle = getArguments();
+        String tam = bundle.getString("temp");
+        Cursor cursor = null;
+        switch (tam)
+        {
+            case "coffee":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                break;
+            case "trasua":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TS%' ",null);
+                break;
+            case "sinhto":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'SO%' ",null);
+                break;
+            case "topping":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
+                break;
+        }
 
         while(cursor.moveToNext())
         {

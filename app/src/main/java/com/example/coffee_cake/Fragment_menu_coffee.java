@@ -81,23 +81,17 @@ public class Fragment_menu_coffee extends Fragment {
         edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
-        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bund = new Bundle();
 
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order);
-            }
-        });
+
         arrayList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
         lvcoffee.setAdapter(adapter);
         arrayList.clear();
 
+
         Bundle bundle = getArguments();
         String tam = bundle.getString("temp");
         Cursor cursor = null;
-
         ImageView back = (ImageView) v.findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +151,23 @@ public class Fragment_menu_coffee extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bund = new Bundle();
+
+                String Masp = arrayList.get(i).getMasp();
+                String Tensp = arrayList.get(i).getTensp();
+                int Gia = arrayList.get(i).getGia();
+
+                bund.putString("MASP",Masp);
+                bund.putString("TENSP",Tensp);
+                bund.putInt("GIA",Gia);
+
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }
         });
         adapter.notifyDataSetChanged();

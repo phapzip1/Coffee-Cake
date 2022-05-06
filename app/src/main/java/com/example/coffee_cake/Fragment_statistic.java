@@ -11,9 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.lang.reflect.Array;
@@ -98,5 +103,14 @@ public class Fragment_statistic extends Fragment {
         barChart.getDescription().setTextColor(Color.BLUE);
 
         return mview;
+    }
+
+    private class AxisFormatter extends ValueFormatter
+    {
+        @Override
+        public String getFormattedValue(float value, AxisBase axis)
+        {
+
+        }
     }
 }

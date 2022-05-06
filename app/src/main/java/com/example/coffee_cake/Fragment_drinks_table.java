@@ -146,7 +146,9 @@ public class Fragment_drinks_table extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getTitle().equals("Tính tiền")) {
-                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("key1", i+1 +"");
+                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
                         } else if (item.getTitle().equals("Gọi món")) {
                             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu);
                         }

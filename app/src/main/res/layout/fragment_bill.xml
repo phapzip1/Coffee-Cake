@@ -22,6 +22,7 @@
         android:layout_width="110dp"
         android:layout_height="100dp"/>
     <TextView
+        android:id="@+id/table_number"
         android:text="Bàn X"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -127,6 +128,7 @@
 
     </LinearLayout>
     <Button
+        android:id="@+id/btnPay"
         android:text="Tính tiền"
         android:textColor="@color/white"
         android:textSize="18sp"

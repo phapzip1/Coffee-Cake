@@ -122,7 +122,6 @@
                 <!--                    android:layout_height="wrap_content" />-->
                 <Spinner
                     android:id="@+id/editGender"
-                    android:text="Female"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"

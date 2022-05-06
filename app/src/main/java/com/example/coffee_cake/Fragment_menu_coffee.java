@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -80,18 +81,40 @@ public class Fragment_menu_coffee extends Fragment {
         edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
-        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order);
-            }
-        });
+
+
         arrayList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
         lvcoffee.setAdapter(adapter);
         arrayList.clear();
 
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+
+        Bundle bundle = getArguments();
+        String tam = bundle.getString("temp");
+        Cursor cursor = null;
+        ImageView back = (ImageView) v.findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_menuMenu);
+            }
+        });
+        switch (tam)
+        {
+            case "coffee":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                break;
+            case "trasua":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TS%' ",null);
+                break;
+            case "sinhto":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'ST%' ",null);
+                break;
+            case "topping":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
+                break;
+        }
 
         while(cursor.moveToNext())
         {
@@ -128,6 +151,23 @@ public class Fragment_menu_coffee extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bund = new Bundle();
+
+                String Masp = arrayList.get(i).getMasp();
+                String Tensp = arrayList.get(i).getTensp();
+                int Gia = arrayList.get(i).getGia();
+
+                bund.putString("MASP",Masp);
+                bund.putString("TENSP",Tensp);
+                bund.putInt("GIA",Gia);
+
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }
         });
         adapter.notifyDataSetChanged();

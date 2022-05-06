@@ -109,7 +109,6 @@ public class Fragment_statistic extends Fragment {
 //    {
 //        @Override
 //        public String getFormattedValue(float value, AxisBase axis) {
-//
 //        }
 //    }
 }

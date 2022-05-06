@@ -78,15 +78,17 @@ public class Fragment_home extends Fragment {
 
         if (bundle != null)
         {
+//            Tên (Size)
+//            Số lượng
+//            Topping
+//            Bàn
             String name = bundle.getString("name");
             String soluong = bundle.getString("soluong");
             int gia = Integer.parseInt(bundle.getString("gia"));
-
             Product temp = new Product(name,soluong,gia);
             arrayList.add(temp);
             adapter.notifyDataSetChanged();
         }
-
         return view;
     }
 }

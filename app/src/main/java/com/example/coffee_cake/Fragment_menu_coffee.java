@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -83,6 +84,8 @@ public class Fragment_menu_coffee extends Fragment {
         lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bund = new Bundle();
+
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order);
             }
         });
@@ -94,6 +97,15 @@ public class Fragment_menu_coffee extends Fragment {
         Bundle bundle = getArguments();
         String tam = bundle.getString("temp");
         Cursor cursor = null;
+
+        ImageView back = (ImageView) v.findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_menuMenu);
+            }
+        });
         switch (tam)
         {
             case "coffee":

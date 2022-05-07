@@ -35,6 +35,7 @@
             android:textColor="@color/white"
             />
 
+
     </LinearLayout>
 
     <GridView

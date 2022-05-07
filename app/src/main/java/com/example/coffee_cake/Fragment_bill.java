@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -20,10 +21,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,11 +77,18 @@ public class Fragment_bill extends Fragment {
         }
     }
 
+    File path;
+    ArrayList<Boolean> table;
+    MyVM viewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
+        table = viewModel.getTables();
+        path = getContext().getFilesDir();
 
         getDateTime(view);
 
@@ -131,16 +143,64 @@ public class Fragment_bill extends Fragment {
         ((Button)dialog.findViewById(R.id.btnThanhToan)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+                Bundle bundle = getArguments();
+                changeTableStatus(bundle.getInt("key1"));
+                Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
+                dialog.dismiss();
             }
         });
-
         dialog.show();
+    }
+
+    private void changeTableStatus(int tableNumber) {
+        Bundle bundle = getArguments();
+        String fileName = bundle.getString("key2");
+
+        File savedFile = new File(path + "/" + fileName);
+        if(!savedFile.exists()){
+            Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_SHORT).show();
+        }
+
+        //thay đổi trạng thái
+        table.set(tableNumber-1, false);
+        viewModel.setTables(table);
+
+        deleteFile(fileName);
+        writeToFile(fileName);
+
+    }
+
+    private void writeToFile(String fileName) {
+        ArrayList<String> s = new ArrayList<>();
+
+        for(int i = 0; i < table.size(); i++){
+            s.add(i, table.get(i).toString());
+        }
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+            for(int i = 0; i < table.size(); i++){
+                writer.write(s.get(i).getBytes());
+            }
+            writer.close();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteFile(String fileName) {
+        File savedFile = new File(path + "/" + fileName);
+
+        if (!savedFile.exists())
+            Toast.makeText(getContext(), "Không tồn tại file",
+                    Toast.LENGTH_SHORT).show();
+        else {
+            savedFile.delete();
+        }
     }
 
     private void getTableNumber(View view) {
         Bundle bundle = getArguments();
-        ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + bundle.getString("key1"));
+        ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + bundle.getInt("key1"));
     }
 
     private void getDateTime(View view) {

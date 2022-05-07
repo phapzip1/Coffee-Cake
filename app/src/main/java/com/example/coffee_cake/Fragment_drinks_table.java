@@ -107,7 +107,6 @@ public class Fragment_drinks_table extends Fragment {
             }
             writeToFile(fileName);
         }
-
         readFile(fileName);
 
         viewModel.setTables(table);
@@ -129,7 +128,6 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
-
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -147,7 +145,8 @@ public class Fragment_drinks_table extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getTitle().equals("Tính tiền")) {
                             Bundle bundle = new Bundle();
-                            bundle.putString("key1", i+1 +"");
+                            bundle.putInt("key1", i+1);
+                            bundle.putString("key2", fileName);
                             Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
                         } else if (item.getTitle().equals("Gọi món")) {
                             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu);

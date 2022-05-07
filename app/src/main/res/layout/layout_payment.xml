@@ -2,19 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:layout_margin="10dp"
     android:background="@drawable/bg_whitecorner"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Xác nhận thanh toán"
+        android:text="Xác nhận"
         android:background="@drawable/bg_yellowcorner_top"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:padding="12dp"
+        android:padding="16dp"
         android:gravity="center"/>
 
     <LinearLayout
@@ -37,8 +36,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
 
         <Button
@@ -49,7 +47,7 @@
             android:background="@drawable/bg_graycorner"
             android:textSize="16sp"
             android:alpha="0.5"
-            android:layout_marginEnd="10dp"
+            android:layout_margin="10dp"
             android:text="Không" />
 
         <Button
@@ -59,6 +57,7 @@
             android:layout_weight="1"
             android:textSize="16sp"
             android:background="@drawable/bg_yellowcorner_button"
+            android:layout_margin="10dp"
             android:text="Thanh toán" />
     </LinearLayout>
 

@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:paddingTop="12dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
     tools:context=".Fragment_drinks_edit">
 
     <!-- TODO: Update blank fragment layout -->

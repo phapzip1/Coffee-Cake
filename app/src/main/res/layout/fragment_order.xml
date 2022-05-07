@@ -9,8 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:layout_marginTop="1dp"
-        android:background="#FFB72B"
+        android:background="#FADED0"
         android:layout_width="match_parent"
         android:layout_height="100dp">
     </ImageView>
@@ -49,8 +48,8 @@
             android:layout_height="wrap_content"
             android:text="Trà sữa Trân châu"
             android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textColor="@color/dennhat"
+            android:textSize="22sp" />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"
             android:outlineSpotShadowColor="@color/white"
@@ -206,7 +205,7 @@
                 android:background="@drawable/round_bg_white_min"
                 android:gravity="center"
                 android:text="Thêm Ngay"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/color_main"
                 android:textStyle="bold" />
 

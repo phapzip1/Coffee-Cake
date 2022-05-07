@@ -19,24 +19,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Staff"
+            android:text="Staff "
             android:textColor="#FF8C32"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold|italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="4dp"
             android:text="Manage"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold|italic" />
         <ImageView
             android:id="@+id/btnAddInfo"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="5dp"
-            android:layout_marginLeft="170dp"
+            android:layout_marginLeft="165dp"
             android:background="@drawable/round_bg"
             android:gravity="center"
             android:src="@drawable/ic_add"

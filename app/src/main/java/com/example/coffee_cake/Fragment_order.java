@@ -121,6 +121,7 @@ public class Fragment_order extends Fragment {
                 if ( bm==true || bl== true )
                 {
                     bs = true;
+                    s.setTextColor(Color.parseColor("#ffffff"));
                     s.setBackgroundResource(R.drawable.round_bg);
 
                     bm = bl = false;
@@ -142,6 +143,7 @@ public class Fragment_order extends Fragment {
                 if ( bs==true || bl== true )
                 {
                     bm = true;
+                    m.setTextColor(Color.parseColor("#ffffff"));
                     m.setBackgroundResource(R.drawable.round_bg);
 
 
@@ -164,6 +166,7 @@ public class Fragment_order extends Fragment {
                 if ( bm==true || bs== true )
                 {
                     bl = true;
+                    l.setTextColor(Color.parseColor("#ffffff"));
                     l.setBackgroundResource(R.drawable.round_bg);
 
 

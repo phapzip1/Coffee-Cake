@@ -50,7 +50,7 @@
             android:text="Trà sữa Trân châu"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="22sp" />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"
             android:outlineSpotShadowColor="@color/white"
@@ -204,7 +204,7 @@
                 android:background="@drawable/round_bg_white_min"
                 android:gravity="center"
                 android:text="Thêm Ngay"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/color_main"
                 android:textStyle="bold" />
 

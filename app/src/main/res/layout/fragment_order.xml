@@ -9,8 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:layout_marginTop="1dp"
-        android:background="#FFB72B"
+        android:background="#FADED0"
         android:layout_width="match_parent"
         android:layout_height="100dp">
     </ImageView>
@@ -49,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Trà sữa Trân châu"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@color/dennhat"
             android:textSize="22sp" />
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"

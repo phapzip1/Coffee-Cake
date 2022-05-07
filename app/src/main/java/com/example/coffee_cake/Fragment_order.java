@@ -78,7 +78,7 @@ public class Fragment_order extends Fragment {
 
         Bundle bund = getArguments();
         name.setText(bund.getString("TENSP"));
-        gia.setText(   bund.getInt("GIA")    );
+        gia.setText(String.valueOf(bund.getInt("GIA")));
 
 
 

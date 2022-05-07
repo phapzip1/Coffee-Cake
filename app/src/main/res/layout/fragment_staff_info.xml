@@ -9,6 +9,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment_staff_info">
+    <ImageView
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="276dp"
+        android:src="@drawable/round_bg_white_min">
+    </ImageView>
 
 
     <LinearLayout
@@ -25,7 +34,7 @@
                 android:layout_height="wrap_content"/>
             <ImageView
                 android:id="@+id/btnEdit"
-                android:layout_marginLeft="300dp"
+                android:layout_marginLeft="280dp"
                 android:src="@drawable/ic_baseline_edit_24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -262,15 +271,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="276dp"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/round_bg_white_min"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
-            app:cardUseCompatPadding="true"></ImageView>
 
     </LinearLayout>
 

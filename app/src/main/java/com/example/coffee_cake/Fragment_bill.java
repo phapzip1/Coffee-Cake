@@ -1,14 +1,21 @@
 package com.example.coffee_cake;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,6 +77,9 @@ public class Fragment_bill extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
 
+        getDateTime(view);
+
+        getTableNumber(view);
 
         ((ImageView)view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +88,53 @@ public class Fragment_bill extends Fragment {
             }
         });
 
-        getDateTime(view);
+        ((Button)view.findViewById(R.id.btnPay)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPayDialog(Gravity.CENTER, view);
+            }
+        });
 
-        getTableNumber(view);
         return view;
+    }
+
+    private void openPayDialog(int gravity, View view) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_payment);
+
+        Window window = dialog.getWindow();
+        if(window == null){
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribute = window.getAttributes();
+        windowAttribute.gravity = gravity;
+        window.setAttributes(windowAttribute);
+
+        if(Gravity.CENTER == gravity){
+            dialog.setCancelable(true);
+        }
+        else dialog.setCancelable(false);
+
+//        btnNo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        btnThanhToan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        dialog.show();
     }
 
     private void getTableNumber(View view) {

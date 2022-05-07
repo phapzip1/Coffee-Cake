@@ -1,6 +1,7 @@
 package com.example.coffee_cake;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -63,8 +64,12 @@ public class Fragment_order extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView name,soluong,size,gia;
+    TextView name,soluong,size,gia,s,m,l,tvQuantity,tvPrice;
     Button btnthemngay;
+    Boolean bs,bl,bm;
+    ImageView add,remove;
+    int sl;
+    Bundle bund;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,19 +78,115 @@ public class Fragment_order extends Fragment {
 
         name = (TextView) v.findViewById(R.id.tvOrder);
         soluong = (TextView) v.findViewById(R.id.tvQuantity);
-        // size = (TextView) v.findViewById(R.id.tvQuantity); // coi
+        // size = (TextView) v.findViewById(R.id.); // coi
         gia = (TextView) v.findViewById(R.id.tvPrice);
 
-        Bundle bund = getArguments();
+        s = (TextView) v.findViewById(R.id.sizeS);
+        m = (TextView) v.findViewById(R.id.sizeM);
+        l = (TextView) v.findViewById(R.id.sizeL);
+
+
+        add = (ImageView) v.findViewById(R.id.btnAdd);
+        remove = (ImageView) v.findViewById(R.id.btnRemove);
+        sl =1;
+        bs = true;
+        bm = false;
+        bl = false;
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sl++;
+                soluong.setText(String.valueOf(sl));
+                gia.setText(String.valueOf(sl*bund.getInt("GIA")));
+            }
+        });
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sl>1)
+                {
+                    sl--;
+                    soluong.setText(String.valueOf(sl));
+
+                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
+
+                }
+            }
+        });
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bm==true || bl== true )
+                {
+                    bs = true;
+                    s.setBackgroundResource(R.drawable.round_bg);
+
+                    bm = bl = false;
+                    m.setText("M");
+                    m.setTextColor(Color.parseColor("#111111"));
+                    m.setBackgroundResource(R.drawable.round_bg_white);
+
+                    l.setText("L");
+                    l.setTextColor(Color.parseColor("#000000"));
+                    l.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+
+        m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bs==true || bl== true )
+                {
+                    bm = true;
+                    m.setBackgroundResource(R.drawable.round_bg);
+
+
+                    bs = bl = false;
+                    s.setText("S");
+                    s.setTextColor(Color.parseColor("#111111"));
+                    s.setBackgroundResource(R.drawable.round_bg_white);
+
+                    l.setText("L");
+                    l.setTextColor(Color.parseColor("#000000"));
+                    l.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+
+        l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bm==true || bs== true )
+                {
+                    bl = true;
+                    l.setBackgroundResource(R.drawable.round_bg);
+
+
+                    bm = bs = false;
+                    m.setText("M");
+                    m.setTextColor(Color.parseColor("#111111"));
+                    m.setBackgroundResource(R.drawable.round_bg_white);
+
+                    s.setText("S");
+                    s.setTextColor(Color.parseColor("#000000"));
+                    s.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+
+        bund = getArguments();
         name.setText(bund.getString("TENSP"));
-        gia.setText(   bund.getInt("GIA")    );
-
-
-
+        gia.setText(String.valueOf(bund.getInt("GIA")));
 
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-        btnthemngay.setOnClickListener(new View.OnClickListener() {
+        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên, số lượng , size , số bàn
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();

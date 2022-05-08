@@ -5,17 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class OrderDrinks {
-    private String name,size,soluong;
+    private String name,size,soluong,topping;
     private int soban;
 
-    public OrderDrinks(String name, String size, String soluong) {
+    public OrderDrinks(String name, String size, String soluong,String topping, int soban) {
         this.name = name;
         this.size = size;
         this.soluong = soluong;
+        this.topping = topping;
+        this.soban = soban;
     }
 
     public String getName() {
@@ -49,15 +52,23 @@ public class OrderDrinks {
     public void setSoban(int soban) {
         this.soban = soban;
     }
+
+    public String getTopping() {
+        return topping;
+    }
+
+    public void setTopping(String topping) {
+        this.topping = topping;
+    }
 }
 
-class AdapterOrderDrinks extends BaseAdapter
+class  OrderDrinksAdapter extends BaseAdapter
 {
-
+    TextView tvnametable,tvsoluong,tvtopping,tvtable;
     private Context m_Context;
-    private ArrayList<Product> m_array;
+    private ArrayList<OrderDrinks> m_array;
     private int m_Layout;
-    public AdapterOrderDrinks(Context context, int layout, ArrayList<Product> arrayList)
+    public OrderDrinksAdapter(Context context, int layout, ArrayList<OrderDrinks> arrayList)
     {
         m_Context = context;
         m_Layout = layout;
@@ -79,13 +90,22 @@ class AdapterOrderDrinks extends BaseAdapter
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) { // tên(size), số lượng ,topping, số bàn
 
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
 
+        tvnametable = (TextView) view.findViewById(R.id.tvnametable);
+        tvsoluong = (TextView) view.findViewById(R.id.tvsoluong);
+        tvtopping = (TextView) view.findViewById(R.id.tvtopping);
+        tvtable = (TextView) view.findViewById(R.id.tvtable);
 
+        tvnametable.setText(   m_array.get(i).getName()     );
 
+        tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")" );
 
+        tvtopping.setText( "Topping: " + m_array.get(i).getTopping() );
+
+        tvtable.setText("Bàn: " + m_array.get(i).getSoban());
 
         return view;
     }

@@ -70,7 +70,7 @@ public class Fragment_order extends Fragment {
     ImageView add,remove;
     int sl;
     Bundle bund;
-    String size;
+    String size = "S";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -214,7 +214,7 @@ public class Fragment_order extends Fragment {
                 bundle.putString("name",name.getText().toString());
                 bundle.putString("size",size.toString());
                 bundle.putString("soluong",soluong.getText().toString());
-                bundle.putString("gia",gia.getText().toString());
+                //bundle.putString("gia",gia.getText().toString());
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }
         });

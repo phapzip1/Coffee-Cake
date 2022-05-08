@@ -59,8 +59,8 @@ public class Fragment_home extends Fragment {
         }
     }
     ListView listDrinks;
-    ProductAdapter adapter;
-    ArrayList<Product> arrayList;
+    OrderDrinksAdapter adapter;
+    ArrayList<OrderDrinks> arrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class Fragment_home extends Fragment {
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
         arrayList = new ArrayList<>();
 
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+        adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
 
         listDrinks.setAdapter(adapter);
 
@@ -83,11 +83,13 @@ public class Fragment_home extends Fragment {
 //            Topping
 //            Bàn
             String name = bundle.getString("name");
-            String soluong = bundle.getString("soluong");
             String size = bundle.getString("size");
-            int gia = Integer.parseInt(bundle.getString("gia"));
+            String soluong = bundle.getString("soluong");
+            String topping = "";
+            int soban = 1;
+            //int gia = Integer.parseInt(bundle.getString("gia"));
 
-            Product temp = new Product(name,soluong,gia);
+            OrderDrinks temp = new OrderDrinks(name,size,soluong,topping,soban);
 
             arrayList.add(temp);
             adapter.notifyDataSetChanged();

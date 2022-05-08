@@ -98,7 +98,19 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 sl++;
                 soluong.setText(String.valueOf(sl));
-                gia.setText(String.valueOf(sl*bund.getInt("GIA")));
+                if (bs)
+                {
+                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
+                }
+                else if (bm)
+                {
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 ) ));
+                }
+                else if (bl)
+                {
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 ) ));
+                }
+
             }
         });
 
@@ -120,6 +132,7 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bm==true || bl== true )
                 {
+                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
                     bs = true;
                     s.setTextColor(Color.parseColor("#ffffff"));
                     s.setBackgroundResource(R.drawable.round_bg);
@@ -142,6 +155,7 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bs==true || bl== true )
                 {
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 ) ));
                     bm = true;
                     m.setTextColor(Color.parseColor("#ffffff"));
                     m.setBackgroundResource(R.drawable.round_bg);
@@ -165,6 +179,7 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bm==true || bs== true )
                 {
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 ) ));
                     bl = true;
                     l.setTextColor(Color.parseColor("#ffffff"));
                     l.setBackgroundResource(R.drawable.round_bg);

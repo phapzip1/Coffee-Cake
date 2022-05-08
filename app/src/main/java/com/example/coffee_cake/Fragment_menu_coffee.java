@@ -70,6 +70,7 @@ public class Fragment_menu_coffee extends Fragment {
     ArrayList<Product> arrayList;
     ListView lvcoffee;
     EditText edtcoffee;
+    String tam;
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,7 +91,7 @@ public class Fragment_menu_coffee extends Fragment {
 
 
         Bundle bundle = getArguments();
-        String tam = bundle.getString("temp");
+        tam = bundle.getString("temp");
         Cursor cursor = null;
         ImageView back = (ImageView) v.findViewById(R.id.back);
 

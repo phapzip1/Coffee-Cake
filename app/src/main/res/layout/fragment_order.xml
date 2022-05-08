@@ -23,7 +23,7 @@
     </ImageView>
     <ImageView
         android:id="@+id/bg_layout2"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="350dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/round_bg2">
@@ -60,6 +60,34 @@
             app:riv_corner_radius="12dp"
             >
         </com.makeramen.roundedimageview.RoundedImageView>
+        <com.google.android.material.card.MaterialCardView
+
+            android:id="@+id/selectCard"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:hint="Lựa chọn Topping"
+                    android:textSize="18dp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:src="@drawable/ic_arrow_drop_down"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
         <TextView
             android:text="Size:"
             android:textColor="@color/dennhat"

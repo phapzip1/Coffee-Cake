@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_menuMenu_to_fragment_menu_coffee"
             app:destination="@id/fragment_menu_coffee" />
+        <action
+            android:id="@+id/action_menuMenu_to_fragment_menu_coffee_notable2"
+            app:destination="@id/fragment_menu_coffee_notable2" />
     </fragment>
     <fragment
         android:id="@+id/menuStaff"
@@ -103,4 +106,8 @@
             android:id="@+id/action_fragment_order_to_menuHome"
             app:destination="@id/menuHome" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_menu_coffee_notable2"
+        android:name="com.example.coffee_cake.Fragment_menu_coffee_notable"
+        android:label="Fragment_menu_coffee_notable" />
 </navigation>

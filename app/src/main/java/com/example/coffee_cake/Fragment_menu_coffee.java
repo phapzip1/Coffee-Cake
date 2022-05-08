@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,6 +72,8 @@ public class Fragment_menu_coffee extends Fragment {
     ListView lvcoffee;
     EditText edtcoffee;
     String tam;
+    int soban;
+    //String xacnhan = "";
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +84,14 @@ public class Fragment_menu_coffee extends Fragment {
         DBHelper db = new DBHelper(getActivity());
         edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
+        //Bundle xacnhan = getArguments();
 
-
+//        if (xacnhan != null)
+//        {
+//            Toast.makeText(getActivity(), "ko null", Toast.LENGTH_SHORT).show();
+//        }
+//        else
+//            Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
 
         arrayList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
@@ -90,8 +99,9 @@ public class Fragment_menu_coffee extends Fragment {
         arrayList.clear();
 
 
-        Bundle bundle = getArguments();
+        Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
+        soban = bundle.getInt("soban");
         Cursor cursor = null;
         ImageView back = (ImageView) v.findViewById(R.id.back);
 
@@ -167,6 +177,7 @@ public class Fragment_menu_coffee extends Fragment {
                 bund.putString("MASP",Masp);
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
+                bund.putInt("soban",soban);
 
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }

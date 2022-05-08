@@ -68,7 +68,7 @@ public class Fragment_order extends Fragment {
     Button btnthemngay;
     Boolean bs,bl,bm;
     ImageView add,remove;
-    int sl;
+    int sl,soban;
     Bundle bund;
     String size = "S";
     @Override
@@ -86,10 +86,12 @@ public class Fragment_order extends Fragment {
         m = (TextView) v.findViewById(R.id.sizeM);
         l = (TextView) v.findViewById(R.id.sizeL);
 
+        bund = getArguments(); // lấy giá trị, có số bàn
 
+        soban = bund.getInt("soban");
         add = (ImageView) v.findViewById(R.id.btnAdd);
         remove = (ImageView) v.findViewById(R.id.btnRemove);
-        sl =1;
+        sl = 1;
         bs = true;
         bm = false;
         bl = false;
@@ -201,7 +203,7 @@ public class Fragment_order extends Fragment {
             }
         });
 
-        bund = getArguments(); // lấy giá trị
+
         name.setText(bund.getString("TENSP"));
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
@@ -214,6 +216,7 @@ public class Fragment_order extends Fragment {
                 bundle.putString("name",name.getText().toString());
                 bundle.putString("size",size.toString());
                 bundle.putString("soluong",soluong.getText().toString());
+                bundle.putInt("soban",soban);
                 //bundle.putString("gia",gia.getText().toString());
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }

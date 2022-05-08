@@ -58,7 +58,8 @@ public class Fragment_Menu extends Fragment {
     }
 
     CardView coffee,trasua,sinhto,topping;
-
+    Bundle bundletable;
+    int soban;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,15 +70,23 @@ public class Fragment_Menu extends Fragment {
         sinhto = (CardView) v.findViewById(R.id.cvSinhTo);
         topping = (CardView) v.findViewById(R.id.cvTopping);
 
-        if (getArguments()!=null)
+        if (getArguments()!=null) // tức là có bundle được chuyển qua
         topping.setVisibility(View.INVISIBLE); // ẩn topping
+        bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, nếu có giá trị table -> menu
+
+        if (bundletable!=null)
+         soban = bundletable.getInt("soban");
 
         Bundle bundle = new Bundle();
 
+        bundle.putInt("soban",soban); // số bàn ở đây
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","coffee");
+                if (bundletable==null)
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                else
                 Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
@@ -86,7 +95,10 @@ public class Fragment_Menu extends Fragment {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","trasua");
-                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                if (bundletable==null)
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                else
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
 
@@ -94,7 +106,10 @@ public class Fragment_Menu extends Fragment {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","sinhto");
-                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                if (bundletable==null)
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                else
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
 
@@ -102,7 +117,10 @@ public class Fragment_Menu extends Fragment {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","topping");
-                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                if (bundletable==null)
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                else
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
 

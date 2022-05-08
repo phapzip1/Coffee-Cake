@@ -3,33 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDE2AB"
+    android:background="#F4E5C4"
     android:orientation="vertical"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:paddingTop="16dp"
+    android:paddingTop="12dp"
     tools:context=".Fragment_menu_coffee">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
+        android:id="@+id/back"
         android:src="@drawable/ic_arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/edtcoffee"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_bg_white"
         android:drawableLeft="@drawable/ic_search"
         android:drawablePadding="9dp"
-        android:hint="Tìm kiếm Coffee"
+        android:hint="Tìm kiếm"
         android:padding="10dp"
         android:textColorHint="@color/dennhat"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
     <ListView
         android:id="@+id/lvcoffee"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

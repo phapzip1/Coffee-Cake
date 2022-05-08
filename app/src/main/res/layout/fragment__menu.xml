@@ -22,7 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -34,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:text="Drinks"
                         android:textColor="#FF8C32"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textStyle="bold|italic" />
 
                     <TextView
@@ -42,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
                         android:text="Menu"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textStyle="bold|italic" />
 
 <!--                    <ImageView-->
@@ -61,12 +63,12 @@
                     android:id="@+id/cvCoffee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="12dp"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="180dp"
                         android:background="@drawable/img_coffee"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -101,7 +103,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="180dp"
                         android:background="@drawable/ts"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -136,7 +138,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="180dp"
                         android:background="@drawable/sinhto"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -171,7 +173,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="180dp"
                         android:background="@drawable/topping"
                         android:orientation="vertical"
                         android:padding="12dp">
@@ -186,7 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/round_bg"
                                 android:padding="8dp"
-                                android:text="Topping"
+                                android:text="Topping - Bánh"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />

@@ -69,12 +69,43 @@ public class Fragment_Menu extends Fragment {
         sinhto = (CardView) v.findViewById(R.id.cvSinhTo);
         topping = (CardView) v.findViewById(R.id.cvTopping);
 
+        if (getArguments()!=null)
+        topping.setVisibility(View.INVISIBLE); // ẩn topping
+
+        Bundle bundle = new Bundle();
+
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee);
+                bundle.putString("temp","coffee");
+                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
+
+        trasua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bundle.putString("temp","trasua");
+                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+            }
+        });
+
+        sinhto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bundle.putString("temp","sinhto");
+                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+            }
+        });
+
+        topping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bundle.putString("temp","topping");
+                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+            }
+        });
+
         return v;
     }
 }

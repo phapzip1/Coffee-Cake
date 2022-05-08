@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_fragment_menu_coffee_to_fragment_order"
             app:destination="@id/fragment_order" />
+        <action
+            android:id="@+id/action_fragment_menu_coffee_to_menuMenu"
+            app:destination="@id/menuMenu" />
     </fragment>
     <fragment
         android:id="@+id/fragment_order"

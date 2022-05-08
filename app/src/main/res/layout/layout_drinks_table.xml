@@ -5,11 +5,11 @@
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:id="@+id/cvTable"
-        app:cardElevation="8dp"
+        app:cardElevation="4dp"
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="168dp"
+        android:layout_height="168dp"
         android:layout_gravity="fill">
         <LinearLayout
             android:orientation="vertical"
@@ -19,8 +19,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:src="@drawable/table1vs1"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:id="@+id/title1"

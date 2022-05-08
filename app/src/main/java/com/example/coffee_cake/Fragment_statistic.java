@@ -130,6 +130,7 @@ public class Fragment_statistic extends Fragment {
         return mview;
     }
 
+<<<<<<< HEAD
     class Formatter extends ValueFormatter
     {
         private String[] Labels;
@@ -147,4 +148,12 @@ public class Fragment_statistic extends Fragment {
             return getFormattedValue(barEntry.getY());
         }
     }
+=======
+//    private class AxisFormatter extends ValueFormatter
+//    {
+//        @Override
+//        public String getFormattedValue(float value, AxisBase axis) {
+//        }
+//    }
+>>>>>>> 84b2cd5656b44495f635c3a2fe6c96e1de623c48
 }

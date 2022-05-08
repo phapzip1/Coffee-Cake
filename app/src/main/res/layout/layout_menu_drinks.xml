@@ -33,17 +33,18 @@
                 android:orientation="vertical"
                 android:layout_width="165dp"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tvname"
-                    android:text="Trà sữa"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/tvmasp"
+                    android:id="@+id/tvnametable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trà sữa"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvmasptable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mô tả"
@@ -51,7 +52,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvprice"
+                    android:id="@+id/tvpricetable"
                     android:text="Giá: $10"
                     android:textColor="@color/dennhat"
                     android:textSize="16sp"
@@ -59,6 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:id="@+id/tvtable"
                     android:text="Bàn 1"
                     android:textColor="@color/color_main"
                     android:textSize="16sp"

@@ -84,8 +84,11 @@ public class Fragment_home extends Fragment {
 //            Bàn
             String name = bundle.getString("name");
             String soluong = bundle.getString("soluong");
+            String size = bundle.getString("size");
             int gia = Integer.parseInt(bundle.getString("gia"));
+
             Product temp = new Product(name,soluong,gia);
+
             arrayList.add(temp);
             adapter.notifyDataSetChanged();
         }

@@ -64,12 +64,13 @@ public class Fragment_order extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView name,soluong,size,gia,s,m,l,tvQuantity,tvPrice;
+    TextView name,soluong,gia,s,m,l,tvQuantity,tvPrice;
     Button btnthemngay;
     Boolean bs,bl,bm;
     ImageView add,remove;
     int sl;
     Bundle bund;
+    String size;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class Fragment_order extends Fragment {
 
         name = (TextView) v.findViewById(R.id.tvOrder);
         soluong = (TextView) v.findViewById(R.id.tvQuantity);
-        // size = (TextView) v.findViewById(R.id.); // coi
+
         gia = (TextView) v.findViewById(R.id.tvPrice);
 
         s = (TextView) v.findViewById(R.id.sizeS);
@@ -132,6 +133,7 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bm==true || bl== true )
                 {
+                    size = "S";
                     gia.setText(String.valueOf(sl*bund.getInt("GIA")));
                     bs = true;
                     s.setTextColor(Color.parseColor("#ffffff"));
@@ -155,6 +157,7 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bs==true || bl== true )
                 {
+                    size = "M";
                     gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 ) ));
                     bm = true;
                     m.setTextColor(Color.parseColor("#ffffff"));
@@ -179,11 +182,11 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 if ( bm==true || bs== true )
                 {
+                    size = "L";
                     gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 ) ));
                     bl = true;
                     l.setTextColor(Color.parseColor("#ffffff"));
                     l.setBackgroundResource(R.drawable.round_bg);
-
 
                     bm = bs = false;
                     m.setText("M");
@@ -198,17 +201,18 @@ public class Fragment_order extends Fragment {
             }
         });
 
-        bund = getArguments();
+        bund = getArguments(); // lấy giá trị
         name.setText(bund.getString("TENSP"));
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên, số lượng , size , số bàn
+        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping  , số bàn
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle(); // đưa giá trị đến home
                 bundle.putString("name",name.getText().toString());
+                bundle.putString("size",size.toString());
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putString("gia",gia.getText().toString());
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);

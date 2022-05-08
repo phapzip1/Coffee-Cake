@@ -72,14 +72,18 @@ public class Fragment_Menu extends Fragment {
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
         topping.setVisibility(View.INVISIBLE); // ẩn topping
-        bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, nếu có giá trị table -> menu
-
-        if (bundletable!=null)
-         soban = bundletable.getInt("soban");
-
+        bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
         Bundle bundle = new Bundle();
+        if (bundletable!=null)
+        {
+            soban = bundletable.getInt("soban");
+            bundle.putInt("soban",soban);
+        }
 
-        bundle.putInt("soban",soban); // số bàn ở đây
+
+
+
+         // số bàn ở đây
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

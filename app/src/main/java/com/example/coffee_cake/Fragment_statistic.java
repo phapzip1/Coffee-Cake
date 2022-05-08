@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -74,6 +75,8 @@ public class Fragment_statistic extends Fragment {
         }
     }
 
+    private String[] MOY = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,35 +85,66 @@ public class Fragment_statistic extends Fragment {
 
         DBHelper db = new DBHelper(getActivity());
         Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2022), null);
-        int index = 1;
 
         barChart = mview.findViewById(R.id.barChart);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setGranularity(1.0f);
+       // barChart.getXAxis().setValueFormatter(new Formatter(MOY));
+        barChart.getAxisLeft().setSpaceBottom(0);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisRight().setEnabled(false);
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
-        while (cs.moveToNext())
+
+        boolean hasvalue = cs.moveToNext();
+        for (int i = 0; i < 12; i++)
         {
-            barEntries.add(new BarEntry(index, cs.getInt(1)));
-            index++;
+            if (hasvalue)
+            {
+                if (i + 1 ==  Integer.parseInt(cs.getString(0)))
+                {
+                    barEntries.add(new BarEntry(i, cs.getInt(1)));
+                    hasvalue = cs.moveToNext();
+                }
+                else
+                    barEntries.add(new BarEntry(i, 0));
+            }
+            else
+                barEntries.add(new BarEntry(i, 0));
         }
+
+
         cs.close();
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Hue");
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+        BarDataSet barDataSet = new BarDataSet(barEntries, "None");
+        barDataSet.setColors(Color.argb( 200,22, 208, 255)); // ocean blue
         barDataSet.setDrawValues(false);
+
+        barChart.invalidate();
         barChart.setData(new BarData(barDataSet));
         barChart.animateY(3000);
-        barChart.getDescription().setText("Hue CHart");
-        barChart.getDescription().setTextColor(Color.BLUE);
+
 
         return mview;
     }
 
-    private class AxisFormatter extends ValueFormatter
+    class Formatter extends ValueFormatter
     {
-        @Override
-        public String getFormattedValue(float value, AxisBase axis)
-        {
+        private String[] Labels;
 
+        Formatter(String[] labels) { Labels = labels;}
+
+        @Override
+        public String getFormattedValue(float value) {
+            return Labels[(int)value];
+        }
+
+        @Override
+        public String getBarLabel(BarEntry barEntry)
+        {
+            return getFormattedValue(barEntry.getY());
         }
     }
 }

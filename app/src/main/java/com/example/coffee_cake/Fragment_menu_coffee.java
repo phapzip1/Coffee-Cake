@@ -84,14 +84,6 @@ public class Fragment_menu_coffee extends Fragment {
         DBHelper db = new DBHelper(getActivity());
         edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
-        //Bundle xacnhan = getArguments();
-
-//        if (xacnhan != null)
-//        {
-//            Toast.makeText(getActivity(), "ko null", Toast.LENGTH_SHORT).show();
-//        }
-//        else
-//            Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
 
         arrayList = new ArrayList<>();
         adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
@@ -126,7 +118,6 @@ public class Fragment_menu_coffee extends Fragment {
                 cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
                 break;
         }
-
         while(cursor.moveToNext())
         {
             String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
@@ -139,9 +130,7 @@ public class Fragment_menu_coffee extends Fragment {
         edtcoffee.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -178,7 +167,6 @@ public class Fragment_menu_coffee extends Fragment {
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
                 bund.putInt("soban",soban);
-
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }
         });

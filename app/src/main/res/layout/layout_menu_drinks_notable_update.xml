@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="140dp">
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageDrink"
+                android:id="@+id/imageDrinkupdate"
                 app:riv_oval="true"
                 android:src="@drawable/ts"
                 android:layout_gravity="center"

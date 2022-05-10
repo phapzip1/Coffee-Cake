@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ public class Fragment_menu_coffee_notable extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    ProductAdapter adapter;
+    ProductAdapterUpdate adapter;
     ArrayList<Product> arrayList;
     ListView lvcoffeeno;
     EditText edtcoffeeno;
@@ -79,66 +81,69 @@ public class Fragment_menu_coffee_notable extends Fragment {
         lvcoffeeno = (ListView) v.findViewById(R.id.lvcoffeeno);
 
         arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable_update,arrayList);
+        adapter = new ProductAdapterUpdate(getActivity(),R.layout.layout_menu_drinks_notable_update,arrayList);
         lvcoffeeno.setAdapter(adapter);
         arrayList.clear();
 
-        Bundle bundle = getArguments();
+
+        Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
+
         Cursor cursor = null;
-//        switch (tam)
-//        {
-//            case "coffee":
-//                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-//                break;
-//            case "trasua":
-//                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TS%' ",null);
-//                break;
-//            case "sinhto":
-//                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'ST%' ",null);
-//                break;
-//            case "topping":
-//                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
-//                break;
-//        }
-//
-//        while(cursor.moveToNext())
-//        {
-//            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-//            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-//            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-//            Product temp = new Product(MASP,TENSP,GIA);
-//            arrayList.add(temp);
-//        }
-//        edtcoffeeno.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-//                arrayList.clear();
-//                while(cursor.moveToNext())
-//                {
-//                    String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-//                    if (TENSP.contains(edtcoffeeno.getText().toString()))
-//                    {
-//                        String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-//                        int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-//                        Product temp = new Product(MASP,TENSP,GIA);
-//                        arrayList.add(temp);
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//        adapter.notifyDataSetChanged();
+
+        switch (tam)
+        {
+            case "coffee":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                break;
+            case "trasua":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TS%' ",null);
+                break;
+            case "sinhto":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'ST%' ",null);
+                break;
+            case "topping":
+                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
+                break;
+        }
+
+        while(cursor.moveToNext())
+        {
+            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+            Product temp = new Product(MASP,TENSP,GIA);
+            arrayList.add(temp);
+        }
+        edtcoffeeno.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                arrayList.clear();
+                while(cursor.moveToNext())
+                {
+                    String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+                    if (TENSP.contains(edtcoffeeno.getText().toString()))
+                    {
+                        String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+                        int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+                        Product temp = new Product(MASP,TENSP,GIA);
+                        arrayList.add(temp);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        adapter.notifyDataSetChanged();
         return v;
     }
 }

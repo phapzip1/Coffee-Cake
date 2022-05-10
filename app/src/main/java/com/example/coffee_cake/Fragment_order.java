@@ -1,5 +1,7 @@
 package com.example.coffee_cake;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import org.w3c.dom.Text;
 
@@ -71,11 +75,90 @@ public class Fragment_order extends Fragment {
     int sl,soban;
     Bundle bund;
     String size = "S";
+
+    MaterialCardView selectCard;
+    TextView tvtopping;
+    boolean[] selecttopping;
+    ArrayList<Integer> toppinglist; // Integer?
+    String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
+
+        // ------------------------------------ Phần sử lý topping
+        toppinglist = new ArrayList<>();
+        selectCard = v.findViewById(R.id.selectCard);
+        tvtopping = (TextView) v.findViewById(R.id.tvtopping);
+
+        selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
+            @Override
+            public void onClick(View view) {
+                showtoppingDialog();
+            }
+
+            private void showtoppingDialog() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setTitle("Lựa Chọn Topping");
+                builder.setCancelable(false);
+
+                builder.setMultiChoiceItems(toppingAraay, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        if (b)  // có thể bị lỗi chỗ này ???
+                            toppinglist.add(i);
+                        else
+                            toppinglist.remove(i);
+                    }
+                }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for ( int j=0; j<toppinglist.size();j++)
+                        {
+                            stringBuilder.append(toppingAraay[toppinglist.get(j)]);
+                            if (j != toppinglist.size() -1 )
+                            {
+                                stringBuilder.append(", ");
+                            }
+                            tvtopping.setText(stringBuilder.toString());
+                        }
+
+                    }
+                }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).setNegativeButton("Xóa tất cả", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        for ( int j = 0 ; j< selecttopping.length ; j++)
+                        {
+                            selecttopping[i] = false;
+                            toppinglist.clear();
+                            tvtopping.setText("");
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
 
         name = (TextView) v.findViewById(R.id.tvOrder);
         soluong = (TextView) v.findViewById(R.id.tvQuantity);
@@ -202,11 +285,8 @@ public class Fragment_order extends Fragment {
                 }
             }
         });
-
-
         name.setText(bund.getString("TENSP"));
         gia.setText(String.valueOf(bund.getInt("GIA")));
-
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
         btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping  , số bàn

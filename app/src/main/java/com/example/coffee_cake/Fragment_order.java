@@ -80,7 +80,7 @@ public class Fragment_order extends Fragment {
     TextView tvtopping;
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
-    String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
+    String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,27 +88,33 @@ public class Fragment_order extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
 
-        // ------------------------------------ Phần sử lý topping
-        toppinglist = new ArrayList<>();
+
+        // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
+
+        toppinglist = new ArrayList<>();
         tvtopping = (TextView) v.findViewById(R.id.tvtopping);
+        selecttopping = new boolean[toppingAraay.length];
+
 
         selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
             @Override
             public void onClick(View view) {
                 showtoppingDialog();
             }
-
             private void showtoppingDialog() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                 builder.setTitle("Lựa Chọn Topping");
                 builder.setCancelable(false);
 
+                // String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
+                // boolean[] selecttopping;
+                // ArrayList<Integer> toppinglist;
                 builder.setMultiChoiceItems(toppingAraay, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        if (b)  // có thể bị lỗi chỗ này ???
+                        if (b)
                             toppinglist.add(i);
                         else
                             toppinglist.remove(i);
@@ -139,7 +145,7 @@ public class Fragment_order extends Fragment {
 
                         for ( int j = 0 ; j< selecttopping.length ; j++)
                         {
-                            selecttopping[i] = false;
+                            selecttopping[j] = false;
                             toppinglist.clear();
                             tvtopping.setText("");
                         }
@@ -148,17 +154,6 @@ public class Fragment_order extends Fragment {
                 builder.show();
             }
         });
-
-
-
-
-
-
-
-
-
-
-
 
         name = (TextView) v.findViewById(R.id.tvOrder);
         soluong = (TextView) v.findViewById(R.id.tvQuantity);
@@ -289,7 +284,7 @@ public class Fragment_order extends Fragment {
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping  , số bàn
+        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle(); // đưa giá trị đến home

@@ -162,7 +162,7 @@ public class Fragment_bill extends Fragment {
         }
 
         //thay đổi trạng thái
-        table.set(tableNumber-1, false);
+        table.set(tableNumber-1, true);
         viewModel.setTables(table);
 
         deleteFile(fileName);

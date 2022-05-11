@@ -94,6 +94,7 @@ public class Fragment_menu_coffee extends Fragment {
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
         soban = bundle.getInt("soban");
+        String fileName = bundle.getString("fileName");
         Cursor cursor = null;
         ImageView back = (ImageView) v.findViewById(R.id.back);
 
@@ -167,6 +168,7 @@ public class Fragment_menu_coffee extends Fragment {
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
                 bund.putInt("soban",soban);
+                bund.putString("fileName", fileName);
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }
         });

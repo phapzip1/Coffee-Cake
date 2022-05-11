@@ -148,12 +148,13 @@ public class Fragment_drinks_table extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getTitle().equals("Tính tiền")) {
                             Bundle bundle = new Bundle();
-                            bundle.putInt("key1", i+1);
+                            bundle.putInt("key1", i);
                             bundle.putString("key2", fileName);
                             Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
                         } else if (item.getTitle().equals("Gọi món")) {
                             Bundle bund = new Bundle();
                             bund.putInt("soban",i);
+                            bund.putString("filename", fileName);
                             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
                         }
                         return true;

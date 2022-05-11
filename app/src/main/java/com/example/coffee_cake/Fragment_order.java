@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -15,11 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -81,12 +85,19 @@ public class Fragment_order extends Fragment {
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
     String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
+    File path;
+    ArrayList<Boolean> table;
+    MyVM viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
+        table = viewModel.getTables();
+        path = getContext().getFilesDir();
 
 
         // ------------------------ Phần sử lý topping
@@ -293,9 +304,55 @@ public class Fragment_order extends Fragment {
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putInt("soban",soban);
                 //bundle.putString("gia",gia.getText().toString());
+
+                changeTableStatus(soban);
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }
         });
         return v;
+    }
+
+    private void changeTableStatus(int soban) {
+        Bundle bundle = getArguments();
+        String fileName = bundle.getString("key2");
+
+        File savedFile = new File(path + "/" + fileName);
+        if(!savedFile.exists()){
+            Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_SHORT).show();
+        }
+
+        //thay đổi trạng thái
+        table.set(soban, false);
+        viewModel.setTables(table);
+
+        deleteFile(fileName);
+        writeToFile(fileName);
+    }
+    private void writeToFile(String fileName) {
+        ArrayList<String> s = new ArrayList<>();
+
+        for(int i = 0; i < table.size(); i++){
+            s.add(i, table.get(i).toString());
+        }
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
+            for(int i = 0; i < table.size(); i++){
+                writer.write(s.get(i).getBytes());
+            }
+            writer.close();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteFile(String fileName) {
+        File savedFile = new File(path + "/" + fileName);
+
+        if (!savedFile.exists())
+            Toast.makeText(getContext(), "Không tồn tại file",
+                    Toast.LENGTH_SHORT).show();
+        else {
+            savedFile.delete();
+        }
     }
 }

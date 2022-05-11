@@ -344,7 +344,7 @@ public class Fragment_order extends Fragment {
 
     private void changeTableStatus(int soban) {
         Bundle bundle = getArguments();
-        String fileName = bundle.getString("key2");
+        String fileName = bundle.getString("fileName");
 
         File savedFile = new File(path + "/" + fileName);
         if(!savedFile.exists()){
@@ -352,7 +352,7 @@ public class Fragment_order extends Fragment {
         }
 
         //thay đổi trạng thái
-        table.set(soban, false);
+        table.set(soban, true);
         viewModel.setTables(table);
 
         deleteFile(fileName);

@@ -1,5 +1,6 @@
 package com.example.coffee_cake;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -79,16 +80,20 @@ public class Fragment_order extends Fragment {
     int sl,soban;
     Bundle bund;
     String size = "S";
-
     MaterialCardView selectCard;
     TextView tvtopping;
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
-    String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
+    //String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
     File path;
     ArrayList<Boolean> table;
     MyVM viewModel;
+    Cursor cursor = null;
+    ArrayList<Product> arraytopping;
 
+    String[] mangtentopping = new String[50];
+    int[] manggiatopping = new int[50];
+    @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,14 +104,31 @@ public class Fragment_order extends Fragment {
         table = viewModel.getTables();
         path = getContext().getFilesDir();
 
-
         // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
-
-        toppinglist = new ArrayList<>();
         tvtopping = (TextView) v.findViewById(R.id.tvtopping);
-        selecttopping = new boolean[toppingAraay.length];
+        toppinglist = new ArrayList<>(); // lưu vị trí của từng phần tử
 
+
+        DBHelper db = new DBHelper(getActivity());
+        cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
+        int i=0;
+        while(cursor.moveToNext())
+        {
+            //String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+
+            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+            mangtentopping[i] = TENSP;
+
+            //int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+            //manggiatopping[i] = cursor.getInt(cursor.getColumnIndex("GIA"));
+
+//            Product temp = new Product(MASP,TENSP,GIA);
+//            arraytopping.add(temp);
+            i++;
+        }
+
+        selecttopping = new boolean[mangtentopping.length]; // lưu đã chọn phần tử đó chưa (T/F)
 
         selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
             @Override
@@ -114,31 +136,39 @@ public class Fragment_order extends Fragment {
                 showtoppingDialog();
             }
             private void showtoppingDialog() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // khởi tạo hộp thoại
 
                 builder.setTitle("Lựa Chọn Topping");
-                builder.setCancelable(false);
+                builder.setCancelable(false); // đặt hộp thoại không thể hủy
 
                 // String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
                 // boolean[] selecttopping;
                 // ArrayList<Integer> toppinglist;
-                builder.setMultiChoiceItems(toppingAraay, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
+
+                builder.setMultiChoiceItems(mangtentopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        if (b)
+                        if (b) // khi click vào thì sẽ được thêm vào list ( T/F )
+                            //Khi lựa chọn trong chatbox --> thêm vào trong list
                             toppinglist.add(i);
                         else
-                            toppinglist.remove(i);
+                            //Khi không chọn trong chatbox --> xóa vào trong list
+                            toppinglist.remove(Integer.valueOf(i));
                     }
                 }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         StringBuilder stringBuilder = new StringBuilder();
-                        for ( int j=0; j<toppinglist.size();j++)
+
+                        for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
                         {
-                            stringBuilder.append(toppingAraay[toppinglist.get(j)]);
+                            // stringBuilder: 1 cái mảng lấy thành phần trong box
+                            stringBuilder.append(mangtentopping[toppinglist.get(j)]);
+
                             if (j != toppinglist.size() -1 )
                             {
+                                // để kiểm tra giá trị j và thêm vào dấu ","
                                 stringBuilder.append(", ");
                             }
                             tvtopping.setText(stringBuilder.toString());
@@ -150,11 +180,11 @@ public class Fragment_order extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
-                }).setNegativeButton("Xóa tất cả", new DialogInterface.OnClickListener() {
+                }).setNeutralButton("Xóa tất cả", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        for ( int j = 0 ; j< selecttopping.length ; j++)
+                        for ( int j = 0 ; j < selecttopping.length ; j++) // đã có cái nào chọn rồi thì false nó lại
                         {
                             selecttopping[j] = false;
                             toppinglist.clear();

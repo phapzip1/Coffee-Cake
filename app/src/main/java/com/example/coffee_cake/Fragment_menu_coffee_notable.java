@@ -106,7 +106,6 @@ public class Fragment_menu_coffee_notable extends Fragment {
                 cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
                 break;
         }
-
         while(cursor.moveToNext())
         {
             String MASP = cursor.getString(cursor.getColumnIndex("MASP"));

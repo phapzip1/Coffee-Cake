@@ -90,6 +90,7 @@ public class Fragment_order extends Fragment {
     MyVM viewModel;
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
+    int tientopping = 0 ;
 
     String[] mangtengiatopping,mangtentopping;
     int[] manggiatopping;
@@ -104,6 +105,149 @@ public class Fragment_order extends Fragment {
         table = viewModel.getTables();
         path = getContext().getFilesDir();
         arraytopping = new ArrayList<>();
+
+        name = (TextView) v.findViewById(R.id.tvOrder);
+        soluong = (TextView) v.findViewById(R.id.tvQuantity);
+
+        gia = (TextView) v.findViewById(R.id.tvPrice);
+
+        s = (TextView) v.findViewById(R.id.sizeS);
+        m = (TextView) v.findViewById(R.id.sizeM);
+        l = (TextView) v.findViewById(R.id.sizeL);
+
+        bund = getArguments(); // lấy giá trị, có số bàn
+
+        soban = bund.getInt("soban");
+        add = (ImageView) v.findViewById(R.id.btnAdd);
+        remove = (ImageView) v.findViewById(R.id.btnRemove);
+        sl = 1;
+        bs = true;
+        bm = false;
+        bl = false;
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sl++;
+                soluong.setText(String.valueOf(sl));
+                if (bs)
+                    gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                else if (bm)
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
+                else
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
+
+            }
+        });
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sl>1)
+                {
+                    sl--;
+                    soluong.setText(String.valueOf(sl));
+
+                    if (bs)
+                        gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                    else if (bm)
+                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
+                    else
+                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
+
+                }
+            }
+        });
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bm==true || bl== true )
+                {
+                    size = "S";
+                    gia.setText(String.valueOf(sl*bund.getInt("GIA") + tientopping));
+                    bs = true;
+                    s.setTextColor(Color.parseColor("#ffffff"));
+                    s.setBackgroundResource(R.drawable.round_bg);
+
+                    bm = bl = false;
+                    m.setText("M");
+                    m.setTextColor(Color.parseColor("#111111"));
+                    m.setBackgroundResource(R.drawable.round_bg_white);
+
+                    l.setText("L");
+                    l.setTextColor(Color.parseColor("#000000"));
+                    l.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+
+        m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bs==true || bl== true )
+                {
+                    size = "M";
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 + tientopping ) ));
+                    bm = true;
+                    m.setTextColor(Color.parseColor("#ffffff"));
+                    m.setBackgroundResource(R.drawable.round_bg);
+
+
+                    bs = bl = false;
+                    s.setText("S");
+                    s.setTextColor(Color.parseColor("#111111"));
+                    s.setBackgroundResource(R.drawable.round_bg_white);
+
+                    l.setText("L");
+                    l.setTextColor(Color.parseColor("#000000"));
+                    l.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+
+        l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( bm==true || bs== true )
+                {
+                    size = "L";
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 + tientopping ) ));
+                    bl = true;
+                    l.setTextColor(Color.parseColor("#ffffff"));
+                    l.setBackgroundResource(R.drawable.round_bg);
+
+                    bm = bs = false;
+                    m.setText("M");
+                    m.setTextColor(Color.parseColor("#111111"));
+                    m.setBackgroundResource(R.drawable.round_bg_white);
+
+                    s.setText("S");
+                    s.setTextColor(Color.parseColor("#000000"));
+                    s.setBackgroundResource(R.drawable.round_bg_white);
+
+                }
+            }
+        });
+        name.setText(bund.getString("TENSP"));
+        gia.setText(String.valueOf(bund.getInt("GIA")));
+
+        btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
+        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle(); // đưa giá trị đến home
+                bundle.putString("name",name.getText().toString());
+                bundle.putString("size",size.toString());
+                bundle.putString("soluong",soluong.getText().toString());
+                bundle.putInt("soban",soban);
+                //bundle.putString("gia",gia.getText().toString());
+                changeTableStatus(soban);
+                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
+            }
+        });
+
         // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
         tvtopping = (TextView) v.findViewById(R.id.tvtopping);
@@ -160,7 +304,7 @@ public class Fragment_order extends Fragment {
                 builder.setMultiChoiceItems(mangtengiatopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        if (b) // khi click vào thì sẽ được thêm vào list ( T/F )
+                        if (b) // khi click vào thì sẽ được thêm phần tử thứ i vào list
                             //Khi lựa chọn trong chatbox --> thêm vào trong list
                             toppinglist.add(i);
                         else
@@ -172,12 +316,13 @@ public class Fragment_order extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         StringBuilder stringBuilder = new StringBuilder();
-
+                        tientopping = 0 ;
                         for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
                         {
                             // stringBuilder: 1 cái mảng lấy thành phần trong box
-                            stringBuilder.append(mangtengiatopping[toppinglist.get(j)]);
+                            stringBuilder.append(mangtengiatopping[toppinglist.get(j)]); // mangtengiatopping[5]
                             //String giatemp = gia.toString();
+                            tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
                             //gia.setText(giatemp + manggiatopping[j]);
                             if (j != toppinglist.size() -1 )
                             {
@@ -186,7 +331,12 @@ public class Fragment_order extends Fragment {
                             }
                             tvtopping.setText(stringBuilder.toString());
                         }
-
+                        if (bs)
+                            gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                        else if (bm)
+                            gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
+                        else
+                            gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
                     }
                 }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                     @Override
@@ -201,158 +351,22 @@ public class Fragment_order extends Fragment {
                             selecttopping[j] = false;
                             toppinglist.clear();
                             tvtopping.setText("");
+                            tientopping = 0 ;
+                            if (bs)
+                                gia.setText( String.valueOf( sl * bund.getInt("GIA") ) );
+                            else if (bm)
+                                gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
+                            else
+                                gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
                         }
                     }
                 });
                 builder.show();
             }
         });
-    // --------------------------------------------------------------
-        name = (TextView) v.findViewById(R.id.tvOrder);
-        soluong = (TextView) v.findViewById(R.id.tvQuantity);
-
-        gia = (TextView) v.findViewById(R.id.tvPrice);
-
-        s = (TextView) v.findViewById(R.id.sizeS);
-        m = (TextView) v.findViewById(R.id.sizeM);
-        l = (TextView) v.findViewById(R.id.sizeL);
-
-        bund = getArguments(); // lấy giá trị, có số bàn
-
-        soban = bund.getInt("soban");
-        add = (ImageView) v.findViewById(R.id.btnAdd);
-        remove = (ImageView) v.findViewById(R.id.btnRemove);
-        sl = 1;
-        bs = true;
-        bm = false;
-        bl = false;
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sl++;
-                soluong.setText(String.valueOf(sl));
-                if (bs)
-                {
-                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
-                }
-                else if (bm)
-                {
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 ) ));
-                }
-                else if (bl)
-                {
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 ) ));
-                }
-
-            }
-        });
-
-        remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (sl>1)
-                {
-                    sl--;
-                    soluong.setText(String.valueOf(sl));
-
-                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
-
-                }
-            }
-        });
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( bm==true || bl== true )
-                {
-                    size = "S";
-                    gia.setText(String.valueOf(sl*bund.getInt("GIA")));
-                    bs = true;
-                    s.setTextColor(Color.parseColor("#ffffff"));
-                    s.setBackgroundResource(R.drawable.round_bg);
-
-                    bm = bl = false;
-                    m.setText("M");
-                    m.setTextColor(Color.parseColor("#111111"));
-                    m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    l.setText("L");
-                    l.setTextColor(Color.parseColor("#000000"));
-                    l.setBackgroundResource(R.drawable.round_bg_white);
-
-                }
-            }
-        });
-
-        m.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( bs==true || bl== true )
-                {
-                    size = "M";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 ) ));
-                    bm = true;
-                    m.setTextColor(Color.parseColor("#ffffff"));
-                    m.setBackgroundResource(R.drawable.round_bg);
-
-
-                    bs = bl = false;
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#111111"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
-
-                    l.setText("L");
-                    l.setTextColor(Color.parseColor("#000000"));
-                    l.setBackgroundResource(R.drawable.round_bg_white);
-
-                }
-            }
-        });
-
-        l.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( bm==true || bs== true )
-                {
-                    size = "L";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 ) ));
-                    bl = true;
-                    l.setTextColor(Color.parseColor("#ffffff"));
-                    l.setBackgroundResource(R.drawable.round_bg);
-
-                    bm = bs = false;
-                    m.setText("M");
-                    m.setTextColor(Color.parseColor("#111111"));
-                    m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#000000"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
-
-                }
-            }
-        });
-        name.setText(bund.getString("TENSP"));
-        gia.setText(String.valueOf(bund.getInt("GIA")));
-
-        btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle(); // đưa giá trị đến home
-                bundle.putString("name",name.getText().toString());
-                bundle.putString("size",size.toString());
-                bundle.putString("soluong",soluong.getText().toString());
-                bundle.putInt("soban",soban);
-                //bundle.putString("gia",gia.getText().toString());
-                changeTableStatus(soban);
-                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
-            }
-        });
+        // --------------------------------------------------------------
         return v;
     }
-
     private void changeTableStatus(int soban) {
         Bundle bundle = getArguments();
         String fileName = bundle.getString("fileName");

@@ -44,7 +44,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvmasptable"
+                    android:id="@+id/tvsoluong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mô tả"
@@ -52,7 +52,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvpricetable"
+                    android:id="@+id/tvtopping"
                     android:text="Giá: $10"
                     android:textColor="@color/dennhat"
                     android:textSize="16sp"

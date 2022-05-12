@@ -162,7 +162,7 @@ public class Fragment_bill extends Fragment {
         }
 
         //thay đổi trạng thái
-        table.set(tableNumber-1, false);
+        table.set(tableNumber, false);
         viewModel.setTables(table);
 
         deleteFile(fileName);
@@ -200,7 +200,7 @@ public class Fragment_bill extends Fragment {
 
     private void getTableNumber(View view) {
         Bundle bundle = getArguments();
-        ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + bundle.getInt("key1"));
+        ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + (bundle.getInt("key1") + 1));
     }
 
     private void getDateTime(View view) {

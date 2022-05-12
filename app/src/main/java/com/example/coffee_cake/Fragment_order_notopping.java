@@ -7,17 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_home#newInstance} factory method to
+ * Use the {@link Fragment_order_notopping#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_home extends Fragment {
+public class Fragment_order_notopping extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +24,7 @@ public class Fragment_home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_home() {
+    public Fragment_order_notopping() {
         // Required empty public constructor
     }
 
@@ -38,11 +34,11 @@ public class Fragment_home extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_home.
+     * @return A new instance of fragment Fragment_order_notopping.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_home newInstance(String param1, String param2) {
-        Fragment_home fragment = new Fragment_home();
+    public static Fragment_order_notopping newInstance(String param1, String param2) {
+        Fragment_order_notopping fragment = new Fragment_order_notopping();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,42 +54,14 @@ public class Fragment_home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    ListView listDrinks;
-    OrderDrinksAdapter adapter;
-    ArrayList<OrderDrinks> arrayList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_order_notopping, container, false);
 
-        listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
-        arrayList = new ArrayList<>();
 
-        adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
-
-        listDrinks.setAdapter(adapter);
-
-        Bundle bundle = getArguments();
-
-        if (bundle != null)
-        {
-//            Tên (Size)
-//            Số lượng
-//            Topping
-//            Bàn
-            String name = bundle.getString("name");
-            String size = bundle.getString("size");
-            String soluong = bundle.getString("soluong");
-            String topping = "";
-            int soban = bundle.getInt("soban");
-            //int gia = Integer.parseInt(bundle.getString("gia"));
-
-            OrderDrinks temp = new OrderDrinks(name,size,soluong,topping,soban+1);
-
-            arrayList.add(temp);
-            adapter.notifyDataSetChanged();
-        }
-        return view;
+        return v;
     }
 }

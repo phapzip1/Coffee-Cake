@@ -12,20 +12,18 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_menu_coffee#newInstance} factory method to
+ * Use the {@link Fragment_menu_coffee_notable#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_menu_coffee extends Fragment {
+public class Fragment_menu_coffee_notable extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +34,7 @@ public class Fragment_menu_coffee extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_menu_coffee() {
+    public Fragment_menu_coffee_notable() {
         // Required empty public constructor
     }
 
@@ -46,11 +44,11 @@ public class Fragment_menu_coffee extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_menu_coffee.
+     * @return A new instance of fragment Fragment_menu_coffee_notable.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_menu_coffee newInstance(String param1, String param2) {
-        Fragment_menu_coffee fragment = new Fragment_menu_coffee();
+    public static Fragment_menu_coffee_notable newInstance(String param1, String param2) {
+        Fragment_menu_coffee_notable fragment = new Fragment_menu_coffee_notable();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,44 +64,33 @@ public class Fragment_menu_coffee extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    ProductAdapter adapter;
+    ProductAdapterUpdate adapter;
     ArrayList<Product> arrayList;
-    ListView lvcoffee;
-    EditText edtcoffee;
+    ListView lvcoffeeno;
+    EditText edtcoffeeno;
     String tam;
-    int soban;
-    //String xacnhan = "";
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_menu_coffee, container, false);
+        View v = inflater.inflate(R.layout.fragment_menu_coffee_notable, container, false);
 
         DBHelper db = new DBHelper(getActivity());
-        edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
-        lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
+        edtcoffeeno = (EditText) v.findViewById(R.id.edtcoffeeno);
+        lvcoffeeno = (ListView) v.findViewById(R.id.lvcoffeeno);
 
         arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
-        lvcoffee.setAdapter(adapter);
+        adapter = new ProductAdapterUpdate(getActivity(),R.layout.layout_menu_drinks_notable_update,arrayList);
+        lvcoffeeno.setAdapter(adapter);
         arrayList.clear();
 
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
-        soban = bundle.getInt("soban");
-        String fileName = bundle.getString("fileName");
-        Cursor cursor = null;
-        ImageView back = (ImageView) v.findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_menuMenu);
-            }
-        });
+        Cursor cursor = null;
+
         switch (tam)
         {
             case "coffee":
@@ -127,49 +114,32 @@ public class Fragment_menu_coffee extends Fragment {
             Product temp = new Product(MASP,TENSP,GIA);
             arrayList.add(temp);
         }
-//
-        edtcoffee.addTextChangedListener(new TextWatcher() {
+        edtcoffeeno.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-                    arrayList.clear();
-                    while(cursor.moveToNext())
+                Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                arrayList.clear();
+                while(cursor.moveToNext())
+                {
+                    String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+                    if (TENSP.contains(edtcoffeeno.getText().toString()))
                     {
-                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-                        if (TENSP.contains(edtcoffee.getText().toString()))
-                        {
-                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-                            Product temp = new Product(MASP,TENSP,GIA);
-                            arrayList.add(temp);
-                        }
+                        String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+                        int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+                        Product temp = new Product(MASP,TENSP,GIA);
+                        arrayList.add(temp);
                     }
-                    adapter.notifyDataSetChanged();
+                }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void afterTextChanged(Editable editable) {
-            }
-        });
-
-        lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bund = new Bundle();
-
-                String Masp = arrayList.get(i).getMasp();
-                String Tensp = arrayList.get(i).getTensp();
-                int Gia = arrayList.get(i).getGia();
-
-                bund.putString("MASP",Masp);
-                bund.putString("TENSP",Tensp);
-                bund.putInt("GIA",Gia);
-                bund.putInt("soban",soban);
-                bund.putString("fileName", fileName);
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
             }
         });
         adapter.notifyDataSetChanged();

@@ -188,7 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/round_bg"
                                 android:padding="8dp"
-                                android:text="Topping - Bánh"
+                                android:text="Bánh"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />

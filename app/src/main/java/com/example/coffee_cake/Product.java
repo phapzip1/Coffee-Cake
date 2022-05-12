@@ -55,7 +55,7 @@ public class Product {
     }
 }
 
-class ProductAdapter extends BaseAdapter
+class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản phẩm ra
 {
 
     TextView tvname,tvmasp,tvprice;
@@ -103,6 +103,50 @@ class ProductAdapter extends BaseAdapter
             }
         });
 
+        return view;
+    }
+}
+class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể update data
+{
+    TextView tvnameupdate, tvmaspupdate, tvpriceupdate;
+    ImageView avaupdate;
+    private Context m_Context;
+    private ArrayList<Product> m_array;
+    private int m_Layout;
+
+    public ProductAdapterUpdate(Context context, int layout, ArrayList<Product> arrayList) {
+        m_Context = context;
+        m_Layout = layout;
+        m_array = arrayList;
+    }
+
+    @Override
+    public int getCount() {
+        return m_array.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) { // chưa
+        view = LayoutInflater.from(m_Context).inflate(m_Layout, null);
+        tvnameupdate = (TextView) view.findViewById(R.id.tvnameupdate);
+        tvmaspupdate = (TextView) view.findViewById(R.id.tvmaspupdate);
+        tvpriceupdate = (TextView) view.findViewById(R.id.tvpriceupdate);
+        avaupdate = (ImageView) view.findViewById(R.id.imageDrinkupdate);
+
+        tvnameupdate.setText(m_array.get(i).getTensp());
+        tvmaspupdate.setText(m_array.get(i).getMasp());
+        tvpriceupdate.setText(m_array.get(i).getGia() + "");
+        Picasso.get().load("https://i.ibb.co/d5q4hzc/IMG-0031.jpg").into(avaupdate);
         return view;
     }
 }

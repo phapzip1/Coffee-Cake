@@ -91,8 +91,8 @@ public class Fragment_order extends Fragment {
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
 
-    String[] mangtentopping = new String[50];
-    int[] manggiatopping = new int[50];
+    String[] mangtentopping;
+    int[] manggiatopping;
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,7 +103,7 @@ public class Fragment_order extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
         table = viewModel.getTables();
         path = getContext().getFilesDir();
-
+        arraytopping = new ArrayList<>();
         // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
         tvtopping = (TextView) v.findViewById(R.id.tvtopping);
@@ -113,19 +113,31 @@ public class Fragment_order extends Fragment {
         DBHelper db = new DBHelper(getActivity());
         cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
         int i=0;
+
         while(cursor.moveToNext())
         {
-            //String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
 
             String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-            mangtentopping[i] = TENSP;
 
-            //int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-            //manggiatopping[i] = cursor.getInt(cursor.getColumnIndex("GIA"));
 
-//            Product temp = new Product(MASP,TENSP,GIA);
-//            arraytopping.add(temp);
-            i++;
+            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+
+
+            Product temp = new Product(MASP,TENSP,GIA);
+            arraytopping.add(temp); //  --> số lượng topping
+        }
+//        mangtentopping[i] = TENSP;
+//        manggiatopping[i] = cursor.getInt(cursor.getColumnIndex("GIA"));
+        mangtentopping = new String[arraytopping.size()];
+        manggiatopping = new int[arraytopping.size()];
+
+        for (int z=0;z<arraytopping.size();z++)
+        {
+            manggiatopping[z] = arraytopping.get(z).getGia();
+            //mangtentopping: topping + giá
+            mangtentopping[z] = arraytopping.get(z).getTensp() + "\t \t" + manggiatopping[z];
+
         }
 
         selecttopping = new boolean[mangtentopping.length]; // lưu đã chọn phần tử đó chưa (T/F)

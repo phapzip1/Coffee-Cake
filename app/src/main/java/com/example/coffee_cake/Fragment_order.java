@@ -91,7 +91,7 @@ public class Fragment_order extends Fragment {
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
 
-    String[] mangtentopping;
+    String[] mangtengiatopping,mangtentopping;
     int[] manggiatopping;
     @SuppressLint("Range")
     @Override
@@ -129,18 +129,18 @@ public class Fragment_order extends Fragment {
         }
 //        mangtentopping[i] = TENSP;
 //        manggiatopping[i] = cursor.getInt(cursor.getColumnIndex("GIA"));
+
         mangtentopping = new String[arraytopping.size()];
         manggiatopping = new int[arraytopping.size()];
+        mangtengiatopping = new String[arraytopping.size()];
 
         for (int z=0;z<arraytopping.size();z++)
         {
             manggiatopping[z] = arraytopping.get(z).getGia();
-            //mangtentopping: topping + giá
-            mangtentopping[z] = arraytopping.get(z).getTensp() + "\t \t" + manggiatopping[z];
-
+            mangtentopping[z] = arraytopping.get(z).getTensp();
+            mangtengiatopping[z] = arraytopping.get(z).getTensp() + "\t \t \t" + manggiatopping[z];
         }
-
-        selecttopping = new boolean[mangtentopping.length]; // lưu đã chọn phần tử đó chưa (T/F)
+        selecttopping = new boolean[mangtengiatopping.length]; // lưu đã chọn phần tử đó chưa (T/F)
 
         selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
             @Override
@@ -157,7 +157,7 @@ public class Fragment_order extends Fragment {
                 // boolean[] selecttopping;
                 // ArrayList<Integer> toppinglist;
 
-                builder.setMultiChoiceItems(mangtentopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
+                builder.setMultiChoiceItems(mangtengiatopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                         if (b) // khi click vào thì sẽ được thêm vào list ( T/F )
@@ -176,8 +176,9 @@ public class Fragment_order extends Fragment {
                         for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
                         {
                             // stringBuilder: 1 cái mảng lấy thành phần trong box
-                            stringBuilder.append(mangtentopping[toppinglist.get(j)]);
-
+                            stringBuilder.append(mangtengiatopping[toppinglist.get(j)]);
+                            //String giatemp = gia.toString();
+                            //gia.setText(giatemp + manggiatopping[j]);
                             if (j != toppinglist.size() -1 )
                             {
                                 // để kiểm tra giá trị j và thêm vào dấu ","
@@ -195,7 +196,6 @@ public class Fragment_order extends Fragment {
                 }).setNeutralButton("Xóa tất cả", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         for ( int j = 0 ; j < selecttopping.length ; j++) // đã có cái nào chọn rồi thì false nó lại
                         {
                             selecttopping[j] = false;
@@ -207,7 +207,7 @@ public class Fragment_order extends Fragment {
                 builder.show();
             }
         });
-
+    // --------------------------------------------------------------
         name = (TextView) v.findViewById(R.id.tvOrder);
         soluong = (TextView) v.findViewById(R.id.tvQuantity);
 
@@ -346,7 +346,6 @@ public class Fragment_order extends Fragment {
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putInt("soban",soban);
                 //bundle.putString("gia",gia.getText().toString());
-
                 changeTableStatus(soban);
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }

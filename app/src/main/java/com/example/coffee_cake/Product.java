@@ -1,6 +1,7 @@
 package com.example.coffee_cake;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -52,6 +57,7 @@ public class Product {
 
 class ProductAdapter extends BaseAdapter
 {
+
     TextView tvname,tvmasp,tvprice;
     ImageView ava;
     private Context m_Context;
@@ -79,7 +85,7 @@ class ProductAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) { // chưa
+    public View getView(int i, View view, ViewGroup viewGroup) {
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
         tvname = (TextView) view.findViewById(R.id.tvname);
         tvmasp = (TextView) view.findViewById(R.id.tvmasp);
@@ -89,7 +95,14 @@ class ProductAdapter extends BaseAdapter
         tvname.setText(m_array.get(i).getTensp());
         tvmasp.setText(m_array.get(i).getMasp());
         tvprice.setText(m_array.get(i).getGia()+"");
-        Picasso.get().load("https://i.ibb.co/d5q4hzc/IMG-0031.jpg").into(ava);
+        StorageReference pathReference = FirebaseStorage.getInstance("gs://firebasse-a6718.appspot.com").getReference().child("images/goods/CA01.jpg");
+        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(ava);
+            }
+        });
+
         return view;
     }
 }

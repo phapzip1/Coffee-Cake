@@ -8,13 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.squareup.picasso.Picasso;
+
+
 
 import java.util.ArrayList;
 
 class Staff {
     private String MANV, HOTEN, NGAYSINH, GIOITINH, SDT, NGVL, CHUCVU, CCCD;
     private float HESOLUONG;
+
+
+
     public Staff(String ma_nha_vien,
                 String ho_va_ten,
                 String ngay_thang_nam_sinh,
@@ -78,6 +84,7 @@ public class StaffAdapter extends BaseAdapter {
     private ArrayList<Staff> m_data;
     private int m_Layout;
 
+
     public StaffAdapter(Context context, int layout, ArrayList<Staff> data) {
         m_Context = context;
         m_data = data;
@@ -108,6 +115,7 @@ public class StaffAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.tvPosition)).setText(m_data.get(i).ChucVu());
         ((TextView)view.findViewById(R.id.tvPhone)).setText(m_data.get(i).SoDienThoai());
         ((TextView)view.findViewById(R.id.tvGender)).setText(m_data.get(i).GioiTinh());
+
         Picasso.get().load("https://i.ibb.co/WvVbMVS/machai.jpg").into((ImageView)view.findViewById(R.id.imgName));
         return view;
     }

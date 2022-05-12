@@ -86,6 +86,12 @@ public class Fragment_home extends Fragment {
             String size = bundle.getString("size");
             String soluong = bundle.getString("soluong");
             String topping = "";
+
+            if (bundle.getString("topping") =="")
+                 topping = "Không có";
+            else
+                topping = bundle.getString("topping");
+
             int soban = bundle.getInt("soban");
             //int gia = Integer.parseInt(bundle.getString("gia"));
 

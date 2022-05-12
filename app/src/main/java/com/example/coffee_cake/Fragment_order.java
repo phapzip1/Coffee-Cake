@@ -94,6 +94,7 @@ public class Fragment_order extends Fragment {
 
     String[] mangtengiatopping,mangtentopping;
     int[] manggiatopping;
+    String tentoppingdachon = "";
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -242,6 +243,8 @@ public class Fragment_order extends Fragment {
                 bundle.putString("size",size.toString());
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putInt("soban",soban);
+                bundle.putString("topping",tentoppingdachon);
+
                 //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
@@ -322,12 +325,14 @@ public class Fragment_order extends Fragment {
                             // stringBuilder: 1 cái mảng lấy thành phần trong box
                             stringBuilder.append(mangtengiatopping[toppinglist.get(j)]); // mangtengiatopping[5]
                             //String giatemp = gia.toString();
+                            tentoppingdachon +=  mangtentopping[toppinglist.get(j)];
                             tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
                             //gia.setText(giatemp + manggiatopping[j]);
                             if (j != toppinglist.size() -1 )
                             {
                                 // để kiểm tra giá trị j và thêm vào dấu ","
                                 stringBuilder.append(", ");
+                                tentoppingdachon += ", ";
                             }
                             tvtopping.setText(stringBuilder.toString());
                         }
@@ -351,6 +356,7 @@ public class Fragment_order extends Fragment {
                             selecttopping[j] = false;
                             toppinglist.clear();
                             tvtopping.setText("");
+                            tentoppingdachon = "";
                             tientopping = 0 ;
                             if (bs)
                                 gia.setText( String.valueOf( sl * bund.getInt("GIA") ) );

@@ -14,7 +14,7 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="140dp">
+            android:layout_height="wrap_content">
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageDrink"
                 app:riv_oval="true"
@@ -53,7 +53,7 @@
 
                 <TextView
                     android:id="@+id/tvtopping"
-                    android:text="Giá: $10"
+                    android:text="Topping"
                     android:textColor="@color/dennhat"
                     android:textSize="16sp"
                     android:textStyle="bold"

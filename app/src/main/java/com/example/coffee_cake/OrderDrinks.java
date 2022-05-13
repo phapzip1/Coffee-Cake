@@ -103,7 +103,7 @@ class  OrderDrinksAdapter extends BaseAdapter
 
         tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")" );
 
-        if (m_array.get(i).getTopping()==null) // tr
+        if (m_array.get(i).getTopping()==null) // ẩn đi textview topping nếu ko phải là trà sữa
             tvtopping.setVisibility(View.INVISIBLE);
         else
             tvtopping.setText( "Topping: " + m_array.get(i).getTopping() );

@@ -96,14 +96,6 @@ public class Fragment_menu_coffee extends Fragment {
         soban = bundle.getInt("soban");
         String fileName = bundle.getString("fileName");
         Cursor cursor = null;
-        ImageView back = (ImageView) v.findViewById(R.id.back);
-
-        back.setOnClickListener(new View.OnClickListener() { // xem
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_menuMenu);
-            }
-        });
         switch (tam)
         {
             case "coffee":
@@ -163,7 +155,6 @@ public class Fragment_menu_coffee extends Fragment {
                 String Masp = arrayList.get(i).getMasp();
                 String Tensp = arrayList.get(i).getTensp();
                 int Gia = arrayList.get(i).getGia();
-
                 bund.putString("MASP",Masp);
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
@@ -173,7 +164,6 @@ public class Fragment_menu_coffee extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order_notopping,bund);
-
             }
         });
         adapter.notifyDataSetChanged();

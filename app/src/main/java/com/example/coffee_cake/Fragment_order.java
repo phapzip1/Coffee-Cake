@@ -73,7 +73,7 @@ public class Fragment_order extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView name,soluong,gia,s,m,l,tvQuantity,tvPrice;
+    TextView name,soluong,gia,s,m,l;
     Button btnthemngay;
     Boolean bs,bl,bm;
     ImageView add,remove;
@@ -132,7 +132,7 @@ public class Fragment_order extends Fragment {
                 sl++;
                 soluong.setText(String.valueOf(sl));
                 if (bs)
-                    gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping  ) ));
                 else if (bm)
                     gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                 else
@@ -150,7 +150,7 @@ public class Fragment_order extends Fragment {
                     soluong.setText(String.valueOf(sl));
 
                     if (bs)
-                        gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping  ) ));
                     else if (bm)
                         gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                     else
@@ -231,6 +231,7 @@ public class Fragment_order extends Fragment {
                 }
             }
         });
+
         name.setText(bund.getString("TENSP"));
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
@@ -244,7 +245,6 @@ public class Fragment_order extends Fragment {
                 bundle.putString("soluong",soluong.getText().toString());
                 bundle.putInt("soban",soban);
                 bundle.putString("topping",tentoppingdachon);
-
                 //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
@@ -320,6 +320,7 @@ public class Fragment_order extends Fragment {
 
                         StringBuilder stringBuilder = new StringBuilder();
                         tientopping = 0 ;
+                        tentoppingdachon = "";
                         for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
                         {
                             // stringBuilder: 1 cái mảng lấy thành phần trong box

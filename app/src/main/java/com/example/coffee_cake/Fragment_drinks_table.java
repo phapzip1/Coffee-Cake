@@ -211,7 +211,6 @@ public class Fragment_drinks_table extends Fragment {
         loadTable();
         return view;
     }
-
     private void readFile(String fileName) {
         try {
             FileReader rdr = new FileReader(path + "/" + fileName);
@@ -232,7 +231,6 @@ public class Fragment_drinks_table extends Fragment {
             e.printStackTrace();
         }
     }
-
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 

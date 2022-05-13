@@ -82,9 +82,6 @@ public class Fragment_Menu extends Fragment {
             bundle.putString("fileName", fileName);
         }
 
-
-
-
          // số bàn ở đây
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,21 +90,19 @@ public class Fragment_Menu extends Fragment {
                 if (bundletable==null)
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 else
-                Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
-
         trasua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","trasua");
-                if (bundletable==null)
+                if (bundletable==null) // đi từ home --> menu
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
-                else
+                else // đi từ table --> menu
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
-
         sinhto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +113,6 @@ public class Fragment_Menu extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
-
         topping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +123,6 @@ public class Fragment_Menu extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });
-
         return v;
     }
 }

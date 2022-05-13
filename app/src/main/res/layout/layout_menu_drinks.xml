@@ -50,19 +50,18 @@
                     android:text="Mô tả"
                     android:textColor="@color/xanhlatuoi"
                     android:textSize="16sp" />
-
                 <TextView
-                    android:id="@+id/tvtopping"
-                    android:text="Topping"
-                    android:textColor="@color/dennhat"
+                    android:id="@+id/tvtable"
+                    android:text="Bàn 1"
+                    android:textColor="@color/color_main"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/tvtable"
-                    android:text="Bàn 1"
-                    android:textColor="@color/color_main"
+                    android:id="@+id/tvtopping"
+                    android:text="Topping"
+                    android:textColor="@color/dennhat"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"

@@ -42,9 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trà sữa Trân châu"
-            android:textStyle="bold"
             android:textColor="@color/dennhat"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgOder"
             android:outlineSpotShadowColor="@color/white"

@@ -3,6 +3,5 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/goiMon2"
         android:title="Gọi món"
-        android:icon="@drawable/order"
-        app:showAsAction="ifRoom|withText"/>
+        android:icon="@drawable/ic_baseline_free_breakfast_24" />
 </menu>

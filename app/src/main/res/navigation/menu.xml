@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_fragment_menu_coffee_to_menuMenu"
             app:destination="@id/menuMenu" />
+        <action
+            android:id="@+id/action_fragment_menu_coffee_to_fragment_order_notopping"
+            app:destination="@id/fragment_order_notopping" />
     </fragment>
     <fragment
         android:id="@+id/fragment_order"
@@ -132,4 +135,13 @@
         android:label="fragment_drinks_edit"
         tools:layout="@layout/fragment_drinks_edit" />
 
+<!--        android:label="Fragment_menu_coffee_notable" />-->
+    <fragment
+        android:id="@+id/fragment_order_notopping"
+        android:name="com.example.coffee_cake.Fragment_order_notopping"
+        android:label="Fragment_order_notopping" >
+        <action
+            android:id="@+id/action_fragment_order_notopping_to_menuHome"
+            app:destination="@id/menuHome" />
+    </fragment>
 </navigation>

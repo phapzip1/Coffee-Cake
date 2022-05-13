@@ -1,8 +1,11 @@
 package com.example.coffee_cake;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -87,7 +90,9 @@ public class Fragment_drinks_table extends Fragment {
     TableAdapter adapter;
     File path;
     boolean status;
+    MenuBuilder menuBuilder;
 //    Bundle xacnhan;
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -134,18 +139,22 @@ public class Fragment_drinks_table extends Fragment {
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                PopupMenu popupMenu = new PopupMenu(getContext(), view);
+                menuBuilder = new MenuBuilder(getContext());
+                MenuInflater inflater = new MenuInflater(getContext());
 
                 if(table.get(i)){
-                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_noempty, popupMenu.getMenu());
+                    inflater.inflate(R.menu.menu_for_noempty, menuBuilder);
                 }
                 else{
-                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_empty, popupMenu.getMenu());
+                    inflater.inflate(R.menu.menu_for_empty, menuBuilder);
                 }
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                MenuPopupHelper menuPopupHelper = new MenuPopupHelper(getContext(), menuBuilder, view);
+                menuPopupHelper.setForceShowIcon(true);
+
+                menuBuilder.setCallback(new MenuBuilder.Callback() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+                    public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                         if (item.getTitle().equals("Tính tiền")) {
                             Bundle bundle = new Bundle();
                             bundle.putInt("key1", i);
@@ -159,15 +168,49 @@ public class Fragment_drinks_table extends Fragment {
                         }
                         return true;
                     }
+
+                    @Override
+                    public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
+                    }
                 });
-                popupMenu.show();
+
+                menuPopupHelper.show();
+
+
+//                PopupMenu popupMenu = new PopupMenu(getContext(), view);
+//
+//                if(table.get(i)){
+//                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_noempty, popupMenu.getMenu());
+//                }
+//                else{
+//                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_empty, popupMenu.getMenu());
+//                }
+//
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        if (item.getTitle().equals("Tính tiền")) {
+//                            Bundle bundle = new Bundle();
+//                            bundle.putInt("key1", i);
+//                            bundle.putString("key2", fileName);
+//                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
+//                        } else if (item.getTitle().equals("Gọi món")) {
+//                            Bundle bund = new Bundle();
+//                            bund.putInt("soban",i);
+//                            bund.putString("filename", fileName);
+//                            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
+//                        }
+//                        return true;
+//                    }
+//                });
+//                popupMenu.show();
             }
         });
 
         loadTable();
         return view;
     }
-
     private void readFile(String fileName) {
         try {
             FileReader rdr = new FileReader(path + "/" + fileName);
@@ -188,7 +231,6 @@ public class Fragment_drinks_table extends Fragment {
             e.printStackTrace();
         }
     }
-
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 

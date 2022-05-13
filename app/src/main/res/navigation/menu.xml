@@ -109,5 +109,27 @@
     <fragment
         android:id="@+id/fragment_menu_coffee_notable2"
         android:name="com.example.coffee_cake.Fragment_menu_coffee_notable"
-        android:label="Fragment_menu_coffee_notable" />
+        android:label="Fragment_menu_coffee_notable" >
+        <action
+            android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_info"
+            app:destination="@id/fragment_drinks_info" />
+        <action
+            android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_edit"
+            app:destination="@id/fragment_drinks_edit" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_drinks_info"
+        android:name="com.example.coffee_cake.Fragment_drinks_info"
+        android:label="fragment_drinks_info"
+        tools:layout="@layout/fragment_drinks_info" >
+        <action
+            android:id="@+id/action_fragment_drinks_info_to_fragment_drinks_edit"
+            app:destination="@id/fragment_drinks_edit" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_drinks_edit"
+        android:name="com.example.coffee_cake.Fragment_drinks_edit"
+        android:label="fragment_drinks_edit"
+        tools:layout="@layout/fragment_drinks_edit" />
+
 </navigation>

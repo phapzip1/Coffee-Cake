@@ -3,10 +3,13 @@ package com.example.coffee_cake;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,21 @@ public class Fragment_drinks_info extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drinks_info, container, false);
+        View root = inflater.inflate(R.layout.fragment_drinks_info, container, false);
+
+        Bundle DrinkInfo = getArguments();
+
+
+        // get truc tiep tu database
+        ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(DrinkInfo.getString("NameDinks"));
+        ((TextView)root.findViewById(R.id.tvGia)).setText(DrinkInfo.getString("Gia"));
+
+        // get truc tiep tu data base
+
+        ((ImageView)root.findViewById(R.id.btnEditDrink)).setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_info_to_fragment_drinks_edit, DrinkInfo);
+        });
+
+        return root;
     }
 }

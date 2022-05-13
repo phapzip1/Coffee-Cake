@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class Fragment_menu_coffee_notable extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,8 @@ public class Fragment_menu_coffee_notable extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
     ProductAdapterUpdate adapter;
     ArrayList<Product> arrayList;
     ListView lvcoffeeno;
@@ -75,6 +79,8 @@ public class Fragment_menu_coffee_notable extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu_coffee_notable, container, false);
+
+
 
         DBHelper db = new DBHelper(getActivity());
         edtcoffeeno = (EditText) v.findViewById(R.id.edtcoffeeno);
@@ -143,6 +149,23 @@ public class Fragment_menu_coffee_notable extends Fragment {
             }
         });
         adapter.notifyDataSetChanged();
+
+        //hue
+        lvcoffeeno.setOnItemClickListener((adapterView, view, i, l) -> {
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("MASP", arrayList.get(i).getMasp());
+            bundle1.putString("TenSP", arrayList.get(i).getTensp());
+            bundle1.putInt("Gia", arrayList.get(i).getGia());
+
+            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_info, bundle1);
+        });
+
+        ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
+        });
+
+
+
         return v;
     }
 }

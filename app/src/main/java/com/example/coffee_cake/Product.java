@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.FirebaseStorage;
+//import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -95,14 +95,15 @@ class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản ph�
         tvname.setText(m_array.get(i).getTensp());
         tvmasp.setText(m_array.get(i).getMasp());
         tvprice.setText(m_array.get(i).getGia()+"");
-        StorageReference pathReference = FirebaseStorage.getInstance("gs://firebasse-a6718.appspot.com").getReference().child("images/goods/CA01.jpg");
-        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(ava);
-            }
-        });
-
+//        StorageReference pathReference = FirebaseStorage.getInstance("gs://firebasse-a6718.appspot.com").getReference().child("images/goods/CA01.jpg");
+//        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(ava);
+//            }
+//        });
+        // hue
+        Picasso.get().load("https://cdn.chotot.com/C_xyr_985fhfmnRunVDdkvpaW6asy_FbZUpKV7NfH38/preset:view/plain/eaadcc4a614a19526a3103b41f3db1d6-2751770130514705901.jpg").into(ava);
         return view;
     }
 }

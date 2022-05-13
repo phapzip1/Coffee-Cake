@@ -70,7 +70,7 @@ public class Fragment_menu_coffee extends Fragment {
     ProductAdapter adapter;
     ArrayList<Product> arrayList;
     ListView lvcoffee;
-    EditText edtcoffee;
+    EditText edtsearch;
     String tam;
     int soban;
     //String xacnhan = "";
@@ -82,7 +82,7 @@ public class Fragment_menu_coffee extends Fragment {
         View v = inflater.inflate(R.layout.fragment_menu_coffee, container, false);
 
         DBHelper db = new DBHelper(getActivity());
-        edtcoffee = (EditText) v.findViewById(R.id.edtcoffee);
+        edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
         arrayList = new ArrayList<>();
@@ -98,7 +98,7 @@ public class Fragment_menu_coffee extends Fragment {
         Cursor cursor = null;
         ImageView back = (ImageView) v.findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() { // xem
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_menuMenu);
@@ -128,7 +128,7 @@ public class Fragment_menu_coffee extends Fragment {
             arrayList.add(temp);
         }
 //
-        edtcoffee.addTextChangedListener(new TextWatcher() {
+        edtsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -140,7 +140,7 @@ public class Fragment_menu_coffee extends Fragment {
                     while(cursor.moveToNext())
                     {
                         String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-                        if (TENSP.contains(edtcoffee.getText().toString()))
+                        if (TENSP.contains(edtsearch.getText().toString()))
                         {
                             String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
                             int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
@@ -169,7 +169,11 @@ public class Fragment_menu_coffee extends Fragment {
                 bund.putInt("GIA",Gia);
                 bund.putInt("soban",soban);
                 bund.putString("fileName", fileName);
-                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
+                if (Masp.contains("TS")) // contains: chứa chuỗi
+                    Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
+                else
+                    Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order_notopping,bund);
+
             }
         });
         adapter.notifyDataSetChanged();

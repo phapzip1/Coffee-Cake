@@ -36,16 +36,17 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvOrder"
-            android:layout_marginLeft="24dp"
+            android:id="@+id/tvOrdernotopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
             android:text="Trà sữa Trân châu"
-            android:textStyle="bold"
             android:textColor="@color/dennhat"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgOder"
+            android:id="@+id/imgOdernotopping"
             android:outlineSpotShadowColor="@color/white"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"
@@ -78,7 +79,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/sizeS"
+                android:id="@+id/sizeSnotopping"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_marginLeft="24dp"
@@ -89,7 +90,7 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/sizeM"
+                android:id="@+id/sizeMnotopping"
                 android:text="M"
                 android:gravity="center"
                 android:background="@drawable/round_bg_white"
@@ -99,7 +100,7 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"/>
             <TextView
-                android:id="@+id/sizeL"
+                android:id="@+id/sizeLnotopping"
                 android:text="L"
                 android:gravity="center"
                 android:background="@drawable/round_bg_white"
@@ -126,14 +127,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/btnRemove"
+                android:id="@+id/btnRemovenotopping"
                 android:padding="8dp"
                 android:layout_marginLeft="24dp"
                 android:src="@drawable/ic_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:id="@+id/tvQuantity"
+                android:id="@+id/tvQuantitynotopping"
                 android:text="1"
                 android:gravity="center"
                 android:background="@drawable/round_bg_white"
@@ -143,7 +144,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"/>
             <ImageView
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnAddnotopping"
                 android:padding="8dp"
                 android:src="@drawable/ic_add"
                 android:layout_width="wrap_content"
@@ -176,7 +177,7 @@
                     android:layout_height="wrap_content">
                 </TextView>
                 <TextView
-                    android:id="@+id/tvPrice"
+                    android:id="@+id/tvPricenotopping"
                     android:text="10"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -190,7 +191,7 @@
 
             </LinearLayout>
             <Button
-                android:id="@+id/btnOrderNow"
+                android:id="@+id/btnOrderNownotopping"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_gravity="center"

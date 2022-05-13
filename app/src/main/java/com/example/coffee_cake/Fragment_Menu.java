@@ -101,9 +101,9 @@ public class Fragment_Menu extends Fragment {
             @Override
             public void onClick(View view) {
                 bundle.putString("temp","trasua");
-                if (bundletable==null)
+                if (bundletable==null) // đi từ home --> menu
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
-                else
+                else // đi từ table --> menu
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
             }
         });

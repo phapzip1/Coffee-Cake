@@ -1,10 +1,20 @@
 package com.example.coffee_cake;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +22,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,7 +89,21 @@ public class Fragment_staff_edit extends Fragment {
 
     final Calendar myCalendar1 = Calendar.getInstance(),
             myCalendar2 = Calendar.getInstance();
-    EditText edtDob, edtBegin;
+    EditText edtDob, edtBegin, edtName, edtId, edtIdentityNum,edtPhone, edtHSL;
+    ImageView avatar;
+    Button btnSave;
+
+    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                         if (result.getResultCode() == Activity.RESULT_OK)
+                         {
+                             Uri data = result.getData().getData();
+                             avatar.setImageURI(data);
+                         }
+                }
+            });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,21 +121,41 @@ public class Fragment_staff_edit extends Fragment {
 
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-mm-dd");
 
+        // initialize widget
         edtDob =  (EditText)root.findViewById(R.id.edtDob);
         edtBegin = (EditText)root.findViewById(R.id.edtBeginDate);
+        edtName = (EditText)root.findViewById(R.id.edtName);
+        edtIdentityNum = (EditText)root.findViewById(R.id.edtCCCD);
+        edtPhone = (EditText)root.findViewById(R.id.edtPhone);
+        edtHSL =  (EditText)root.findViewById(R.id.edtHSL);
+        avatar = (ImageView) root.findViewById(R.id.avatar);
+        btnSave = (Button) root.findViewById(R.id.btnSaveInfoStaff);
 
+
+        avatar.setOnClickListener(view -> {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            galleryIntent.setType("image/*");
+            launcher.launch(galleryIntent);
+        });
+
+        btnSave.setOnClickListener(view -> {
+
+            // đợi hoàn thành firestore database
+            ImageLoader.Upload("images/staff/", avatar);
+            // push du lieu len firestore database
+        });
 
         if (getArguments() != null) // Che do chinh sua nhan vien
         {
             Bundle data = getArguments();
 
             // hien thi thong tin co the thay doi duoc
-            ((EditText)root.findViewById(R.id.edtName)).setText(data.getString("Fullname"));
-            ((EditText)root.findViewById(R.id.edtCCCD)).setText(data.getString("CCCD"));
-            ((EditText)root.findViewById(R.id.edtDob)).setText(data.getString("Dob"));
-            ((EditText)root.findViewById(R.id.edtBeginDate)).setText(data.getString("BeginDate"));
-            ((EditText)root.findViewById(R.id.edtPhone)).setText(data.getString("Phone"));
-            ((EditText)root.findViewById(R.id.edtHSL)).setText(data.getFloat("HSL")+"");
+            edtName.setText(data.getString("Fullname"));
+            edtId.setText(data.getString("CCCD"));
+            edtDob.setText(data.getString("Dob"));
+            edtBegin.setText(data.getString("BeginDate"));
+            edtPhone.setText(data.getString("Phone"));
+            edtHSL.setText(data.getFloat("HSL")+"");
 
             try {
                 myCalendar1.setTime(dateFormat.parse(data.getString("Dob")));

@@ -105,21 +105,12 @@ class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản ph�
 //            }
 //        });
         // hue
-        loadImage(m_array.get(i).getMasp(), ava);
+        ImageLoader.Load("/images/goods/" + m_array.get(i).getMasp() + ".jpg", ava);
         Picasso.get().load("https://cdn.chotot.com/C_xyr_985fhfmnRunVDdkvpaW6asy_FbZUpKV7NfH38/preset:view/plain/eaadcc4a614a19526a3103b41f3db1d6-2751770130514705901.jpg").into(ava);
 
         return view;
     }
-    private void loadImage(String id, ImageView view)
-    {
-        StorageReference path = FirebaseStorage.getInstance().getReference().child("/images/goods/" + id + ".jpg");
-        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(view);
-            }
-        });
-    }
+
 }
 class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể update data
 {
@@ -162,20 +153,10 @@ class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể upd
         tvmaspupdate.setText(m_array.get(i).getMasp());
         tvpriceupdate.setText(m_array.get(i).getGia() + "");
 
-        loadImage(m_array.get(i).getMasp(), avaupdate);
+        ImageLoader.Load( "/images/goods/"  + m_array.get(i).getMasp() + ".jpg", avaupdate);
 
         return view;
     }
 
-    private void loadImage(String id, ImageView view)
-    {
-        StorageReference path = FirebaseStorage.getInstance().getReference().child("/images/goods/" + id + ".jpg");
-        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(view);
-            }
-        });
-    }
 }
 

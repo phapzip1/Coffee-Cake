@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseOptions;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -103,8 +105,20 @@ class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản ph�
 //            }
 //        });
         // hue
+        loadImage(m_array.get(i).getMasp(), ava);
         Picasso.get().load("https://cdn.chotot.com/C_xyr_985fhfmnRunVDdkvpaW6asy_FbZUpKV7NfH38/preset:view/plain/eaadcc4a614a19526a3103b41f3db1d6-2751770130514705901.jpg").into(ava);
+
         return view;
+    }
+    private void loadImage(String id, ImageView view)
+    {
+        StorageReference path = FirebaseStorage.getInstance().getReference().child("/images/goods/" + id + ".jpg");
+        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(view);
+            }
+        });
     }
 }
 class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể update data
@@ -147,8 +161,21 @@ class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể upd
         tvnameupdate.setText(m_array.get(i).getTensp());
         tvmaspupdate.setText(m_array.get(i).getMasp());
         tvpriceupdate.setText(m_array.get(i).getGia() + "");
-        Picasso.get().load("https://i.ibb.co/d5q4hzc/IMG-0031.jpg").into(avaupdate);
+
+        loadImage(m_array.get(i).getMasp(), avaupdate);
+
         return view;
+    }
+
+    private void loadImage(String id, ImageView view)
+    {
+        StorageReference path = FirebaseStorage.getInstance().getReference().child("/images/goods/" + id + ".jpg");
+        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(view);
+            }
+        });
     }
 }
 

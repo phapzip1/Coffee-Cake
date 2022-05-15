@@ -25,7 +25,9 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,8 +90,10 @@ public class Fragment_order extends Fragment {
     File path;
     ArrayList<Boolean> table;
     MyVM viewModel;
+    ViewModel_for_food viewModel_for_food;
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
+    ArrayList<OrderDrinks> foodOrders;
     int tientopping = 0 ;
 
     String[] mangtengiatopping,mangtentopping;
@@ -103,6 +107,11 @@ public class Fragment_order extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
+        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
+        foodOrders = new ArrayList<>();
+        if(viewModel_for_food.getQueues() != null){
+            foodOrders = viewModel_for_food.getQueues();
+        }
         table = viewModel.getTables();
         path = getContext().getFilesDir();
         arraytopping = new ArrayList<>();
@@ -247,6 +256,12 @@ public class Fragment_order extends Fragment {
                 bundle.putString("topping",tentoppingdachon);
                 //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
+                //lưu đồ order vào file
+                foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), tentoppingdachon, soban + 1));
+                viewModel_for_food.setQueues(foodOrders);
+
+                deleteFile("FoodQueue.txt");
+                saveFoodOrderIntoAFile("FoodQueue.txt");
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
             }
         });
@@ -374,6 +389,25 @@ public class Fragment_order extends Fragment {
         // --------------------------------------------------------------
         return v;
     }
+
+    private void saveFoodOrderIntoAFile(String foodQueue) {
+        ArrayList<String> s = new ArrayList<>();
+
+        for(int i = 0; i < foodOrders.size(); i++){
+            s.add(i, foodOrders.get(i).getName() + "/" + foodOrders.get(i).getSize() + "/" + foodOrders.get(i).getSoluong()
+            + "/" + foodOrders.get(i).getTopping() + "/" +  foodOrders.get(i).getSoban()+ "\n");
+        }
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, foodQueue));
+            for(int i = 0; i < s.size(); i++){
+                writer.write(s.get(i).getBytes());
+            }
+            writer.close();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void changeTableStatus(int soban) {
         Bundle bundle = getArguments();
         String fileName = bundle.getString("fileName");
@@ -390,6 +424,7 @@ public class Fragment_order extends Fragment {
         deleteFile(fileName);
         writeToFile(fileName);
     }
+
     private void writeToFile(String fileName) {
         ArrayList<String> s = new ArrayList<>();
 
@@ -410,10 +445,7 @@ public class Fragment_order extends Fragment {
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 
-        if (!savedFile.exists())
-            Toast.makeText(getContext(), "Không tồn tại file",
-                    Toast.LENGTH_SHORT).show();
-        else {
+        if (savedFile.exists()){
             savedFile.delete();
         }
     }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 class Staff {
     private String MANV, HOTEN, NGAYSINH, GIOITINH, SDT, NGVL, CHUCVU, CCCD;
-    private float HESOLUONG;
+    private double HESOLUONG;
 
 
 
@@ -33,7 +33,7 @@ class Staff {
                 String ngay_vao_lam,
                 String chuc_vu,
                 String cccd_cmnd,
-                float he_so_luong) {
+                double he_so_luong) {
         MANV = ma_nha_vien;
         HOTEN = ho_va_ten;
         NGAYSINH = ngay_thang_nam_sinh;
@@ -45,7 +45,7 @@ class Staff {
         HESOLUONG = he_so_luong;
     }
 
-    public float HeSoLuong() {
+    public double HeSoLuong() {
         return HESOLUONG;
     }
 

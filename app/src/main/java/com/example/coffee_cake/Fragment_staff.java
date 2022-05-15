@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Binder;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -13,6 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -67,36 +74,40 @@ public class Fragment_staff extends Fragment {
     StaffAdapter adapter;
     ListView listView ;
 
-    @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_staff, container, false);
 
-        DBHelper db = new DBHelper(getActivity());
-
-        staffs = new ArrayList<>();
-        adapter = new StaffAdapter(getActivity(), R.layout.layout_staff_manage, staffs);
         listView = (ListView) root.findViewById(R.id.ListOfStaffs);
-        listView.setAdapter(adapter);
-        staffs.clear();
-        Cursor cs = db.getReadableDatabase().rawQuery("SELECT * FROM NHANVIEN", null);
-        while(cs.moveToNext())
-        {
-            String CCCD = cs.getString(cs.getColumnIndex("CCCD")),
-                    HOTEN = cs.getString(cs.getColumnIndex("HOTEN")),
-                    NGAYSINH = cs.getString(cs.getColumnIndex("NGAYSINH")),
-                    GIOITINH = cs.getString(cs.getColumnIndex("GIOITINH")),
-                    SDT = cs.getString(cs.getColumnIndex("SDT")),
-                    NGVL = cs.getString(cs.getColumnIndex("NGVL")),
-                    CHUCVU = cs.getString(cs.getColumnIndex("CHUCVU")),
-                    MANV = cs.getString(cs.getColumnIndex("MANV"));
-            float HeSoLuong = cs.getFloat(cs.getColumnIndex("HESOLUONG"));
-            staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, HeSoLuong));
-        }
-        cs.close();
-        adapter.notifyDataSetChanged();
+        FirebaseFirestore.getInstance().collection("/NHANVIEN").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    staffs = new ArrayList<>();
+                    for (QueryDocumentSnapshot data : task.getResult())
+                    {
+                        String CCCD = data.getString("CCCD"),
+                        HOTEN = data.getString("HOTEN"),
+                        NGAYSINH = data.getString("NGAYSINH"),
+                        GIOITINH = data.getString("GIOITINH"),
+                        SDT = data.getString("SDT"),
+                        NGVL = data.getString("NGVL"),
+                        CHUCVU = data.getString("CHUCVU"),
+                        MANV = data.getString("MANV");
+                        double HSL = (double)data.get("HESOLUONG");
+
+                        staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, HSL ));
+                    }
+                    adapter = new StaffAdapter(getActivity(), R.layout.layout_staff_manage, staffs);
+                    listView.setAdapter(adapter);
+
+                }
+            }
+        });
+
 
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Bundle bundle = new Bundle();
@@ -107,8 +118,7 @@ public class Fragment_staff extends Fragment {
             bundle.putString("Dob", staffs.get(i).NgayThangNamSinh());
             bundle.putString("BeginDate", staffs.get(i).NgayVaoLam());
             bundle.putString("Phone", staffs.get(i).SoDienThoai());
-            bundle.putFloat("HSL", staffs.get(i).HeSoLuong());
-            bundle.putString("MANV", staffs.get(i).MaNhanVien());
+            bundle.putDouble("HSL", staffs.get(i).HeSoLuong());
             bundle.putInt("index", i % 3);
 
             Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_info, bundle);

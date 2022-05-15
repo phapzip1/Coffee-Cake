@@ -1,6 +1,7 @@
 package com.example.coffee_cake;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
@@ -116,7 +120,16 @@ public class StaffAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.tvPhone)).setText(m_data.get(i).SoDienThoai());
         ((TextView)view.findViewById(R.id.tvGender)).setText(m_data.get(i).GioiTinh());
 
-        Picasso.get().load("https://i.ibb.co/WvVbMVS/machai.jpg").into((ImageView)view.findViewById(R.id.imgName));
+        String id;
+        if (i % 3 == 0)
+            id = "L.jpg";
+        else if (i % 3 == 1)
+            id = "mafia.jpg";
+        else id = "tommyxiaomi.jpg";
+
+        ImageLoader.Load( "images/staff/" + id, ((ImageView)view.findViewById(R.id.imgName)));
+
         return view;
     }
+
 }

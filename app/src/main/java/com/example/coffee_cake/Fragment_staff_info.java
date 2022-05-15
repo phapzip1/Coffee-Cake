@@ -77,6 +77,19 @@ public class Fragment_staff_info extends Fragment {
         ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
         ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
         ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getFloat("HSL"));
+
+        // cái này để test load ảnh xin đừng xóa
+        String id;
+        int i = staffInfo.getInt("index");
+        if (i  == 0)
+            id = "L.jpg";
+        else if (i  == 1)
+            id = "mafia.jpg";
+        else id = "tommyxiaomi.jpg";
+
+        ImageLoader.Load( "images/staff/" + id, ((ImageView)root.findViewById(R.id.avatar)));
+        //hihi
+
         // get truc tiep tu data base
 
         ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {

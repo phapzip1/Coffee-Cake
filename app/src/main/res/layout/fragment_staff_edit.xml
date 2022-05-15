@@ -33,6 +33,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_oval="true"
+            android:id="@+id/avatar"
             android:src="@drawable/misthy1"
             android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
@@ -239,6 +240,7 @@
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="numberSigned"
                     android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>

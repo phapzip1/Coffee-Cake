@@ -79,7 +79,9 @@ public class Fragment_order_notopping extends Fragment {
     TextView tvtopping;
     File path;
     ArrayList<Boolean> table;
+    ArrayList<OrderDrinks> foodOrders;
     MyVM viewModel;
+    ViewModel_for_food viewModel_for_food;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +90,13 @@ public class Fragment_order_notopping extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order_notopping, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
+        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
+        foodOrders = new ArrayList<>();
+
+        if(viewModel_for_food.getQueues() != null){
+            foodOrders = viewModel_for_food.getQueues();
+        }
+
         table = viewModel.getTables();
         path = getContext().getFilesDir();
         name = (TextView) v.findViewById(R.id.tvOrdernotopping);
@@ -226,12 +235,38 @@ public class Fragment_order_notopping extends Fragment {
                 //bundle.putString("topping",tentoppingdachon);
                 //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
+
+                foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), " ", soban + 1));
+                viewModel_for_food.setQueues(foodOrders);
+
+                deleteFile("FoodQueue.txt");
+                saveFoodOrderIntoAFile("FoodQueue.txt");
+
                 Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuHome,bundle);
             }
         });
 
         return v;
     }
+
+    private void saveFoodOrderIntoAFile(String foodQueue) {
+        ArrayList<String> s = new ArrayList<>();
+
+        for(int i = 0; i < foodOrders.size(); i++){
+            s.add(i, foodOrders.get(i).getName() + "/" + foodOrders.get(i).getSize() + "/" + foodOrders.get(i).getSoluong()
+                    + "/" + foodOrders.get(i).getTopping() + "/" +  foodOrders.get(i).getSoban()+ "\n");
+        }
+        try {
+            FileOutputStream writer = new FileOutputStream(new File(path, foodQueue));
+            for(int i = 0; i < s.size(); i++){
+                writer.write(s.get(i).getBytes());
+            }
+            writer.close();
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void changeTableStatus(int soban) {
         Bundle bundle = getArguments();
         String fileName = bundle.getString("fileName");
@@ -268,11 +303,7 @@ public class Fragment_order_notopping extends Fragment {
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 
-        if (!savedFile.exists())
-            Toast.makeText(getContext(), "Không tồn tại file",
-                    Toast.LENGTH_SHORT).show();
-        else {
+        if (savedFile.exists())
             savedFile.delete();
-        }
     }
 }

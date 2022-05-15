@@ -176,35 +176,6 @@ public class Fragment_drinks_table extends Fragment {
                 });
 
                 menuPopupHelper.show();
-
-
-//                PopupMenu popupMenu = new PopupMenu(getContext(), view);
-//
-//                if(table.get(i)){
-//                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_noempty, popupMenu.getMenu());
-//                }
-//                else{
-//                    popupMenu.getMenuInflater().inflate(R.menu.menu_for_empty, popupMenu.getMenu());
-//                }
-//
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        if (item.getTitle().equals("Tính tiền")) {
-//                            Bundle bundle = new Bundle();
-//                            bundle.putInt("key1", i);
-//                            bundle.putString("key2", fileName);
-//                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
-//                        } else if (item.getTitle().equals("Gọi món")) {
-//                            Bundle bund = new Bundle();
-//                            bund.putInt("soban",i);
-//                            bund.putString("filename", fileName);
-//                            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
-//                        }
-//                        return true;
-//                    }
-//                });
-//                popupMenu.show();
             }
         });
 

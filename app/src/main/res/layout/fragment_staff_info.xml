@@ -15,7 +15,7 @@
         app:cardUseCompatPadding="true"
         android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="276dp"
+        android:layout_height="280dp"
         android:src="@drawable/round_bg_white_min">
     </ImageView>
 
@@ -63,15 +63,18 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
+            android:weightSum="8"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:layout_weight="4"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="Chức vụ"
@@ -91,8 +94,12 @@
             <!--                    android:layout_height="wrap_content" />-->
                 <TextView
                     android:id="@+id/tvPosition"
-                    android:text="Quản lý"
+                    android:text="Nhân viên bán hàng"
                     android:textSize="18sp"
+                    android:lines="2"
+                    android:gravity="center"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -100,17 +107,18 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_marginLeft="40dp"
+                android:layout_weight="0"
                 android:layout_gravity="center"
                 android:background="#ccc"
                 android:layout_width="2dp"
                 android:layout_height="30dp"/>
 
             <LinearLayout
-                android:layout_marginLeft="42dp"
+                android:layout_weight="4"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="Giới tính"
@@ -132,6 +140,8 @@
                 <TextView
                     android:id="@+id/tvGender"
                     android:text="Nữ"
+                    android:gravity="center"
+                    android:lines="2"
                     android:textSize="18sp"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"
@@ -141,7 +151,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -181,7 +191,7 @@
         </LinearLayout>
 
         <ScrollView
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="36dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout

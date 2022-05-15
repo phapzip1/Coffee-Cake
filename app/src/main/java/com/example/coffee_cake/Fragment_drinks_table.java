@@ -91,7 +91,6 @@ public class Fragment_drinks_table extends Fragment {
     File path;
     boolean status;
     MenuBuilder menuBuilder;
-//    Bundle xacnhan;
     @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,8 +103,6 @@ public class Fragment_drinks_table extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
         table = new ArrayList<>();
         path = getContext().getFilesDir();
-
-//        xacnhan.putString("xacnhan","xacnhan");
 
         File savedFile = new File(path + "/" + fileName);
         if(!savedFile.exists()){
@@ -182,6 +179,7 @@ public class Fragment_drinks_table extends Fragment {
         loadTable();
         return view;
     }
+
     private void readFile(String fileName) {
         try {
             FileReader rdr = new FileReader(path + "/" + fileName);
@@ -202,6 +200,7 @@ public class Fragment_drinks_table extends Fragment {
             e.printStackTrace();
         }
     }
+
     private void deleteFile(String fileName) {
         File savedFile = new File(path + "/" + fileName);
 

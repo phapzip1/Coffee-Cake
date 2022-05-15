@@ -20,6 +20,13 @@ public class OrderDrinks {
         this.topping = topping;
         this.soban = soban;
     }
+    public OrderDrinks(String name, String size, String soluong,String topping) {
+        this.name = name;
+        this.size = size;
+        this.soluong = soluong;
+        this.topping = topping;
+    }
+
 
     public String getName() {
         return name;

@@ -3,14 +3,20 @@ package com.example.coffee_cake;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Switch;
 
+import java.io.File;
+import java.io.FileReader;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,12 +67,78 @@ public class Fragment_home extends Fragment {
     ListView listDrinks;
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
+    ViewModel_for_food viewModel_for_food;
+    File path;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        path = getContext().getFilesDir();
+        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
 
+        listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
+        arrayList = new ArrayList<>();
+
+        adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+
+        File savedFile = new File(path + "/" + "FoodQueue.txt");
+        if(savedFile.exists()){
+            readFile("FoodQueue.txt", view);
+            viewModel_for_food.setQueues(arrayList);
+        }
+        return view;
+    }
+    String name, size, soluong, topping = "";
+    int soban;
+    private void readFile(String s, View view) {
+        try {
+            FileReader rdr = new FileReader(path + "/" + s);
+            arrayList.clear();
+            char[] inputBuffer = new char[1024*1024];
+            String savedData = "";
+            int charRead = rdr.read(inputBuffer);
+            int i1 = 0; //stt món
+            for (int k = 0; k < charRead; k++) {
+                savedData += inputBuffer[k];
+                if(inputBuffer[k+1] == '/' || inputBuffer[k+1] == '\n'){
+                    switch (i1){
+                        case 0:
+                            name = savedData;
+                            break;
+                        case 1:
+                            size = savedData;
+                            break;
+                        case 2:
+                            soluong = savedData;
+                            break;
+                        case 3:
+                            topping = savedData;
+                            break;
+                        case 4:
+                            soban = Integer.parseInt(savedData);
+                            break;
+                    }
+                    i1++;
+                    k++;
+                    if(i1 == 5){
+                        OrderDrinks temp = new OrderDrinks(name,size,soluong,topping, soban);
+
+                        arrayList.add(temp);
+                        listDrinks.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        i1 = 0;
+                    }
+                    savedData = "";
+                }
+
+            } }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void loadAdapter(View view) {
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
         arrayList = new ArrayList<>();
 
@@ -78,20 +150,6 @@ public class Fragment_home extends Fragment {
 
         if (bundle != null)
         {
-//            Tên (Size)
-//            Số lượng
-//            Topping
-//            Bàn
-            String name = bundle.getString("name");
-            String size = bundle.getString("size");
-            String soluong = bundle.getString("soluong");
-            String topping = "";
-
-            if (bundle.getString("topping") =="")
-                 topping = "Không có";
-            else
-                topping = bundle.getString("topping");
-
             int soban = bundle.getInt("soban");
             //int gia = Integer.parseInt(bundle.getString("gia"));
 
@@ -100,6 +158,5 @@ public class Fragment_home extends Fragment {
             arrayList.add(temp);
             adapter.notifyDataSetChanged();
         }
-        return view;
     }
 }

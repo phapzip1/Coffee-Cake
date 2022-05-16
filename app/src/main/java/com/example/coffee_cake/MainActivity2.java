@@ -43,9 +43,9 @@ public class MainActivity2 extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity2.this);
                 builder.setIcon(R.drawable.ic_baseline_exit_to_app_blue);
-                builder.setTitle("Exit");
-                builder.setMessage("Are you sure ?");
-                builder.setPositiveButton("EXIT", new DialogInterface.OnClickListener() {
+                builder.setTitle("Đăng xuất");
+                builder.setMessage("Bạn muốn đăng xuất?");
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         FirebaseAuth.getInstance().signOut();
@@ -54,7 +54,7 @@ public class MainActivity2 extends AppCompatActivity {
                         finish();
                     }
                 });
-                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 

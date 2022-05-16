@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/cut_card_bg"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:paddingTop="12dp"
     tools:context=".Fragment_drinks_table">
     <LinearLayout
@@ -23,17 +23,21 @@
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/btnAddTable"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:layout_marginLeft="152dp"
-            android:background="@drawable/round_bg_white"
-            android:gravity="center"
-            android:src="@drawable/ic_add"
-            android:textColor="@color/white"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/btnAddTable"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/round_bg_white"
+                android:gravity="center"
+                android:src="@drawable/ic_add"
+                android:textColor="@color/white"
+                />
+        </RelativeLayout>
 
 
     </LinearLayout>

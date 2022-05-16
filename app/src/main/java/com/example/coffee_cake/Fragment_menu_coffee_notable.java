@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -11,11 +14,14 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -73,7 +79,11 @@ public class Fragment_menu_coffee_notable extends Fragment {
     ListView lvcoffeeno;
     EditText edtcoffeeno;
     String tam;
-    @SuppressLint("Range")
+
+    //
+    MenuBuilder menuBuilder;
+    //
+    @SuppressLint({"RestrictedApi", "Range"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,6 +161,41 @@ public class Fragment_menu_coffee_notable extends Fragment {
         adapter.notifyDataSetChanged();
 
         //hue
+
+        ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
+        });
+
+        lvcoffeeno.setOnItemLongClickListener((adapterView, view, i, l) -> {
+
+            menuBuilder = new MenuBuilder(getContext());
+            MenuInflater inflater1 = new MenuInflater(getContext());
+            inflater1.inflate(R.menu.menu_popup, menuBuilder);
+
+            MenuPopupHelper menuPopupHelper = new MenuPopupHelper(getContext(), menuBuilder, view);
+            menuPopupHelper.setForceShowIcon(true);
+            menuBuilder.setCallback(new MenuBuilder.Callback() {
+                @Override
+                public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.menuDelete:
+                            Toast.makeText(getContext(), "okioki", Toast.LENGTH_SHORT).show();
+                            return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
+                }
+            });
+            menuPopupHelper.show();
+
+
+            return true;
+        });
+
         lvcoffeeno.setOnItemClickListener((adapterView, view, i, l) -> {
             Bundle bundle1 = new Bundle();
             bundle1.putString("MASP", arrayList.get(i).getMasp());
@@ -158,10 +203,6 @@ public class Fragment_menu_coffee_notable extends Fragment {
             bundle1.putInt("Gia", arrayList.get(i).getGia());
 
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_info, bundle1);
-        });
-
-        ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
         });
 
 

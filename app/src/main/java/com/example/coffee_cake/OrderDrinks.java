@@ -16,6 +16,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
 import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
@@ -85,6 +90,7 @@ class  OrderDrinksAdapter extends BaseAdapter
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
+    ViewModel_for_food viewModel_for_food;
     private Context m_Context;
     private ArrayList<OrderDrinks> m_array;
     private int m_Layout;
@@ -122,10 +128,14 @@ class  OrderDrinksAdapter extends BaseAdapter
         daubacham = (ImageView)view.findViewById(R.id.imgDetail);
 
         tvnametable.setText(   m_array.get(i).getName()     );
+        viewModel_for_food = new ViewModelProvider(ViewModelStore::new).get(ViewModel_for_food.class);
+
+        if(viewModel_for_food.getQueues() == null)
+            Toast.makeText(m_Context, "NULL", Toast.LENGTH_SHORT).show();
 
         tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")" );
 
-        if (m_array.get(i).getTopping()==null) // ẩn đi textview topping nếu ko phải là trà sữa
+        if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" ")) // ẩn đi textview topping nếu ko phải là trà sữa
             tvtopping.setVisibility(View.INVISIBLE);
         else
             tvtopping.setText( "Topping: " + m_array.get(i).getTopping() );
@@ -147,15 +157,21 @@ class  OrderDrinksAdapter extends BaseAdapter
                     @Override
                     public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                         if (item.getTitle().equals("Hoàn thành")) {
-//                            Bundle bundle = new Bundle();
-//                            bundle.putInt("key1", i);
-//                            bundle.putString("key2", fileName);
-//                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
+                            //Toast.makeText(view.getContext(), "Bàn số " + m_array.get(i).getSoban(), Toast.LENGTH_SHORT).show();
+
+
+
                         } else if (item.getTitle().equals("Hủy bỏ")) {
-//                            Bundle bund = new Bundle();
-//                            bund.putInt("soban",i);
-//                            bund.putString("filename", fileName);
-//                            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
+                            m_array.remove(i);
+                            viewModel_for_food.setQueues(m_array);
+
+
+//                            Fragment frg = null;
+//                            frg = getSupportFragmentManager().findFragmentByTag("app_name");
+//                            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                            ft.detach(frg);
+//                            ft.attach(frg);
+//                            ft.commit();
                         }
                         return true;
                     }
@@ -168,7 +184,6 @@ class  OrderDrinksAdapter extends BaseAdapter
                 menuPopupHelper.show();
             }
         });
-
         return view;
     }
 }

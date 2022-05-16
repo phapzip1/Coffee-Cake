@@ -29,12 +29,22 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -86,11 +96,10 @@ public class Fragment_drinks_table extends Fragment {
 
     GridView tableList;
     ArrayList<Boolean> table;
-    private MyVM viewModel;
     TableAdapter adapter;
-    File path;
-    boolean status;
     MenuBuilder menuBuilder;
+
+    FirebaseFirestore db;
     @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,40 +107,41 @@ public class Fragment_drinks_table extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
+        db = FirebaseFirestore.getInstance();
 
-        String fileName = "table_status.txt";
-        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
-        table = new ArrayList<>();
-        path = getContext().getFilesDir();
-
-        File savedFile = new File(path + "/" + fileName);
-        if(!savedFile.exists()){
-            for(int j = 0; j < 10; j++){
-                Random rd = new Random();
-                table.add(rd.nextBoolean());
+        //Lưu trạng thái
+        db.collection("/TableStatus").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    table = new ArrayList<>();
+                    for (QueryDocumentSnapshot data : task.getResult())
+                    {
+                        boolean status = data.getBoolean("status");
+                        table.add(status);
+                    }
+                    loadTable();
+                }
             }
-            writeToFile(fileName);
-        }
-        readFile(fileName);
+        });
 
-        viewModel.setTables(table);
         ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                table.add(false);
-                viewModel.setTables(table);
+                Map<String, Object> map = new HashMap<>();
+                map.put("status", false);
 
-                deleteFile(fileName);
-                writeToFile(fileName);
+                //Lưu trạng thái
+                db.collection("/TableStatus").document(table.size() + 1 + "").set(map)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                            }
+                        });
             }
         });
 
-        viewModel.getData().observe(getViewLifecycleOwner(), new Observer<ArrayList<Boolean>>() {
-            @Override
-            public void onChanged(ArrayList<Boolean> booleans) {
-                adapter.notifyDataSetChanged();
-            }
-        });
 
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -155,12 +165,10 @@ public class Fragment_drinks_table extends Fragment {
                         if (item.getTitle().equals("Tính tiền")) {
                             Bundle bundle = new Bundle();
                             bundle.putInt("key1", i);
-                            bundle.putString("key2", fileName);
                             Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
                         } else if (item.getTitle().equals("Gọi món")) {
                             Bundle bund = new Bundle();
                             bund.putInt("soban",i);
-                            bund.putString("filename", fileName);
                             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
                         }
                         return true;
@@ -176,66 +184,7 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
-        loadTable();
         return view;
-    }
-
-    private void readFile(String fileName) {
-        try {
-            FileReader rdr = new FileReader(path + "/" + fileName);
-            table.clear();
-            char[] inputBuffer = new char[1024*1024];
-            String savedData = "";
-            int charRead = rdr.read(inputBuffer);
-            int i = 0; //số bàn
-            for (int k = 0; k < charRead; k++) {
-                savedData += inputBuffer[k];
-                if(isStatus(savedData)){
-                    table.add(i, status);
-                    i++;
-                    savedData = "";
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void deleteFile(String fileName) {
-        File savedFile = new File(path + "/" + fileName);
-
-        if (!savedFile.exists())
-            Toast.makeText(getContext(), "Không tồn tại file",
-                    Toast.LENGTH_SHORT).show();
-        else {
-            savedFile.delete();
-        }
-    }
-
-    private void writeToFile(String fileName) {
-        ArrayList<String> s = new ArrayList<>();
-
-        for(int i = 0; i < table.size(); i++){
-            s.add(i, table.get(i).toString());
-        }
-
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-            for(int i = 0; i < table.size(); i++){
-                writer.write(s.get(i).getBytes());
-            }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isStatus(String s) {
-        if(s.equals("true") || s.equals("false")){
-            status = (s.equals("true")? true: false);
-            return true;
-        }
-            return false;
     }
 
     private void loadTable() {

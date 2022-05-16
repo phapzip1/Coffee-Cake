@@ -8,7 +8,8 @@
     android:paddingTop="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment_home">
+    tools:context=".Fragment_home"
+    android:tag="@string/app_name">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

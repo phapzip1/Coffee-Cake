@@ -87,8 +87,9 @@ public class Fragment_statistic extends Fragment {
         Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2022), null);
 
         barChart = mview.findViewById(R.id.barChart);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         barChart.getXAxis().setGranularity(1.0f);
+        barChart.getXAxis();
        // barChart.getXAxis().setValueFormatter(new Formatter(MOY));
         barChart.getAxisLeft().setSpaceBottom(0);
         barChart.getAxisLeft().setDrawGridLines(false);
@@ -120,9 +121,9 @@ public class Fragment_statistic extends Fragment {
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "None");
         barDataSet.setColors(Color.argb( 200,22, 208, 255)); // ocean blue
-        barDataSet.setDrawValues(false);
+        barDataSet.setDrawValues(true);
 
-        barChart.invalidate();
+        //barChart.invalidate();
         barChart.setData(new BarData(barDataSet));
         barChart.animateY(3000);
 

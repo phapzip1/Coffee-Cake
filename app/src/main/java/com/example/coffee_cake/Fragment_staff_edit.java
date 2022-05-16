@@ -89,7 +89,7 @@ public class Fragment_staff_edit extends Fragment {
 
     final Calendar myCalendar1 = Calendar.getInstance(),
             myCalendar2 = Calendar.getInstance();
-    EditText edtDob, edtBegin, edtName, edtId, edtIdentityNum,edtPhone, edtHSL;
+    EditText edtDob, edtBegin, edtName, edtId,edtPhone, edtHSL;
     ImageView avatar;
     Button btnSave;
 
@@ -125,7 +125,7 @@ public class Fragment_staff_edit extends Fragment {
         edtDob =  (EditText)root.findViewById(R.id.edtDob);
         edtBegin = (EditText)root.findViewById(R.id.edtBeginDate);
         edtName = (EditText)root.findViewById(R.id.edtName);
-        edtIdentityNum = (EditText)root.findViewById(R.id.edtCCCD);
+        edtId = (EditText)root.findViewById(R.id.edtCCCD);
         edtPhone = (EditText)root.findViewById(R.id.edtPhone);
         edtHSL =  (EditText)root.findViewById(R.id.edtHSL);
         avatar = (ImageView) root.findViewById(R.id.avatar);
@@ -155,7 +155,7 @@ public class Fragment_staff_edit extends Fragment {
             edtDob.setText(data.getString("Dob"));
             edtBegin.setText(data.getString("BeginDate"));
             edtPhone.setText(data.getString("Phone"));
-            edtHSL.setText(data.getFloat("HSL")+"");
+            edtHSL.setText(data.getDouble("HSL")+"");
 
             try {
                 myCalendar1.setTime(dateFormat.parse(data.getString("Dob")));

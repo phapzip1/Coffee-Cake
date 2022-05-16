@@ -76,7 +76,7 @@ public class Fragment_staff_info extends Fragment {
         ((TextView)root.findViewById(R.id.tvDob)).setText(staffInfo.getString("Dob"));
         ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
         ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
-        ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getFloat("HSL"));
+        ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getDouble("HSL"));
 
         // cái này để test load ảnh xin đừng xóa
         String id;

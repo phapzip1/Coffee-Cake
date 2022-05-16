@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -17,6 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -85,41 +92,55 @@ public class Fragment_menu_coffee extends Fragment {
         edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
-        arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
-        lvcoffee.setAdapter(adapter);
-        arrayList.clear();
+
 
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
         soban = bundle.getInt("soban");
-        String fileName = bundle.getString("fileName");
-        Cursor cursor = null;
+        String fileName = bundle.getString("fileName"),
+                query = "";
+
+
         switch (tam)
         {
             case "coffee":
-                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+                query = "/SANPHAM/CAPHE/DANHSACHCAPHE";
                 break;
             case "trasua":
-                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TS%' ",null);
+                query = "/SANPHAM/TRASUA/DANHSACHTRASUA";
                 break;
             case "sinhto":
-                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'ST%' ",null);
+                query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
                 break;
             case "topping":
-                cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
                 break;
         }
-        while(cursor.moveToNext())
-        {
-            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-            Product temp = new Product(MASP,TENSP,GIA);
-            arrayList.add(temp);
-        }
-//
+
+        FirebaseFirestore.getInstance().collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    arrayList = new ArrayList<>();
+                    adapter = new ProductAdapter(getActivity(),R.layout.layout_menu_drinks_notable,arrayList);
+                    lvcoffee.setAdapter(adapter);
+
+                    for (QueryDocumentSnapshot data : task.getResult())
+                    {
+                        String MASP = data.getId(),
+                                TENSP = data.getString("TEN");
+                        Long GIA = (Long)data.get("GIA");
+
+                        arrayList.add(new Product(MASP, TENSP, GIA.intValue()));
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
         edtsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -166,7 +187,7 @@ public class Fragment_menu_coffee extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order_notopping,bund);
             }
         });
-        adapter.notifyDataSetChanged();
+
         return v;
     }
 }

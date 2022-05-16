@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileReader;
@@ -87,8 +89,10 @@ public class Fragment_home extends Fragment {
             readFile("FoodQueue.txt", view);
             viewModel_for_food.setQueues(arrayList);
         }
+
         return view;
     }
+
     String name, size, soluong, topping = "";
     int soban;
     private void readFile(String s, View view) {
@@ -136,27 +140,5 @@ public class Fragment_home extends Fragment {
             e.printStackTrace();
         }
 
-    }
-
-    private void loadAdapter(View view) {
-        listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
-        arrayList = new ArrayList<>();
-
-        adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
-
-        listDrinks.setAdapter(adapter);
-
-        Bundle bundle = getArguments();
-
-        if (bundle != null)
-        {
-            int soban = bundle.getInt("soban");
-            //int gia = Integer.parseInt(bundle.getString("gia"));
-
-            OrderDrinks temp = new OrderDrinks(name,size,soluong,topping,soban+1);
-
-            arrayList.add(temp);
-            adapter.notifyDataSetChanged();
-        }
     }
 }

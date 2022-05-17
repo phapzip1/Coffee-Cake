@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +79,7 @@ public class Fragment_menu_coffee extends Fragment {
     ArrayList<Product> arrayList;
     ListView lvcoffee;
     EditText edtsearch;
-    String tam;
+    String tam, theloai;
     int soban;
     //String xacnhan = "";
     @SuppressLint("Range")
@@ -98,9 +99,7 @@ public class Fragment_menu_coffee extends Fragment {
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
         soban = bundle.getInt("soban");
-        String fileName = bundle.getString("fileName"),
-                query = "";
-
+        String query = "";
 
         switch (tam)
         {
@@ -117,7 +116,7 @@ public class Fragment_menu_coffee extends Fragment {
                 query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
                 break;
         }
-
+        theloai = query;
         FirebaseFirestore.getInstance().collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -180,8 +179,8 @@ public class Fragment_menu_coffee extends Fragment {
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
                 bund.putInt("soban",soban);
-                bund.putString("fileName", fileName);
-                if (Masp.contains("TS")) // contains: chứa chuỗi
+                bund.putString("theloai", theloai);
+                if (tam.equals("trasua")) // contains: chứa chuỗi
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order_notopping,bund);

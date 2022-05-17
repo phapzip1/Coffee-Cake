@@ -26,17 +26,27 @@ import androidx.navigation.Navigation;
 import java.util.ArrayList;
 
 public class OrderDrinks {
-    private String name,size,soluong,topping;
+    private String name,size,soluong, id;
+    private ArrayList<Product> topping;
     private int soban;
 
-    public OrderDrinks(String name, String size, String soluong,String topping, int soban) {
+    public OrderDrinks(String id, String name, String size, String soluong,ArrayList<Product> topping, int soban) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
         this.topping = topping;
         this.soban = soban;
     }
-    public OrderDrinks(String name, String size, String soluong,String topping) {
+    public OrderDrinks(String name, String size, String soluong,ArrayList<Product> topping, int soban) {
+        this.name = name;
+        this.size = size;
+        this.soluong = soluong;
+        this.topping = topping;
+        this.soban = soban;
+    }
+    public OrderDrinks(String id, String name, String size, String soluong,ArrayList<Product> topping) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
@@ -76,11 +86,12 @@ public class OrderDrinks {
         this.soban = soban;
     }
 
-    public String getTopping() {
+
+    public ArrayList<Product> getTopping() {
         return topping;
     }
 
-    public void setTopping(String topping) {
+    public void setTopping(ArrayList<Product> topping) {
         this.topping = topping;
     }
 }

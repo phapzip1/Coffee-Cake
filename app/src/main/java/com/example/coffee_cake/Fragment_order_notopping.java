@@ -236,7 +236,7 @@ public class Fragment_order_notopping extends Fragment {
                 //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
 
-                foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), " ", soban + 1));
+                //foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), " ", soban + 1));
                 viewModel_for_food.setQueues(foodOrders);
 
                 deleteFile("FoodQueue.txt");

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -19,7 +20,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
@@ -27,6 +35,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -82,18 +92,20 @@ public class Fragment_order extends Fragment {
     int sl,soban;
     Bundle bund;
     String size = "S";
+    String masp, theloai;
     MaterialCardView selectCard;
     TextView tvtopping;
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
     //String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
-    File path;
+
     ArrayList<Boolean> table;
-    MyVM viewModel;
-    ViewModel_for_food viewModel_for_food;
+
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
     ArrayList<OrderDrinks> foodOrders;
+    FirebaseFirestore db;
+
     int tientopping = 0 ;
 
     String[] mangtengiatopping,mangtentopping;
@@ -105,15 +117,11 @@ public class Fragment_order extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
+        db = FirebaseFirestore.getInstance();
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
-        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
-        foodOrders = new ArrayList<>();
-        if(viewModel_for_food.getQueues() != null){
-            foodOrders = viewModel_for_food.getQueues();
-        }
-        table = viewModel.getTables();
-        path = getContext().getFilesDir();
+
+        //table = viewModel.getTables();
+
         arraytopping = new ArrayList<>();
 
         name = (TextView) v.findViewById(R.id.tvOrder);
@@ -128,12 +136,49 @@ public class Fragment_order extends Fragment {
         bund = getArguments(); // lấy giá trị, có số bàn
 
         soban = bund.getInt("soban");
+        masp = bund.getString("MASP");
+        theloai = bund.getString("theloai");
+
         add = (ImageView) v.findViewById(R.id.btnAdd);
         remove = (ImageView) v.findViewById(R.id.btnRemove);
         sl = 1;
         bs = true;
         bm = false;
         bl = false;
+
+//        db.collection("/TableStatus").document(soban + "").collection("/DrinksOrder").get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                foodOrders = new ArrayList<>();
+//                for (QueryDocumentSnapshot data : task.getResult())
+//                {
+//                    db.document(data.getString("sp_ref_name")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                            String name = task.getResult().getString("TEN");
+//                            String size = data.getString("size");
+//                            String soluong = data.getString("soluong");
+//                            db.collection(task.getResult().getReference().getPath() + "/Topping").get()
+//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                            ArrayList<Product> topping = new ArrayList<>();
+//                                            for (QueryDocumentSnapshot data : task.getResult()) {
+//                                                topping.add(new Product (db.document(data.getString("topping_ref")).getId(),
+//                                                        db.document(data.getString("topping_ref")).get().getResult().getString("TEN"),
+//                                                        Integer.parseInt(db.document(data.getString("topping_ref")).get().getResult().getLong("GIA") + "")));
+//                                                //long giatien = db.document(data.getString("topping_ref")).get().getResult().getLong("GIA");
+//                                            }
+//                                            foodOrders.add(new OrderDrinks(name, size, soluong, topping));
+//                                        }
+//                                    });
+//                        }
+//                    });
+//
+//                }
+//            }
+//        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +213,7 @@ public class Fragment_order extends Fragment {
                 }
             }
         });
+
         s.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -245,208 +291,169 @@ public class Fragment_order extends Fragment {
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-        btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle(); // đưa giá trị đến home
-                bundle.putString("name",name.getText().toString());
-                bundle.putString("size",size.toString());
-                bundle.putString("soluong",soluong.getText().toString());
-                bundle.putInt("soban",soban);
-                bundle.putString("topping",tentoppingdachon);
-                //bundle.putString("gia",gia.getText().toString());
-                changeTableStatus(soban);
-                //lưu đồ order vào file
-                foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), tentoppingdachon, soban + 1));
-                viewModel_for_food.setQueues(foodOrders);
 
-                deleteFile("FoodQueue.txt");
-                saveFoodOrderIntoAFile("FoodQueue.txt");
-                Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome,bundle);
-            }
-        });
 
         // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
         tvtopping = (TextView) v.findViewById(R.id.tvtopping);
         toppinglist = new ArrayList<>(); // lưu vị trí của từng phần tử
 
-
-        DBHelper db = new DBHelper(getActivity());
-        cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'TO%' ",null);
-        int i=0;
-
-        while(cursor.moveToNext())
-        {
-            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-
-            String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-
-
-            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-
-
-            Product temp = new Product(MASP,TENSP,GIA);
-            arraytopping.add(temp); //  --> số lượng topping
-        }
-//        mangtentopping[i] = TENSP;
-//        manggiatopping[i] = cursor.getInt(cursor.getColumnIndex("GIA"));
-
-        mangtentopping = new String[arraytopping.size()];
-        manggiatopping = new int[arraytopping.size()];
-        mangtengiatopping = new String[arraytopping.size()];
-
-        for (int z=0;z<arraytopping.size();z++)
-        {
-            manggiatopping[z] = arraytopping.get(z).getGia();
-            mangtentopping[z] = arraytopping.get(z).getTensp();
-            mangtengiatopping[z] = arraytopping.get(z).getTensp() + "\t \t \t" + manggiatopping[z];
-        }
-        selecttopping = new boolean[mangtengiatopping.length]; // lưu đã chọn phần tử đó chưa (T/F)
-
-        selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
+        db.collection("/SANPHAM/TOPPING/DANHSACHTOPPING").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onClick(View view) {
-                showtoppingDialog();
-            }
-            private void showtoppingDialog() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // khởi tạo hộp thoại
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(DocumentSnapshot data: task.getResult()){
+                    String MASP = data.getId();
+                    String TENSP = data.getString("TEN");
+                    long GIA = data.getLong("GIA");
 
-                builder.setTitle("Lựa Chọn Topping");
-                builder.setCancelable(false); // đặt hộp thoại không thể hủy
+                    arraytopping.add(new Product(MASP, TENSP, Integer.parseInt(GIA + "")));
+                }
 
-                // String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
-                // boolean[] selecttopping;
-                // ArrayList<Integer> toppinglist;
+                mangtentopping = new String[arraytopping.size()];
+                manggiatopping = new int[arraytopping.size()];
+                mangtengiatopping = new String[arraytopping.size()];
 
-                builder.setMultiChoiceItems(mangtengiatopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
+                for (int z=0;z<arraytopping.size();z++) {
+                    manggiatopping[z] = arraytopping.get(z).getGia();
+                    mangtentopping[z] = arraytopping.get(z).getTensp();
+                    mangtengiatopping[z] = arraytopping.get(z).getTensp() + "\t \t \t" + manggiatopping[z];
+                }
+                selecttopping = new boolean[mangtengiatopping.length]; // lưu đã chọn phần tử đó chưa (T/F)
+
+                selectCard.setOnClickListener(new View.OnClickListener() { // bật dialog
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        if (b) // khi click vào thì sẽ được thêm phần tử thứ i vào list
-                            //Khi lựa chọn trong chatbox --> thêm vào trong list
-                            toppinglist.add(i);
-                        else
-                            //Khi không chọn trong chatbox --> xóa vào trong list
-                            toppinglist.remove(Integer.valueOf(i));
+                    public void onClick(View view) {
+                        showtoppingDialog();
                     }
-                }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    private void showtoppingDialog() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // khởi tạo hộp thoại
 
-                        StringBuilder stringBuilder = new StringBuilder();
-                        tientopping = 0 ;
-                        tentoppingdachon = "";
-                        for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
-                        {
-                            // stringBuilder: 1 cái mảng lấy thành phần trong box
-                            stringBuilder.append(mangtengiatopping[toppinglist.get(j)]); // mangtengiatopping[5]
-                            //String giatemp = gia.toString();
-                            tentoppingdachon +=  mangtentopping[toppinglist.get(j)];
-                            tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
-                            //gia.setText(giatemp + manggiatopping[j]);
-                            if (j != toppinglist.size() -1 )
-                            {
-                                // để kiểm tra giá trị j và thêm vào dấu ","
-                                stringBuilder.append(", ");
-                                tentoppingdachon += ", ";
+                        builder.setTitle("Lựa Chọn Topping");
+                        builder.setCancelable(false); // đặt hộp thoại không thể hủy
+
+                        // String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
+                        // boolean[] selecttopping;
+                        // ArrayList<Integer> toppinglist;
+
+                        builder.setMultiChoiceItems(mangtengiatopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                                if (b) // khi click vào thì sẽ được thêm phần tử thứ i vào list
+                                    //Khi lựa chọn trong chatbox --> thêm vào trong list
+                                    toppinglist.add(i);
+                                else
+                                    //Khi không chọn trong chatbox --> xóa vào trong list
+                                    toppinglist.remove(Integer.valueOf(i));
                             }
-                            tvtopping.setText(stringBuilder.toString());
-                        }
-                        if (bs)
-                            gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
-                        else if (bm)
-                            gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
-                        else
-                            gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
-                    }
-                }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).setNeutralButton("Xóa tất cả", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        for ( int j = 0 ; j < selecttopping.length ; j++) // đã có cái nào chọn rồi thì false nó lại
-                        {
-                            selecttopping[j] = false;
-                            toppinglist.clear();
-                            tvtopping.setText("");
-                            tentoppingdachon = "";
-                            tientopping = 0 ;
-                            if (bs)
-                                gia.setText( String.valueOf( sl * bund.getInt("GIA") ) );
-                            else if (bm)
-                                gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
-                            else
-                                gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
-                        }
+                        }).setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                StringBuilder stringBuilder = new StringBuilder();
+                                tientopping = 0 ;
+                                tentoppingdachon = "";
+                                for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
+                                {
+                                    // stringBuilder: 1 cái mảng lấy thành phần trong box
+                                    stringBuilder.append(mangtengiatopping[toppinglist.get(j)]); // mangtengiatopping[5]
+                                    //String giatemp = gia.toString();
+                                    tentoppingdachon +=  mangtentopping[toppinglist.get(j)];
+                                    tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
+                                    //gia.setText(giatemp + manggiatopping[j]);
+                                    if (j != toppinglist.size() -1 )
+                                    {
+                                        // để kiểm tra giá trị j và thêm vào dấu ","
+                                        stringBuilder.append(", ");
+                                        tentoppingdachon += ", ";
+                                    }
+                                    tvtopping.setText(stringBuilder.toString());
+                                }
+                                if (bs)
+                                    gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                                else if (bm)
+                                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
+                                else
+                                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
+                            }
+                        }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).setNeutralButton("Xóa tất cả", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                for ( int j = 0 ; j < selecttopping.length ; j++) // đã có cái nào chọn rồi thì false nó lại
+                                {
+                                    selecttopping[j] = false;
+                                    toppinglist.clear();
+                                    tvtopping.setText("");
+                                    tentoppingdachon = "";
+                                    tientopping = 0 ;
+                                    if (bs)
+                                        gia.setText( String.valueOf( sl * bund.getInt("GIA") ) );
+                                    else if (bm)
+                                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
+                                    else
+                                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
+                                }
+                            }
+                        });
+                        builder.show();
                     }
                 });
-                builder.show();
+
+                btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
+                    @Override
+                    public void onClick(View view) {
+                        changeTableStatus(soban);
+                        //lưu đồ order vào file
+
+                        saveFoodOrderIntoAFile();
+                        Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome);
+                    }
+                });
             }
         });
+
         // --------------------------------------------------------------
         return v;
     }
 
-    private void saveFoodOrderIntoAFile(String foodQueue) {
-        ArrayList<String> s = new ArrayList<>();
+    private void saveFoodOrderIntoAFile() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sp_ref_name", theloai + masp);
+        map.put("size", size);
+        map.put("soluong", soluong.getText().toString());
 
-        for(int i = 0; i < foodOrders.size(); i++){
-            s.add(i, foodOrders.get(i).getName() + "/" + foodOrders.get(i).getSize() + "/" + foodOrders.get(i).getSoluong()
-            + "/" + foodOrders.get(i).getTopping() + "/" +  foodOrders.get(i).getSoban()+ "\n");
-        }
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, foodQueue));
-            for(int i = 0; i < s.size(); i++){
-                writer.write(s.get(i).getBytes());
+        db.collection("/TableStatus/" + (soban + 1) + "/DrinksOrder").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                String path = task.getResult().getPath();
+
+                for(int i = 0; i < toppinglist.size(); i++){
+                    Map<String, Object> topping = new HashMap<>();
+                    String link = "SANPHAM/TOPPING/DANHSACHTOPPING/" + arraytopping.get(toppinglist.get(i)).getMasp();
+                    topping.put("topping_ref", db.document(link));
+                    db.document(path).collection("/Topping").add(topping);
+                }
             }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
+        });
+
+
     }
 
     private void changeTableStatus(int soban) {
-        Bundle bundle = getArguments();
-        String fileName = bundle.getString("fileName");
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", true);
 
-        File savedFile = new File(path + "/" + fileName);
-        if(!savedFile.exists()){
-            Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_SHORT).show();
-        }
+        db.collection("/TableStatus").document((soban+1) + "").set(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
 
-        //thay đổi trạng thái
-        table.set(soban, true);
-        viewModel.setTables(table);
-
-        deleteFile(fileName);
-        writeToFile(fileName);
+                    }
+                });
     }
 
-    private void writeToFile(String fileName) {
-        ArrayList<String> s = new ArrayList<>();
-
-        for(int i = 0; i < table.size(); i++){
-            s.add(i, table.get(i).toString());
-        }
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-            for(int i = 0; i < table.size(); i++){
-                writer.write(s.get(i).getBytes());
-            }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void deleteFile(String fileName) {
-        File savedFile = new File(path + "/" + fileName);
-
-        if (savedFile.exists()){
-            savedFile.delete();
-        }
-    }
 }

@@ -126,11 +126,11 @@ public class Fragment_home extends Fragment {
                     i1++;
                     k++;
                     if(i1 == 5){
-                        OrderDrinks temp = new OrderDrinks(name,size,soluong,topping, soban);
+                        //OrderDrinks temp = new OrderDrinks(name,size,soluong,topping, soban);
 
-                        arrayList.add(temp);
-                        listDrinks.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+//                        arrayList.add(temp);
+//                        listDrinks.setAdapter(adapter);
+//                        adapter.notifyDataSetChanged();
                         i1 = 0;
                     }
                     savedData = "";

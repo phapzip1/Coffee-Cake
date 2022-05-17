@@ -1,12 +1,26 @@
 package com.example.coffee_cake;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.text.ParseException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +69,57 @@ public class Fragment_drinks_edit extends Fragment {
         }
     }
 
+    EditText edtNameDrink, edtPrice;
+    ImageView imgDrink;
+    Button btnSaveDrink;
+    private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK)
+                    {
+                        Uri data = result.getData().getData();
+                        imgDrink.setImageURI(data);
+                    }
+                }
+    });
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drinks_edit, container, false);
+        View root = inflater.inflate(R.layout.fragment_drinks_edit, container, false);
+        edtNameDrink = (EditText)root.findViewById(R.id.edtNameDrink);
+        edtPrice = (EditText)root.findViewById(R.id.edtPrice);
+        imgDrink = (ImageView) root.findViewById(R.id.imgEditDrink);
+        btnSaveDrink = (Button) root.findViewById(R.id.btnSaveDrink);
+
+        // thay đổi ảnh drink
+        imgDrink.setOnClickListener(view -> {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            galleryIntent.setType("image/*");
+            launcher.launch(galleryIntent);
+        });
+
+        if (getArguments() != null) // đổ dữ liệu vào
+        {
+            Bundle data = getArguments();
+
+            // hien thi thong tin co the thay doi duoc
+            edtNameDrink.setText(data.getString("TenSP"));
+            edtPrice.setText(data.getInt("Gia")+"");
+
+        }
+
+
+        btnSaveDrink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        return root;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.coffee_cake;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,6 +94,10 @@ public class Fragment_staff_info extends Fragment {
         //hihi
 
         // get truc tiep tu data base
+
+
+
+
 
         ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_fragment_staff_edit, staffInfo);

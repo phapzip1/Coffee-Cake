@@ -70,8 +70,10 @@ public class Fragment_drinks_info extends Fragment {
         // get truc tiep tu database
         ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(DrinkInfo.getString("TenSP"));
         ((TextView)root.findViewById(R.id.tvGia)).setText(""+DrinkInfo.getInt("Gia")+" đ");
-
         // get truc tiep tu data base
+
+        ImageLoader.Load( "images/goods/", ((ImageView)root.findViewById(R.id.avtDrink)));
+
 
         ((ImageView)root.findViewById(R.id.btnEditDrink)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_info_to_fragment_drinks_edit, DrinkInfo);

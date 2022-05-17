@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageView
+        android:id="@+id/imgEditDrink"
         android:layout_marginTop="8dp"
         android:background="@drawable/round_edt"
         android:padding="3dp"
@@ -36,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:id="@+id/edtNameDrink"
         android:background="@drawable/round_edt"
         android:padding="12dp"
         android:layout_width="match_parent"
@@ -60,12 +62,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:id="@+id/edtPrice"
         android:background="@drawable/round_edt"
         android:padding="12dp"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
+        android:id="@+id/btnSaveDrink"
         android:text="Lưu"
         android:layout_marginTop="24dp"
         android:textColor="@color/white"

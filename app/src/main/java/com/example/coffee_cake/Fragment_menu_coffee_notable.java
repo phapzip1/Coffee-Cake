@@ -151,6 +151,7 @@ public class Fragment_menu_coffee_notable extends Fragment {
             }
         });
 
+
         edtcoffeeno.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -201,7 +202,7 @@ public class Fragment_menu_coffee_notable extends Fragment {
                     switch (item.getItemId()){
                         case R.id.menuDelete:
                             Toast.makeText(getContext(), "okioki", Toast.LENGTH_SHORT).show();
-                            
+
                             return true;
                     }
                     return false;

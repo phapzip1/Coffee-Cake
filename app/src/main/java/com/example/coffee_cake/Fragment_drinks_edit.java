@@ -9,7 +9,9 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -18,9 +20,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,9 +101,10 @@ public class Fragment_drinks_edit extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_drinks_edit, container, false);
+
         edtNameDrink = (EditText)root.findViewById(R.id.edtNameDrink);
         edtPrice = (EditText)root.findViewById(R.id.edtPrice);
-        imgDrink = (ImageView) root.findViewById(R.id.imgEditDrink);
+        imgDrink = (ImageView) root.findViewById(R.id.imgEditDink);
         btnSaveDrink = (Button) root.findViewById(R.id.btnSaveDrink);
 
         // thay đổi ảnh drink
@@ -101,25 +113,84 @@ public class Fragment_drinks_edit extends Fragment {
             galleryIntent.setType("image/*");
             launcher.launch(galleryIntent);
         });
+        Bundle DrinkEdit = getArguments();
 
-        if (getArguments() != null) // đổ dữ liệu vào
+
+        if (getArguments() != null) // Che do chinh sua drink
         {
             Bundle data = getArguments();
 
             // hien thi thong tin co the thay doi duoc
-            edtNameDrink.setText(data.getString("TenSP"));
-            edtPrice.setText(data.getInt("Gia")+"");
+            FirebaseFirestore.getInstance().collection("/SANPHAM/").document(data.getString("MASP"))
+                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot snap = task.getResult();
+                        edtNameDrink.setText(DrinkEdit.getString("TenSP"));
+                        edtPrice.setText( ""+DrinkEdit.getInt("Gia"));
+                    }
+                }
+            });
+            ImageLoader.Load("images/goods/" + data.getString("MASP") + ".jpg", ((ImageView)root.findViewById(R.id.imgEditDink)));
 
         }
 
+        ((Button)root.findViewById(R.id.btnSaveDrink)).setOnClickListener(view ->{
 
-        btnSaveDrink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
+            String tensp = edtNameDrink.getText().toString(),
+                    gia = edtPrice.getText().toString();
 
+            if (tensp == ""  || gia == "")
+            {
+                Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            int giasp = Integer.parseInt(gia);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            if (getArguments() == null) // add mode
+            {
+
+
+                Map<String, Object> drink = new HashMap<>();
+                drink.put("TEN", tensp);
+                drink.put("GIA", giasp);
+
+
+                db.collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").add(drink).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful())
+                        {
+                            ImageLoader.Upload("images/goods/" + task.getResult().getId() + ".jpg", imgDrink);
+                        }
+                    }
+                });
+            }
+            else // edit mode
+            {
+
+                Map<String, Object> drink = new HashMap<>();
+                drink.put("TEN", tensp);
+                drink.put("GIA", giasp);
+
+                String id = getArguments().getString("MASP");
+
+                db.collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").document(id).set(drink);
+                ImageLoader.Upload("images/goods/" + id + ".jpg", imgDrink);
+            }
+
+            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_edit_to_fragment_menu_coffee_notable2);
         });
+
+
+
+
+
+
+
         return root;
     }
 }

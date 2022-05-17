@@ -135,12 +135,19 @@
         <action
             android:id="@+id/action_fragment_drinks_info_to_fragment_drinks_edit"
             app:destination="@id/fragment_drinks_edit" />
+        <action
+            android:id="@+id/action_fragment_drinks_info_to_fragment_menu_coffee_notable2"
+            app:destination="@id/fragment_menu_coffee_notable2" />
     </fragment>
     <fragment
         android:id="@+id/fragment_drinks_edit"
         android:name="com.example.coffee_cake.Fragment_drinks_edit"
         android:label="fragment_drinks_edit"
-        tools:layout="@layout/fragment_drinks_edit" />
+        tools:layout="@layout/fragment_drinks_edit" >
+        <action
+            android:id="@+id/action_fragment_drinks_edit_to_fragment_menu_coffee_notable2"
+            app:destination="@id/fragment_menu_coffee_notable2" />
+    </fragment>
 
 <!--        android:label="Fragment_menu_coffee_notable" />-->
     <fragment

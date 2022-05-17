@@ -1,13 +1,10 @@
 package com.example.coffee_cake;
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.net.Uri;
-=======
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
->>>>>>> 1be5a5f3cd49a6151a5480f97db87f430986940e
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

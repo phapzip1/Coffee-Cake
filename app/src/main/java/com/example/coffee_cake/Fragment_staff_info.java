@@ -1,9 +1,16 @@
 package com.example.coffee_cake;
 
+<<<<<<< HEAD
 import android.content.Intent;
 import android.net.Uri;
+=======
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+>>>>>>> 1be5a5f3cd49a6151a5480f97db87f430986940e
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,6 +21,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+
+import org.w3c.dom.Document;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,26 +89,40 @@ public class Fragment_staff_info extends Fragment {
         Bundle staffInfo = getArguments();
 
 
-        // get truc tiep tu database
-        ((TextView)root.findViewById(R.id.edtName)).setText(staffInfo.getString("Fullname"));
-        ((TextView)root.findViewById(R.id.tvPosition)).setText(staffInfo.getString("Position"));
-        ((TextView)root.findViewById(R.id.tvGender)).setText(staffInfo.getString("Gender"));
-        ((TextView)root.findViewById(R.id.tvCCCD)).setText(staffInfo.getString("CCCD"));
-        ((TextView)root.findViewById(R.id.tvDob)).setText(staffInfo.getString("Dob"));
-        ((TextView)root.findViewById(R.id.tvBeginDate)).setText(staffInfo.getString("BeginDate"));
-        ((TextView)root.findViewById(R.id.tvPhone1)).setText(staffInfo.getString("Phone"));
-        ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+staffInfo.getDouble("HSL"));
+        // get truc tiep tu firebase
+        FirebaseFirestore.getInstance().collection("/NHANVIEN/").document(staffInfo.getString("MANV"))
+        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    DocumentSnapshot snap =  task.getResult();
+                    ((TextView)root.findViewById(R.id.edtName)).setText(snap.getString("HOTEN"));
+                    ((TextView)root.findViewById(R.id.tvPosition)).setText(snap.getString("CHUCVU"));
+                    ((TextView)root.findViewById(R.id.tvGender)).setText(snap.getString("GIOITINH"));
+                    ((TextView)root.findViewById(R.id.tvCCCD)).setText(snap.getString("CCCD"));
+                    ((TextView)root.findViewById(R.id.tvDob)).setText(snap.getString("NGAYSINH"));
+                    ((TextView)root.findViewById(R.id.tvBeginDate)).setText(snap.getString("NGVL"));
+                    ((TextView)root.findViewById(R.id.tvPhone1)).setText(snap.getString("SDT"));
+                    ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+snap.getDouble("HESOLUONG"));
+                }
+            }
+        });
+
+        ((ImageView)root.findViewById(R.id.btnDelete)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("/NHANVIEN/").document(staffInfo.getString("MANV")).delete();
+                FirebaseStorage.getInstance().getReference().child("images/staff/"+ staffInfo.getString("MANV" + ".jpg")).delete();
+                Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_menuStaff);
+            }
+        });
 
         // cái này để test load ảnh xin đừng xóa
-        String id;
-        int i = staffInfo.getInt("index");
-        if (i  == 0)
-            id = "L.jpg";
-        else if (i  == 1)
-            id = "mafia.jpg";
-        else id = "tommyxiaomi.jpg";
 
-        ImageLoader.Load( "images/staff/" + id, ((ImageView)root.findViewById(R.id.avatar)));
+
+        ImageLoader.Load( "images/staff/" + staffInfo.getString("MANV") + ".jpg", ((ImageView)root.findViewById(R.id.avatar)));
         //hihi
 
         // get truc tiep tu data base

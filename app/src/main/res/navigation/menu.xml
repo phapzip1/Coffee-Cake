@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_fragment_staff_info_to_fragment_staff_edit"
             app:destination="@id/fragment_staff_edit" />
+        <action
+            android:id="@+id/action_fragment_staff_info_to_menuStaff"
+            app:destination="@id/menuStaff" />
     </fragment>
     <fragment
         android:id="@+id/fragment_bill"
@@ -84,7 +87,11 @@
         android:id="@+id/fragment_staff_edit"
         android:name="com.example.coffee_cake.Fragment_staff_edit"
         android:label="fragment_staff_edit"
-        tools:layout="@layout/fragment_staff_edit" />
+        tools:layout="@layout/fragment_staff_edit" >
+        <action
+            android:id="@+id/action_fragment_staff_edit_to_menuStaff"
+            app:destination="@id/menuStaff" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_menu_coffee"
         android:name="com.example.coffee_cake.Fragment_menu_coffee"

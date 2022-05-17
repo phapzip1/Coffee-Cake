@@ -96,7 +96,7 @@ public class Fragment_staff extends Fragment {
                         SDT = data.getString("SDT"),
                         NGVL = data.getString("NGVL"),
                         CHUCVU = data.getString("CHUCVU"),
-                        MANV = data.getString("MANV");
+                        MANV = data.getId();
                         double HSL = (double)data.get("HESOLUONG");
 
                         staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, HSL ));
@@ -111,16 +111,7 @@ public class Fragment_staff extends Fragment {
 
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Bundle bundle = new Bundle();
-            bundle.putString("Fullname", staffs.get(i).HoVaTen());
-            bundle.putString("Position", staffs.get(i).ChucVu());
-            bundle.putString("Gender", staffs.get(i).GioiTinh());
-            bundle.putString("CCCD", staffs.get(i).CCDD_CMND());
-            bundle.putString("Dob", staffs.get(i).NgayThangNamSinh());
-            bundle.putString("BeginDate", staffs.get(i).NgayVaoLam());
-            bundle.putString("Phone", staffs.get(i).SoDienThoai());
-            bundle.putDouble("HSL", staffs.get(i).HeSoLuong());
-            bundle.putInt("index", i % 3);
-
+            bundle.putString("MANV", staffs.get(i).MaNhanVien());
             Navigation.findNavController(view).navigate(R.id.action_menuStaff_to_fragment_staff_info, bundle);
         });
 

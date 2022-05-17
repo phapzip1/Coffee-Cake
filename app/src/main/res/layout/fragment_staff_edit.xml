@@ -34,7 +34,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_oval="true"
             android:id="@+id/avatar"
-            android:src="@drawable/misthy1"
+            android:src="@drawable/defaultava"
             android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,7 @@
         <EditText
             android:id="@+id/edtName"
             android:layout_gravity="center"
-            android:text="Misthy"
+            android:hint="Họ và tên"
             android:layout_marginTop="4dp"
             android:textSize="25sp"
             android:textStyle="bold"

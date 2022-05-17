@@ -120,14 +120,9 @@ public class StaffAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.tvPhone)).setText(m_data.get(i).SoDienThoai());
         ((TextView)view.findViewById(R.id.tvGender)).setText(m_data.get(i).GioiTinh());
 
-        String id;
-        if (i % 3 == 0)
-            id = "L.jpg";
-        else if (i % 3 == 1)
-            id = "mafia.jpg";
-        else id = "tommyxiaomi.jpg";
 
-        ImageLoader.Load( "images/staff/" + id, ((ImageView)view.findViewById(R.id.imgName)));
+
+        ImageLoader.Load( "images/staff/" + m_data.get(i).MaNhanVien() + ".jpg", ((ImageView)view.findViewById(R.id.imgName)));
 
         return view;
     }

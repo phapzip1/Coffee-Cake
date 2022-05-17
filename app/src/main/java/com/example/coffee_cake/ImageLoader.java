@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedDrawable;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -29,7 +30,7 @@ public class ImageLoader {
     }
     public static void Upload(String URL, ImageView view)
     {
-        Bitmap image = ((BitmapDrawable) view.getDrawable()).getBitmap();
+        Bitmap image = ((RoundedDrawable) view.getDrawable()).getSourceBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();

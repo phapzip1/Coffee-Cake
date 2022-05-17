@@ -147,7 +147,6 @@ public class Fragment_menu_coffee_notable extends Fragment {
                         arrayList.add(new Product(MASP, TENSP, GIA.intValue()));
                     }
                     adapter.notifyDataSetChanged();
-
                 }
             }
         });

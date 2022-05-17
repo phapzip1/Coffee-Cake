@@ -31,10 +31,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
-                    android:src="@drawable/ic_arrow_back"
+                    android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_delete_30" />
                 <ImageView
                     android:id="@+id/btnEdit"
                     android:layout_alignParentRight="true"
@@ -49,7 +51,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_oval="true"
             android:id="@+id/avatar"
-            android:src="@drawable/misthy1"
+            android:src="@drawable/defaultava"
             android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

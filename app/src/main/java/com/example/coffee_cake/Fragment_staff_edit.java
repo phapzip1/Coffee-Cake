@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,9 +14,13 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +30,26 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.makeramen.roundedimageview.RoundedDrawable;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +98,7 @@ public class Fragment_staff_edit extends Fragment {
         }
     }
 
-    ArrayAdapter<String> genderAdaper;
+    ArrayAdapter<CharSequence> genderAdaper;
     ArrayList<String> gender;
 
     ArrayAdapter<String> positionAdapter;
@@ -89,9 +106,10 @@ public class Fragment_staff_edit extends Fragment {
 
     final Calendar myCalendar1 = Calendar.getInstance(),
             myCalendar2 = Calendar.getInstance();
-    EditText edtDob, edtBegin, edtName, edtId,edtPhone, edtHSL;
+    EditText edtDob, edtBegin, edtName, edtId,edtPhone, edtHSL, edtPos;
     ImageView avatar;
     Button btnSave;
+    Spinner genderSpinner;
 
     private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -111,15 +129,11 @@ public class Fragment_staff_edit extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_staff_edit, container, false);
 
-        //set spinner
-        gender = new ArrayList<>();
-        genderAdaper = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, gender);
-        ((Spinner)root.findViewById(R.id.editGender)).setAdapter(genderAdaper);
-        gender.add("Nam");
-        gender.add("Nữ");
-        gender.add("Khác");
 
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-mm-dd");
+
+
+
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 
         // initialize widget
         edtDob =  (EditText)root.findViewById(R.id.edtDob);
@@ -128,9 +142,15 @@ public class Fragment_staff_edit extends Fragment {
         edtId = (EditText)root.findViewById(R.id.edtCCCD);
         edtPhone = (EditText)root.findViewById(R.id.edtPhone);
         edtHSL =  (EditText)root.findViewById(R.id.edtHSL);
+        edtPos = (EditText)root.findViewById(R.id.editPosition);
         avatar = (ImageView) root.findViewById(R.id.avatar);
         btnSave = (Button) root.findViewById(R.id.btnSaveInfoStaff);
+        genderSpinner = ((Spinner)root.findViewById(R.id.editGender));
 
+        //set spinner
+        genderAdaper = ArrayAdapter.createFromResource(getActivity(), R.array.gender, android.R.layout.simple_spinner_item);
+        genderAdaper.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdaper);
 
         avatar.setOnClickListener(view -> {
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -150,20 +170,52 @@ public class Fragment_staff_edit extends Fragment {
             Bundle data = getArguments();
 
             // hien thi thong tin co the thay doi duoc
-            edtName.setText(data.getString("Fullname"));
-            edtId.setText(data.getString("CCCD"));
-            edtDob.setText(data.getString("Dob"));
-            edtBegin.setText(data.getString("BeginDate"));
-            edtPhone.setText(data.getString("Phone"));
-            edtHSL.setText(data.getDouble("HSL")+"");
+            FirebaseFirestore.getInstance().collection("/NHANVIEN/").document(data.getString("MANV"))
+                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful())
+                    {
+                        DocumentSnapshot snap =  task.getResult();
+                        edtName.setText(snap.getString("HOTEN"));
+                        edtPos.setText(snap.getString("CHUCVU"));
+                        edtId.setText(snap.getString("CCCD"));
+                        edtDob.setText(snap.getString("NGAYSINH"));
+                        edtBegin.setText(snap.getString("NGVL"));
+                        edtPhone.setText(snap.getString("SDT"));
+                        edtHSL.setText( ""+snap.getDouble("HESOLUONG"));
+
+                        int gender;
+
+                        if (snap.getString("GIOITINH").equals("Nam"))
+                            gender = 0;
+                        else if (snap.getString("GIOITINH").equals("Nữ"))
+                            gender = 1;
+                        else
+                            gender = 2;
+                        genderSpinner.setSelection(gender);
+                    }
+                }
+            });
+
+
+
+
+
+
+
+            ImageLoader.Load("images/staff/" + data.getString("MANV") + ".jpg", ((ImageView)root.findViewById(R.id.avatar)));
+
+
 
             try {
-                myCalendar1.setTime(dateFormat.parse(data.getString("Dob")));
-                myCalendar2.setTime(dateFormat.parse(data.getString("BeginDate")));
+                myCalendar1.setTime(dateFormat.parse(edtDob.getText().toString()));
+                myCalendar2.setTime(dateFormat.parse(edtBegin.getText().toString()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
+
 
         edtDob.setOnClickListener(view -> {
 
@@ -196,15 +248,71 @@ public class Fragment_staff_edit extends Fragment {
 
         ((Button)root.findViewById(R.id.btnSaveInfoStaff)).setOnClickListener(view ->{
 
+            String cccd = edtId.getText().toString(),
+            chucvu = edtPos.getText().toString(),
+            gioitinh = genderSpinner.getSelectedItem().toString(),
+            hoten = edtName.getText().toString(),
+            ngaysinh = edtDob.getText().toString(),
+            ngayvl = edtBegin.getText().toString(),
+            sdt = edtPhone.getText().toString(),
+            hsl = edtHSL.getText().toString();
 
-            if (getArguments() != null) // edit mode
+
+            if (cccd == "" || chucvu == "" || hoten == "" || ngaysinh == "" || ngayvl == "" || sdt == "" || hsl == "")
+            {
+                Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double hesoluong = Double.parseDouble(hsl);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            if (getArguments() == null) // add mode
             {
 
+
+                Map<String, Object> user = new HashMap<>();
+                user.put("CCCD", cccd);
+                user.put("CHUCVU", chucvu);
+                user.put("GIOITINH", gioitinh);
+                user.put("HESOLUONG", hesoluong);
+                user.put("HOTEN", hoten);
+                user.put("NGAYSINH", ngaysinh);
+                user.put("NGVL", ngayvl);
+                user.put("SDT", sdt);
+
+
+
+                db.collection("/NHANVIEN/").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful())
+                        {
+                            ImageLoader.Upload("images/staff/" + task.getResult().getId() + ".jpg", avatar);
+                        }
+                    }
+                });
             }
-            else // add mode
+            else // edit mode
             {
 
+                Map<String, Object> user = new HashMap<>();
+                user.put("CCCD", cccd);
+                user.put("CHUCVU", chucvu);
+                user.put("GIOITINH", gioitinh);
+                user.put("HESOLUONG", hesoluong);
+                user.put("HOTEN", hoten);
+                user.put("NGAYSINH", ngaysinh);
+                user.put("NGVL", ngayvl);
+                user.put("SDT", sdt);
+
+                String id = getArguments().getString("MANV");
+
+                db.collection("/NHANVIEN/").document(id).set(user);
+                ImageLoader.Upload("images/staff/" + id + ".jpg", avatar);
             }
+
+            Navigation.findNavController(view).navigate(R.id.action_fragment_staff_edit_to_menuStaff);
         });
 
         return root;

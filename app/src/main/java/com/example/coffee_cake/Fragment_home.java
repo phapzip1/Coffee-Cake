@@ -2,9 +2,11 @@ package com.example.coffee_cake;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,21 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -69,76 +81,67 @@ public class Fragment_home extends Fragment {
     ListView listDrinks;
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
-    ViewModel_for_food viewModel_for_food;
-    File path;
+    ArrayList<Product> products;
+    FirebaseFirestore db;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        path = getContext().getFilesDir();
-        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
 
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
-        arrayList = new ArrayList<>();
 
-        adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+        db = FirebaseFirestore.getInstance();
 
-        File savedFile = new File(path + "/" + "FoodQueue.txt");
-        if(savedFile.exists()){
-            readFile("FoodQueue.txt", view);
-            viewModel_for_food.setQueues(arrayList);
-        }
+
+
+        db.collection("/FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+
+                arrayList = new ArrayList<>();
+                adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+
+                for (DocumentSnapshot data : task1.getResult())
+                {
+
+                    String SIZE, SL, TEN;
+
+
+                    Task<DocumentSnapshot> task2 = data.getDocumentReference("food_name").get();
+                    while(!task2.isComplete());
+
+                    String temp = task2.getResult().getReference().getParent().getParent().getId();
+
+                    int SOBAN = Integer.parseInt(temp);
+
+                    SIZE = task2.getResult().getString("SIZE");
+                    SL = task2.getResult().getLong("SOLUONG") + "";
+
+                    Task<DocumentSnapshot> task3 = task2.getResult().getDocumentReference("sp_ref_name").get();
+                    while(!task3.isComplete());
+
+                    TEN = task3.getResult().getString("TEN");
+                    if (task3.getResult().getReference().getParent().getParent().getId().equals("TRASUA"))
+                    {
+
+                    }
+                    else
+                    {
+                        arrayList.add(new OrderDrinks(TEN, SIZE, SL, SOBAN));
+                    }
+
+                }
+                listDrinks.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+
 
         return view;
     }
 
-    String name, size, soluong, topping = "";
-    int soban;
-    private void readFile(String s, View view) {
-        try {
-            FileReader rdr = new FileReader(path + "/" + s);
-            arrayList.clear();
-            char[] inputBuffer = new char[1024*1024];
-            String savedData = "";
-            int charRead = rdr.read(inputBuffer);
-            int i1 = 0; //stt món
-            for (int k = 0; k < charRead; k++) {
-                savedData += inputBuffer[k];
-                if(inputBuffer[k+1] == '/' || inputBuffer[k+1] == '\n'){
-                    switch (i1){
-                        case 0:
-                            name = savedData;
-                            break;
-                        case 1:
-                            size = savedData;
-                            break;
-                        case 2:
-                            soluong = savedData;
-                            break;
-                        case 3:
-                            topping = savedData;
-                            break;
-                        case 4:
-                            soban = Integer.parseInt(savedData);
-                            break;
-                    }
-                    i1++;
-                    k++;
-                    if(i1 == 5){
-                        //OrderDrinks temp = new OrderDrinks(name,size,soluong,topping, soban);
-
-//                        arrayList.add(temp);
-//                        listDrinks.setAdapter(adapter);
-//                        adapter.notifyDataSetChanged();
-                        i1 = 0;
-                    }
-                    savedData = "";
-                }
-
-            } }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 }

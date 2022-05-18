@@ -38,11 +38,18 @@ public class OrderDrinks {
         this.topping = topping;
         this.soban = soban;
     }
-    public OrderDrinks(String name, String size, String soluong,ArrayList<Product> topping, int soban) {
+    public OrderDrinks(String name, String size, String soluong, ArrayList<Product> topping, int soban) {
         this.name = name;
         this.size = size;
         this.soluong = soluong;
         this.topping = topping;
+        this.soban = soban;
+    }
+    public OrderDrinks(String name, String size, String soluong, int soban) {
+        this.name = name;
+        this.size = size;
+        this.soluong = soluong;
+
         this.soban = soban;
     }
     public OrderDrinks(String id, String name, String size, String soluong,ArrayList<Product> topping) {

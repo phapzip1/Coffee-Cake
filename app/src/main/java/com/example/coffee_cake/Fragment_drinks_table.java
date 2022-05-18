@@ -115,8 +115,7 @@ public class Fragment_drinks_table extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     table = new ArrayList<>();
-                    for (QueryDocumentSnapshot data : task.getResult())
-                    {
+                    for (QueryDocumentSnapshot data : task.getResult()) {
                         boolean status = data.getBoolean("status");
                         table.add(status);
                     }
@@ -131,14 +130,20 @@ public class Fragment_drinks_table extends Fragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", false);
 
+                String format;
+                if(table.size() + 1 >= 10) format = (table.size() + 1) + "";
+                else format =  "0"+ (table.size() + 1);
+
                 //Lưu trạng thái
-                db.collection("/TableStatus").document(table.size() + 1 + "").set(map)
+                db.collection("/TableStatus").document( format).set(map)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                             }
                         });
+                //need to reload again
+
             }
         });
 

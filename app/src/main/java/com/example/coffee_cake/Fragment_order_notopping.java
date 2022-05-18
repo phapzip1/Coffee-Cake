@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -16,11 +17,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,20 +75,21 @@ public class Fragment_order_notopping extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     TextView name,soluong,gia,s,m,l;
     Button btnthemngay;
     Boolean bs,bl,bm;
     ImageView add,remove;
     int sl,soban;
     Bundle bund;
-    String size = "S";
+    String size = "S", theloai, masp;
     MaterialCardView selectCard;
-    TextView tvtopping;
-    File path;
-    ArrayList<Boolean> table;
-    ArrayList<OrderDrinks> foodOrders;
-    MyVM viewModel;
-    ViewModel_for_food viewModel_for_food;
+//    File path;
+//    ArrayList<Boolean> table;
+//    ArrayList<OrderDrinks> foodOrders;
+//    MyVM viewModel;
+//    ViewModel_for_food viewModel_for_food;
+    FirebaseFirestore db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,16 +97,8 @@ public class Fragment_order_notopping extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order_notopping, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
-        viewModel_for_food = new ViewModelProvider(requireActivity()).get(ViewModel_for_food.class);
-        foodOrders = new ArrayList<>();
+        db = FirebaseFirestore.getInstance();
 
-        if(viewModel_for_food.getQueues() != null){
-            foodOrders = viewModel_for_food.getQueues();
-        }
-
-        table = viewModel.getTables();
-        path = getContext().getFilesDir();
         name = (TextView) v.findViewById(R.id.tvOrdernotopping);
         soluong = (TextView) v.findViewById(R.id.tvQuantitynotopping);
 
@@ -107,8 +107,12 @@ public class Fragment_order_notopping extends Fragment {
         s = (TextView) v.findViewById(R.id.sizeSnotopping);
         m = (TextView) v.findViewById(R.id.sizeMnotopping);
         l = (TextView) v.findViewById(R.id.sizeLnotopping);
+
         bund = getArguments(); // lấy giá trị, có số bàn
         soban = bund.getInt("soban");
+        masp = bund.getString("MASP");
+        theloai = bund.getString("theloai");
+
         add = (ImageView) v.findViewById(R.id.btnAddnotopping);
         remove = (ImageView) v.findViewById(R.id.btnRemovenotopping);
         sl = 1;
@@ -220,6 +224,7 @@ public class Fragment_order_notopping extends Fragment {
                 }
             }
         });
+
         name.setText(bund.getString("TENSP"));
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
@@ -227,83 +232,53 @@ public class Fragment_order_notopping extends Fragment {
         btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle(); // đưa giá trị đến home
-                bundle.putString("name",name.getText().toString());
-                bundle.putString("size",size.toString());
-                bundle.putString("soluong",soluong.getText().toString());
-                bundle.putInt("soban",soban);
-                //bundle.putString("topping",tentoppingdachon);
-                //bundle.putString("gia",gia.getText().toString());
                 changeTableStatus(soban);
 
-                //foodOrders.add(new OrderDrinks(name.getText().toString(), size, soluong.getText().toString(), " ", soban + 1));
-                viewModel_for_food.setQueues(foodOrders);
+                saveFoodOrderIntoAFile();
 
-                deleteFile("FoodQueue.txt");
-                saveFoodOrderIntoAFile("FoodQueue.txt");
-
-                Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuHome,bundle);
+                Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuHome);
             }
         });
 
         return v;
     }
 
-    private void saveFoodOrderIntoAFile(String foodQueue) {
-        ArrayList<String> s = new ArrayList<>();
+    private void saveFoodOrderIntoAFile() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sp_ref_name", db.document(theloai + '/' + masp));
+        map.put("SIZE", size);
+        map.put("SOLUONG", soluong.getText().toString());
 
-        for(int i = 0; i < foodOrders.size(); i++){
-            s.add(i, foodOrders.get(i).getName() + "/" + foodOrders.get(i).getSize() + "/" + foodOrders.get(i).getSoluong()
-                    + "/" + foodOrders.get(i).getTopping() + "/" +  foodOrders.get(i).getSoban()+ "\n");
-        }
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, foodQueue));
-            for(int i = 0; i < s.size(); i++){
-                writer.write(s.get(i).getBytes());
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
+
+        db.collection("/TableStatus/" + format + "/DrinksOrder").add(map)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                Map<String, Object> queue = new HashMap<>();
+                queue.put("food_name", "/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId());
+                db.collection("/FoodQueue").add(queue);
             }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     private void changeTableStatus(int soban) {
-        Bundle bundle = getArguments();
-        String fileName = bundle.getString("fileName");
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", true);
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
 
-        File savedFile = new File(path + "/" + fileName);
-        if(!savedFile.exists()){
-            Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_SHORT).show();
-        }
+        db.collection("/TableStatus").document(format).set(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
 
-        //thay đổi trạng thái
-        table.set(soban, true);
-        viewModel.setTables(table);
-
-        deleteFile(fileName);
-        writeToFile(fileName);
-    }
-    private void writeToFile(String fileName) {
-        ArrayList<String> s = new ArrayList<>();
-
-        for(int i = 0; i < table.size(); i++){
-            s.add(i, table.get(i).toString());
-        }
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-            for(int i = 0; i < table.size(); i++){
-                writer.write(s.get(i).getBytes());
-            }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
+                    }
+                });
     }
 
-    private void deleteFile(String fileName) {
-        File savedFile = new File(path + "/" + fileName);
 
-        if (savedFile.exists())
-            savedFile.delete();
-    }
 }

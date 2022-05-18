@@ -103,7 +103,6 @@ public class Fragment_order extends Fragment {
 
     Cursor cursor = null;
     ArrayList<Product> arraytopping;
-    ArrayList<OrderDrinks> foodOrders;
     FirebaseFirestore db;
 
     int tientopping = 0 ;
@@ -422,11 +421,15 @@ public class Fragment_order extends Fragment {
 
     private void saveFoodOrderIntoAFile() {
         Map<String, Object> map = new HashMap<>();
-        map.put("sp_ref_name", theloai + masp);
-        map.put("size", size);
-        map.put("soluong", soluong.getText().toString());
+        map.put("sp_ref_name", theloai + "/" + masp);
+        map.put("SIZE", size);
+        map.put("SOLUONG", soluong.getText().toString());
 
-        db.collection("/TableStatus/" + (soban + 1) + "/DrinksOrder").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
+
+        db.collection("/TableStatus/" + format + "/DrinksOrder").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 String path = task.getResult().getPath();
@@ -437,17 +440,22 @@ public class Fragment_order extends Fragment {
                     topping.put("topping_ref", db.document(link));
                     db.document(path).collection("/Topping").add(topping);
                 }
+
+                Map<String, Object> queue = new HashMap<>();
+                queue.put("food_name", "/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId());
+                db.collection("/FoodQueue").add(queue);
             }
         });
-
-
     }
 
     private void changeTableStatus(int soban) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
 
-        db.collection("/TableStatus").document((soban+1) + "").set(map)
+        db.collection("/TableStatus").document(format).set(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

@@ -11,9 +11,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -113,28 +116,38 @@ public class Fragment_drinks_edit extends Fragment {
             galleryIntent.setType("image/*");
             launcher.launch(galleryIntent);
         });
+
+        btnSaveDrink.setOnClickListener(view -> {
+            // đợi hoàn thành firestore database
+            ImageLoader.Upload("images/goods/", imgDrink);
+            // push du lieu len firestore database
+        });
+
         Bundle DrinkEdit = getArguments();
 
 
+        // ổn
         if (getArguments() != null) // Che do chinh sua drink
         {
             Bundle data = getArguments();
 
             // hien thi thong tin co the thay doi duoc
-            FirebaseFirestore.getInstance().collection("/SANPHAM/").document(data.getString("MASP"))
+            FirebaseFirestore.getInstance().collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").document(data.getString("MASP"))
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot snap = task.getResult();
-                        edtNameDrink.setText(DrinkEdit.getString("TenSP"));
-                        edtPrice.setText( ""+DrinkEdit.getInt("Gia"));
+                        edtNameDrink.setText(snap.getString("TEN"));
+                        edtPrice.setText( ""+snap.getLong("GIA"));
                     }
                 }
             });
             ImageLoader.Load("images/goods/" + data.getString("MASP") + ".jpg", ((ImageView)root.findViewById(R.id.imgEditDink)));
 
         }
+
+
 
         ((Button)root.findViewById(R.id.btnSaveDrink)).setOnClickListener(view ->{
 
@@ -147,7 +160,7 @@ public class Fragment_drinks_edit extends Fragment {
                 return;
             }
 
-            int giasp = Integer.parseInt(gia);
+            long giasp = Integer.parseInt(gia);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if (getArguments() == null) // add mode
@@ -168,6 +181,7 @@ public class Fragment_drinks_edit extends Fragment {
                         }
                     }
                 });
+
             }
             else // edit mode
             {
@@ -179,16 +193,14 @@ public class Fragment_drinks_edit extends Fragment {
                 String id = getArguments().getString("MASP");
 
                 db.collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").document(id).set(drink);
+
                 ImageLoader.Upload("images/goods/" + id + ".jpg", imgDrink);
             }
+            Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
 
-            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_edit_to_fragment_menu_coffee_notable2);
+
+//            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_edit_to_fragment_menu_coffee_notable2);
         });
-
-
-
-
-
 
 
         return root;

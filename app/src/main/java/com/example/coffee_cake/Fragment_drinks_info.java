@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,13 +65,16 @@ public class Fragment_drinks_info extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    String tam;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_drinks_info, container, false);
         Bundle DrinkInfo = getArguments();
+//        Bundle bundle = getArguments();
+        // có cái temp: tức là chọn vào cái nào của menu và số bàn
+
 
         // get truc tiep tu database
 
@@ -80,7 +85,7 @@ public class Fragment_drinks_info extends Fragment {
 
         // get truc tiep tu data base
 
-        FirebaseFirestore.getInstance().collection("/SANPHAM/").document(DrinkInfo.getString("MASP"))
+        FirebaseFirestore.getInstance().collection("/SANPHAM/CAPHE/DANHSACHCAPHE").document(DrinkInfo.getString("MASP"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -88,13 +93,72 @@ public class Fragment_drinks_info extends Fragment {
                 {
                     DocumentSnapshot snap =  task.getResult();
 
-                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(DrinkInfo.getString("TenSP"));
-                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+DrinkInfo.getInt("Gia")+" đ");
+                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
+                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
 
 
                 }
             }
         });
+//        FirebaseFirestore.getInstance().collection("/SANPHAM/TRASUA/DANHSACHTRASUA").document(DrinkInfo.getString("MASP"))
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful())
+//                {
+//                    DocumentSnapshot snap =  task.getResult();
+//
+//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
+//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
+//
+//
+//                }
+//            }
+//        });
+//        FirebaseFirestore.getInstance().collection("/SANPHAM/SINHTO/DANHSACHSINHTO").document(DrinkInfo.getString("MASP"))
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful())
+//                {
+//                    DocumentSnapshot snap =  task.getResult();
+//
+//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
+//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
+//
+//
+//                }
+//            }
+//        });
+//        FirebaseFirestore.getInstance().collection("/SANPHAM/TOPPING/DANHSACHTOPPING").document(DrinkInfo.getString("MASP"))
+//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful())
+//                {
+//                    DocumentSnapshot snap =  task.getResult();
+//
+//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
+//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
+//
+//
+//                }
+//            }
+//        });
+
+        ((ImageView)root.findViewById(R.id.btnDelDrink)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("SANPHAM/CAPHE/DANHSACHCAPHE").document(DrinkInfo.getString("MASP")).delete();
+                FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("MASP" + ".jpg")).delete();
+                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+
+                //Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_info_to_fragment_menu_coffee_notable2);
+            }
+        });
+
+
         ImageLoader.Load( "images/goods/" + DrinkInfo.getString("MASP") + ".jpg", ((ImageView)root.findViewById(R.id.avtDrink)));
 
 

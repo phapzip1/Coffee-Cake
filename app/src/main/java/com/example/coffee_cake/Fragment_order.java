@@ -145,39 +145,6 @@ public class Fragment_order extends Fragment {
         bm = false;
         bl = false;
 
-//        db.collection("/TableStatus").document(soban + "").collection("/DrinksOrder").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                foodOrders = new ArrayList<>();
-//                for (QueryDocumentSnapshot data : task.getResult())
-//                {
-//                    db.document(data.getString("sp_ref_name")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                            String name = task.getResult().getString("TEN");
-//                            String size = data.getString("size");
-//                            String soluong = data.getString("soluong");
-//                            db.collection(task.getResult().getReference().getPath() + "/Topping").get()
-//                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                            ArrayList<Product> topping = new ArrayList<>();
-//                                            for (QueryDocumentSnapshot data : task.getResult()) {
-//                                                topping.add(new Product (db.document(data.getString("topping_ref")).getId(),
-//                                                        db.document(data.getString("topping_ref")).get().getResult().getString("TEN"),
-//                                                        Integer.parseInt(db.document(data.getString("topping_ref")).get().getResult().getLong("GIA") + "")));
-//                                                //long giatien = db.document(data.getString("topping_ref")).get().getResult().getLong("GIA");
-//                                            }
-//                                            foodOrders.add(new OrderDrinks(name, size, soluong, topping));
-//                                        }
-//                                    });
-//                        }
-//                    });
-//
-//                }
-//            }
-//        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,10 +297,6 @@ public class Fragment_order extends Fragment {
                         builder.setTitle("Lựa Chọn Topping");
                         builder.setCancelable(false); // đặt hộp thoại không thể hủy
 
-                        // String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"};
-                        // boolean[] selecttopping;
-                        // ArrayList<Integer> toppinglist;
-
                         builder.setMultiChoiceItems(mangtengiatopping, selecttopping, new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
@@ -421,9 +384,9 @@ public class Fragment_order extends Fragment {
 
     private void saveFoodOrderIntoAFile() {
         Map<String, Object> map = new HashMap<>();
-        map.put("sp_ref_name", theloai + "/" + masp);
+        map.put("sp_ref_name", db.document(theloai + "/" + masp) );
         map.put("SIZE", size);
-        map.put("SOLUONG", soluong.getText().toString());
+        map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);
@@ -442,7 +405,7 @@ public class Fragment_order extends Fragment {
                 }
 
                 Map<String, Object> queue = new HashMap<>();
-                queue.put("food_name", "/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId());
+                queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
                 db.collection("/FoodQueue").add(queue);
             }
         });

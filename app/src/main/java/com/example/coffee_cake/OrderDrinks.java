@@ -108,7 +108,6 @@ class  OrderDrinksAdapter extends BaseAdapter
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
-    ViewModel_for_food viewModel_for_food;
     private Context m_Context;
     private ArrayList<OrderDrinks> m_array;
     private int m_Layout;
@@ -146,17 +145,21 @@ class  OrderDrinksAdapter extends BaseAdapter
         daubacham = (ImageView)view.findViewById(R.id.imgDetail);
 
         tvnametable.setText(   m_array.get(i).getName()     );
-        viewModel_for_food = new ViewModelProvider(ViewModelStore::new).get(ViewModel_for_food.class);
 
-        if(viewModel_for_food.getQueues() == null)
-            Toast.makeText(m_Context, "NULL", Toast.LENGTH_SHORT).show();
 
         tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")" );
 
         if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" ")) // ẩn đi textview topping nếu ko phải là trà sữa
             tvtopping.setVisibility(View.INVISIBLE);
         else
-            tvtopping.setText( "Topping: " + m_array.get(i).getTopping() );
+        {
+            String tp = "";
+            for (Product data: m_array.get(i).getTopping())
+                tp += data.getTensp() + " ";
+            tvtopping.setText( "Topping: " + tp);
+        }
+
+
 
         tvtable.setText("Bàn: " + m_array.get(i).getSoban());
 
@@ -178,18 +181,8 @@ class  OrderDrinksAdapter extends BaseAdapter
                             //Toast.makeText(view.getContext(), "Bàn số " + m_array.get(i).getSoban(), Toast.LENGTH_SHORT).show();
 
 
-
                         } else if (item.getTitle().equals("Hủy bỏ")) {
-                            m_array.remove(i);
-                            viewModel_for_food.setQueues(m_array);
 
-
-//                            Fragment frg = null;
-//                            frg = getSupportFragmentManager().findFragmentByTag("app_name");
-//                            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                            ft.detach(frg);
-//                            ft.attach(frg);
-//                            ft.commit();
                         }
                         return true;
                     }

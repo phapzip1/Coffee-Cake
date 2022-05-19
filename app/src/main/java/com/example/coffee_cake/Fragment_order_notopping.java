@@ -247,7 +247,7 @@ public class Fragment_order_notopping extends Fragment {
         Map<String, Object> map = new HashMap<>();
         map.put("sp_ref_name", db.document(theloai + '/' + masp));
         map.put("SIZE", size);
-        map.put("SOLUONG", soluong.getText().toString());
+        map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);
@@ -258,7 +258,7 @@ public class Fragment_order_notopping extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 Map<String, Object> queue = new HashMap<>();
-                queue.put("food_name", "/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId());
+                queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
                 db.collection("/FoodQueue").add(queue);
             }
         });

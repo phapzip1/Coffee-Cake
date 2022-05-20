@@ -215,6 +215,14 @@ public class Fragment_drinks_edit extends Fragment {
             getActivity().onBackPressed();
         });
 
+        ((ImageView)root.findViewById(R.id.btnBack2)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+                getActivity().onBackPressed();
+            }
+        });
+
 
         return root;
     }

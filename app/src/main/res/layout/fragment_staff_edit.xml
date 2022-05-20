@@ -11,11 +11,11 @@
     tools:context=".Fragment_staff_edit">
 
     <!-- TODO: Update blank fragment layout -->
-<!--    <ImageView-->
-<!--        android:id="@+id/btnBack"-->
-<!--        android:src="@drawable/ic_arrow_back"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <ImageView
+        android:id="@+id/btnBack1"
+        android:src="@drawable/ic_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <ImageView
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"

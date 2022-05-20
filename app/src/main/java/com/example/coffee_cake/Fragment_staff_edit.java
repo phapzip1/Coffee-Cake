@@ -246,6 +246,17 @@ public class Fragment_staff_edit extends Fragment {
             new DatePickerDialog(getActivity(), date, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
         });
 
+        // Xử lí nút quay về
+        ((ImageView)root.findViewById(R.id.btnBack1)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+                // Navigation.findNavController(view).navigate(R.id.action_fragment_staff_edit_to_menuStaff);
+                // Nav cái này vẫn sài dc
+            }
+        });
+
+        // Xử lý nút Lưu có vấn đề về đổ db
         ((Button)root.findViewById(R.id.btnSaveInfoStaff)).setOnClickListener(view ->{
 
             String cccd = edtId.getText().toString(),
@@ -317,5 +328,6 @@ public class Fragment_staff_edit extends Fragment {
 
         return root;
     }
+
 
 }

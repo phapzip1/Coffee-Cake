@@ -33,7 +33,7 @@ import java.util.Locale;
  * Use the {@link Fragment_menu_coffee#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_menu_coffee extends Fragment {
+public class Fragment_menu_coffee extends Fragment implements TextWatcher {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -140,32 +140,33 @@ public class Fragment_menu_coffee extends Fragment {
             }
         });
 
-        edtsearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-                    arrayList.clear();
-                    while(cursor.moveToNext())
-                    {
-                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-                        if (TENSP.contains(edtsearch.getText().toString()))
-                        {
-                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-                            Product temp = new Product(MASP,TENSP,GIA);
-                            arrayList.add(temp);
-                        }
-                    }
-                    adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
+        edtsearch.addTextChangedListener(this);
+//        edtsearch.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
+//                    arrayList.clear();
+//                    while(cursor.moveToNext())
+//                    {
+//                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
+//                        if (TENSP.contains(edtsearch.getText().toString()))
+//                        {
+//                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
+//                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
+//                            Product temp = new Product(MASP,TENSP,GIA);
+//                            arrayList.add(temp);
+//                        }
+//                    }
+//                    adapter.notifyDataSetChanged();
+//            }
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
 
         lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -188,5 +189,19 @@ public class Fragment_menu_coffee extends Fragment {
         });
 
         return v;
+    }
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        this.adapter.getFilter().filter(charSequence);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }

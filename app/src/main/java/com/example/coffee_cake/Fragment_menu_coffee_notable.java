@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * Use the {@link Fragment_menu_coffee_notable#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_menu_coffee_notable extends Fragment {
+public class Fragment_menu_coffee_notable extends Fragment implements TextWatcher{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -152,6 +152,7 @@ public class Fragment_menu_coffee_notable extends Fragment {
         });
 
 
+        edtcoffeeno.addTextChangedListener(this);
 //        edtcoffeeno.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -231,8 +232,22 @@ public class Fragment_menu_coffee_notable extends Fragment {
         ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
         });
-
-
         return v;
+    }
+
+    // 3 override để textchanged
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        this.adapter.getFilter().filter(charSequence);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }

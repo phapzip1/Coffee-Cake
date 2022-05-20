@@ -79,15 +79,13 @@ public class Fragment_bill extends Fragment {
 
     File path;
     ArrayList<Boolean> table;
-    MyVM viewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MyVM.class);
-        table = viewModel.getTables();
         path = getContext().getFilesDir();
 
         getDateTime(view);
@@ -163,7 +161,6 @@ public class Fragment_bill extends Fragment {
 
         //thay đổi trạng thái
         table.set(tableNumber, false);
-        viewModel.setTables(table);
 
         deleteFile(fileName);
         writeToFile(fileName);

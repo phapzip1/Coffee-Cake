@@ -89,7 +89,6 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu_coffee, container, false);
 
-        DBHelper db = new DBHelper(getActivity());
         edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
@@ -140,6 +139,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
             }
         });
 
+//<<<<<<< HEAD
         edtsearch.addTextChangedListener(this);
 //        edtsearch.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -167,6 +167,21 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
 //            public void afterTextChanged(Editable editable) {
 //            }
 //        });
+//=======
+//        edtsearch.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                    adapter.notifyDataSetChanged();
+//            }
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
+//>>>>>>> a81e2db17c7fd13a39feb60bbbedd06601b0bcb7
 
         lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -199,7 +214,6 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
-
     @Override
     public void afterTextChanged(Editable editable) {
 

@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,35 +39,23 @@ public class OrderDrinks {
     private ArrayList<Product> topping;
     private int soban;
 
-    public OrderDrinks(String id, String name, String size, String soluong,ArrayList<Product> topping, int soban) {
-        this.id = id;
-        this.name = name;
-        this.size = size;
-        this.soluong = soluong;
-        this.topping = topping;
-        this.soban = soban;
-    }
-    public OrderDrinks(String name, String size, String soluong, ArrayList<Product> topping, int soban) {
-        this.name = name;
-        this.size = size;
-        this.soluong = soluong;
-        this.topping = topping;
-        this.soban = soban;
-    }
-    public OrderDrinks(String name, String size, String soluong, int soban) {
-        this.name = name;
-        this.size = size;
-        this.soluong = soluong;
 
-        this.soban = soban;
-    }
-    public OrderDrinks(String id, String name, String size, String soluong,ArrayList<Product> topping) {
+    public OrderDrinks(String id, String name, String size, String soluong, int soban) {
         this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
         this.topping = topping;
+        this.soban = soban;
     }
+    public OrderDrinks(String id, String name, String size, String soluong, ArrayList<Product> topping, int soban) {
+        this.name = name;
+        this.size = size;
+        this.soluong = soluong;
+        this.topping = topping;
+        this.soban = soban;
+    }
+
 
 
     public String getName() {
@@ -108,6 +97,10 @@ public class OrderDrinks {
 
     public void setTopping(ArrayList<Product> topping) {
         this.topping = topping;
+    }
+
+    public String getId() {
+        return id;
     }
 }
 
@@ -192,6 +185,7 @@ class  OrderDrinksAdapter extends BaseAdapter
 
 
                         } else if (item.getTitle().equals("Hủy bỏ")) {
+//<<<<<<< HEAD
                             db.collection("FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -210,6 +204,13 @@ class  OrderDrinksAdapter extends BaseAdapter
                                     }
                                 }
                             });
+//=======
+                            DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
+                            Task<DocumentSnapshot> task = ref.get();
+                            while(!task.isComplete());
+                            task.getResult().getDocumentReference("food_name").delete();
+                            ref.delete();
+//>>>>>>> a81e2db17c7fd13a39feb60bbbedd06601b0bcb7
                         }
                         return true;
                     }

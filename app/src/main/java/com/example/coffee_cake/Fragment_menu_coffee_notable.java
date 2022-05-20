@@ -100,7 +100,6 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
 
 
 
-        DBHelper db = new DBHelper(getActivity());
         edtcoffeeno = (EditText) v.findViewById(R.id.edtcoffeeno);
         lvcoffeeno = (ListView) v.findViewById(R.id.lvcoffeeno);
 

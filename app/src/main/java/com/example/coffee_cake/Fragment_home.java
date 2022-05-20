@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -138,11 +139,11 @@ public class Fragment_home extends Fragment {
 
                             topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                         }
-                        arrayList.add(new OrderDrinks(TEN, SIZE, SL, topping, SOBAN));
+                        arrayList.add(new OrderDrinks(data.getId() ,TEN, SIZE, SL, topping, SOBAN));
                     }
                     else
                     {
-                        arrayList.add(new OrderDrinks(TEN, SIZE, SL, SOBAN));
+                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, SOBAN));
                     }
 
                 }

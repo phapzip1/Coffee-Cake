@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Product {
     private String masp,tensp;
@@ -57,19 +60,21 @@ public class Product {
     }
 }
 
-class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản phẩm ra
+class ProductAdapter extends BaseAdapter implements Filterable // dùng cho phần xuất sản phẩm ra
 {
-
     TextView tvname,tvmasp,tvprice;
     ImageView ava;
     private Context m_Context;
-    private ArrayList<Product> m_array;
+    private ArrayList<Product> m_array,temp_array;
     private int m_Layout;
+    CustomFilter cs;
+
     public ProductAdapter(Context context, int layout, ArrayList<Product> arrayList)
     {
         m_Context = context;
         m_Layout = layout;
         m_array = arrayList;
+        temp_array = arrayList;
     }
     @Override
     public int getCount() {
@@ -78,12 +83,12 @@ class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản ph�
 
     @Override
     public Object getItem(int i) {
-        return null;
-    }
+        return m_array.get(i);
+    } // có sửa
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int i) { // m_array.indexOf(getItemId(i))
+        return 0; // có sửa
     }
 
     @Override
@@ -110,20 +115,69 @@ class ProductAdapter extends BaseAdapter    // dùng cho phần xuất sản ph�
 
         return view;
     }
+    @Override
+    public Filter getFilter() {
+        if (cs==null)
+        {
+            cs = new CustomFilter();
+        }
+        return cs;
+    }
+    class CustomFilter extends Filter
+    {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint!= null &&  constraint.length()>0)
+            {
+                constraint = constraint.toString().toUpperCase();
+                ArrayList<Product> filters = new ArrayList<>(); // bộ lọc
+
+                for (int i=0 ; i<temp_array.size();i++)
+                {
+                    if (temp_array.get(i).getTensp().toUpperCase().contains(constraint))
+                    {
+                        Product product = new Product(temp_array.get(i).getMasp(),
+                                temp_array.get(i).getTensp(),temp_array.get(i).getGia());
+                        filters.add(product);
+                    }
+                    results.count = filters.size();
+                    results.values = filters;
+                }
+            }
+            else
+            {
+                results.count = temp_array.size();
+                results.values = temp_array;
+            }
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence charSequence,FilterResults filterResults )
+        {
+            m_array = (ArrayList<Product>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    }
 
 }
-class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể update data
+// Dùng cho layout có thể update data
+class ProductAdapterUpdate extends BaseAdapter implements Filterable
 {
     TextView tvnameupdate, tvmaspupdate, tvpriceupdate;
     ImageView avaupdate;
     private Context m_Context;
-    private ArrayList<Product> m_array;
+    private ArrayList<Product> m_array,temp_array; // thêm cái temp array
     private int m_Layout;
+
+    CustomFilter cs;
 
     public ProductAdapterUpdate(Context context, int layout, ArrayList<Product> arrayList) {
         m_Context = context;
         m_Layout = layout;
         m_array = arrayList;
+        temp_array = arrayList;
     }
 
     @Override
@@ -133,12 +187,12 @@ class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể upd
 
     @Override
     public Object getItem(int i) {
-        return null;
-    }
+        return m_array.get(i);
+    } // có sửa
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int i) { // m_array.indexOf(getItemId(i))
+        return 0; // có sửa
     }
 
     @Override
@@ -150,13 +204,57 @@ class ProductAdapterUpdate extends BaseAdapter // Dùng cho layout có thể upd
         avaupdate = (ImageView) view.findViewById(R.id.imageDrinkupdate);
 
         tvnameupdate.setText(m_array.get(i).getTensp());
-        tvmaspupdate.setText(m_array.get(i).getMasp());
-        tvpriceupdate.setText(m_array.get(i).getGia() + "");
+        tvmaspupdate.setText("Giá: " + m_array.get(i).getGia() + ""); // giá
+        tvpriceupdate.setText("");
 
         ImageLoader.Load( "/images/goods/"  + m_array.get(i).getMasp() + ".jpg", avaupdate);
-
         return view;
     }
 
+    @Override
+    public Filter getFilter() {
+        if (cs==null)
+        {
+            cs = new CustomFilter();
+        }
+        return cs;
+    }
+    class CustomFilter extends Filter
+    {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint!= null &&  constraint.length()>0)
+            {
+                constraint = constraint.toString().toUpperCase();
+                ArrayList<Product> filters = new ArrayList<>(); // bộ lọc
+
+                for (int i=0 ; i<temp_array.size();i++)
+                {
+                    if (temp_array.get(i).getTensp().toUpperCase().contains(constraint))
+                    {
+                        Product product = new Product(temp_array.get(i).getMasp(),
+                                temp_array.get(i).getTensp(),temp_array.get(i).getGia());
+                        filters.add(product);
+                    }
+                    results.count = filters.size();
+                    results.values = filters;
+                }
+            }
+            else
+            {
+                results.count = temp_array.size();
+                results.values = temp_array;
+            }
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence charSequence,FilterResults filterResults )
+        {
+            m_array = (ArrayList<Product>) filterResults.values;
+            notifyDataSetChanged();
+        }
+    }
 }
 

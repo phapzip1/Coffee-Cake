@@ -86,6 +86,8 @@ public class Fragment_drinks_edit extends Fragment {
     EditText edtNameDrink, edtPrice;
     ImageView imgDrink;
     Button btnSaveDrink;
+    String query = "";
+
     private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -123,16 +125,31 @@ public class Fragment_drinks_edit extends Fragment {
             // push du lieu len firestore database
         });
 
-        Bundle DrinkEdit = getArguments();
+        Bundle data = getArguments();
 
+
+
+        switch (data.getString("temp"))
+        {
+            case "coffee":
+                query = "/SANPHAM/CAPHE/DANHSACHCAPHE";
+                break;
+            case "trasua":
+                query = "/SANPHAM/TRASUA/DANHSACHTRASUA";
+                break;
+            case "sinhto":
+                query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
+                break;
+            case "topping":
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                break;
+        }
 
         // ổn
-        if (getArguments() != null) // Che do chinh sua drink
+        if (data.getString("Masp") != null) // Che do chinh sua drink
         {
-            Bundle data = getArguments();
-
             // hien thi thong tin co the thay doi duoc
-            FirebaseFirestore.getInstance().collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").document(data.getString("MASP"))
+            FirebaseFirestore.getInstance().collection(query).document(data.getString("Masp"))
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -143,8 +160,7 @@ public class Fragment_drinks_edit extends Fragment {
                     }
                 }
             });
-            ImageLoader.Load("images/goods/" + data.getString("MASP") + ".jpg", ((ImageView)root.findViewById(R.id.imgEditDink)));
-
+            ImageLoader.Load("images/goods/" + data.getString("Masp") + ".jpg", ((ImageView)root.findViewById(R.id.imgEditDink)));
         }
 
 
@@ -165,14 +181,12 @@ public class Fragment_drinks_edit extends Fragment {
 
             if (getArguments() == null) // add mode
             {
-
-
                 Map<String, Object> drink = new HashMap<>();
                 drink.put("TEN", tensp);
                 drink.put("GIA", giasp);
 
 
-                db.collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").add(drink).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                db.collection(query).add(drink).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful())
@@ -192,14 +206,13 @@ public class Fragment_drinks_edit extends Fragment {
 
                 String id = getArguments().getString("MASP");
 
-                db.collection("/SANPHAM/CAPHE/DANHSACHCAPHE/").document(id).set(drink);
+                db.collection(query).document(id).set(drink);
 
                 ImageLoader.Upload("images/goods/" + id + ".jpg", imgDrink);
             }
             Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
 
-
-//            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_edit_to_fragment_menu_coffee_notable2);
+            getActivity().onBackPressed();
         });
 
 

@@ -151,37 +151,6 @@ public class Fragment_menu_coffee_notable extends Fragment {
         });
 
 
-//        edtcoffeeno.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-//                arrayList.clear();
-//                while(cursor.moveToNext())
-//                {
-//                    String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-//                    if (TENSP.contains(edtcoffeeno.getText().toString()))
-//                    {
-//                        String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-//                        int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-//                        Product temp = new Product(MASP,TENSP,GIA);
-//                        arrayList.add(temp);
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-
-
-        //hue
 
         ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
@@ -219,18 +188,14 @@ public class Fragment_menu_coffee_notable extends Fragment {
         });
 
         lvcoffeeno.setOnItemClickListener((adapterView, view, i, l) -> {
-            Bundle bundle1 = new Bundle();
-            bundle1.putString("MASP", arrayList.get(i).getMasp());
-//            bundle1.putString("TenSP", arrayList.get(i).getTensp());
-//            bundle1.putInt("Gia", arrayList.get(i).getGia());
-
-            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_info, bundle1);
+            bundle.putString("Masp", arrayList.get(i).getMasp());
+            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_info, bundle);
         });
 
         ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
+            bundle.putString("Masp", null);
+            Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit, bundle);
         });
-
 
         return v;
     }

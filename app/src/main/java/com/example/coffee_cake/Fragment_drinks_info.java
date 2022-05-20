@@ -65,27 +65,36 @@ public class Fragment_drinks_info extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    String tam;
+
+
+    String query = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_drinks_info, container, false);
         Bundle DrinkInfo = getArguments();
-//        Bundle bundle = getArguments();
-        // có cái temp: tức là chọn vào cái nào của menu và số bàn
 
 
-        // get truc tiep tu database
 
-        //((TextView)root.findViewById(R.id.tvNameDrinks)).setText(DrinkInfo.getString("TenSP"));
-        //((TextView)root.findViewById(R.id.tvGia)).setText(""+DrinkInfo.getInt("Gia")+" đ");
-        // load ảnh
-        //ImageLoader.Load( "images/goods/", ((ImageView)root.findViewById(R.id.avtDrink)));
+        switch (DrinkInfo.getString("temp"))
+        {
+            case "coffee":
+                query = "/SANPHAM/CAPHE/DANHSACHCAPHE";
+                break;
+            case "trasua":
+                query = "/SANPHAM/TRASUA/DANHSACHTRASUA";
+                break;
+            case "sinhto":
+                query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
+                break;
+            case "topping":
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                break;
+        }
 
-        // get truc tiep tu data base
-
-        FirebaseFirestore.getInstance().collection("/SANPHAM/CAPHE/DANHSACHCAPHE").document(DrinkInfo.getString("MASP"))
+        FirebaseFirestore.getInstance().collection(query).document(DrinkInfo.getString("Masp"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -150,18 +159,16 @@ public class Fragment_drinks_info extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("SANPHAM/CAPHE/DANHSACHCAPHE").document(DrinkInfo.getString("MASP")).delete();
+                db.collection(query).document(DrinkInfo.getString("MASP")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("MASP" + ".jpg")).delete();
                 Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
 
-                //Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_info_to_fragment_menu_coffee_notable2);
+                getActivity().onBackPressed();
             }
         });
 
 
-        ImageLoader.Load( "images/goods/" + DrinkInfo.getString("MASP") + ".jpg", ((ImageView)root.findViewById(R.id.avtDrink)));
-
-
+        ImageLoader.Load( "images/goods/" + DrinkInfo.getString("Masp") + ".jpg", ((ImageView)root.findViewById(R.id.avtDrink)));
 
 
         ((ImageView)root.findViewById(R.id.btnEditDrink)).setOnClickListener(view -> {

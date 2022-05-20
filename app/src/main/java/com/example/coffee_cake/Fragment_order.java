@@ -92,9 +92,10 @@ public class Fragment_order extends Fragment {
     int sl,soban;
     Bundle bund;
     String size = "S";
-    String masp, theloai;
+    String masp, theloai, temp;
     MaterialCardView selectCard;
     TextView tvtopping;
+    ImageView image;
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
     //String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
@@ -132,11 +133,20 @@ public class Fragment_order extends Fragment {
         m = (TextView) v.findViewById(R.id.sizeM);
         l = (TextView) v.findViewById(R.id.sizeL);
 
+        image = v.findViewById(R.id.imgOder);
+
+
+
         bund = getArguments(); // lấy giá trị, có số bàn
 
         soban = bund.getInt("soban");
         masp = bund.getString("MASP");
         theloai = bund.getString("theloai");
+
+
+
+        ImageLoader.Load("images/goods/" + masp + ".jpg", image);
+
 
         add = (ImageView) v.findViewById(R.id.btnAdd);
         remove = (ImageView) v.findViewById(R.id.btnRemove);

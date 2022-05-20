@@ -79,7 +79,7 @@ public class Fragment_order_notopping extends Fragment {
     TextView name,soluong,gia,s,m,l;
     Button btnthemngay;
     Boolean bs,bl,bm;
-    ImageView add,remove;
+    ImageView add,remove, image;
     int sl,soban;
     Bundle bund;
     String size = "S", theloai, masp;
@@ -115,10 +115,14 @@ public class Fragment_order_notopping extends Fragment {
 
         add = (ImageView) v.findViewById(R.id.btnAddnotopping);
         remove = (ImageView) v.findViewById(R.id.btnRemovenotopping);
+        image = (ImageView) v.findViewById(R.id.imgOdernotopping);
+
         sl = 1;
         bs = true;
         bm = false;
         bl = false;
+
+        ImageLoader.Load("images/goods/" + masp + ".jpg", image);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

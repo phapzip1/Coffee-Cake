@@ -128,6 +128,7 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
                 break;
         }
 
+        edtcoffeeno.addTextChangedListener(this);
         FirebaseFirestore.getInstance().collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -188,7 +189,8 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
         });
 
         lvcoffeeno.setOnItemClickListener((adapterView, view, i, l) -> {
-            bundle.putString("Masp", arrayList.get(i).getMasp());
+
+            bundle.putString("Masp", ((Product)adapterView.getAdapter().getItem(i)).getMasp());
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_info, bundle);
         });
 

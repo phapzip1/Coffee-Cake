@@ -100,8 +100,8 @@ class ProductAdapter extends BaseAdapter implements Filterable // d√πng cho ph·∫
         ava = (ImageView) view.findViewById(R.id.imageDrink);
 
         tvname.setText(m_array.get(i).getTensp());
-        tvmasp.setText(m_array.get(i).getMasp());
-        tvprice.setText(m_array.get(i).getGia()+"");
+        tvmasp.setText(m_array.get(i).getGia()+""); // gia'
+        tvprice.setText("");
 //        StorageReference pathReference = FirebaseStorage.getInstance("gs://firebasse-a6718.appspot.com").getReference().child("images/goods/CA01.jpg");
 //        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override

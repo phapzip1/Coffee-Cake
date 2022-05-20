@@ -139,58 +139,17 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
             }
         });
 
-//<<<<<<< HEAD
         edtsearch.addTextChangedListener(this);
-//        edtsearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-//                    arrayList.clear();
-//                    while(cursor.moveToNext())
-//                    {
-//                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-//                        if (TENSP.contains(edtsearch.getText().toString()))
-//                        {
-//                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-//                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-//                            Product temp = new Product(MASP,TENSP,GIA);
-//                            arrayList.add(temp);
-//                        }
-//                    }
-//                    adapter.notifyDataSetChanged();
-//            }
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//=======
-//        edtsearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    adapter.notifyDataSetChanged();
-//            }
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
-//>>>>>>> a81e2db17c7fd13a39feb60bbbedd06601b0bcb7
 
         lvcoffee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bund = new Bundle();
 
-                String Masp = arrayList.get(i).getMasp();
-                String Tensp = arrayList.get(i).getTensp();
-                int Gia = arrayList.get(i).getGia();
+                String Masp = ((Product)adapterView.getAdapter().getItem(i)).getMasp();
+                String Tensp = ((Product)adapterView.getAdapter().getItem(i)).getTensp();
+                int Gia = ((Product)adapterView.getAdapter().getItem(i)).getGia();
+                bund.putString("temp", tam);
                 bund.putString("MASP",Masp);
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);

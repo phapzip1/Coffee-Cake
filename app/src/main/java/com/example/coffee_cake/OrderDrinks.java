@@ -23,6 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStore;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+
 import java.util.ArrayList;
 
 public class OrderDrinks {
@@ -108,6 +116,8 @@ class  OrderDrinksAdapter extends BaseAdapter
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
+    FirebaseFirestore db;
+
     private Context m_Context;
     private ArrayList<OrderDrinks> m_array;
     private int m_Layout;
@@ -138,6 +148,7 @@ class  OrderDrinksAdapter extends BaseAdapter
 
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
 
+        db = FirebaseFirestore.getInstance();
         tvnametable = (TextView) view.findViewById(R.id.tvnametable);
         tvsoluong = (TextView) view.findViewById(R.id.tvsoluong);
         tvtopping = (TextView) view.findViewById(R.id.tvtopping);
@@ -178,11 +189,27 @@ class  OrderDrinksAdapter extends BaseAdapter
                     @Override
                     public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                         if (item.getTitle().equals("Hoàn thành")) {
-                            //Toast.makeText(view.getContext(), "Bàn số " + m_array.get(i).getSoban(), Toast.LENGTH_SHORT).show();
 
 
                         } else if (item.getTitle().equals("Hủy bỏ")) {
-
+                            db.collection("FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    int t = 0;
+                                    for (DocumentSnapshot dataaaa : task.getResult()){
+                                        if(t == i) {
+                                            db.collection("FoodQueue").document(dataaaa.getId()).delete()
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                        }
+                                                    });
+                                            db.collection("")
+                                        }
+                                        t++;
+                                    }
+                                }
+                            });
                         }
                         return true;
                     }

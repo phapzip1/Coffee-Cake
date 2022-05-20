@@ -83,8 +83,7 @@ public class Fragment_statistic extends Fragment {
         // Inflate the layout for this fragment
         View mview = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        DBHelper db = new DBHelper(getActivity());
-        Cursor cs = db.getReadableDatabase().rawQuery( db.getMonthlyStatistic(2022), null);
+
 
         barChart = mview.findViewById(R.id.barChart);
         barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
@@ -98,25 +97,9 @@ public class Fragment_statistic extends Fragment {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
 
 
-        boolean hasvalue = cs.moveToNext();
-        for (int i = 0; i < 12; i++)
-        {
-            if (hasvalue)
-            {
-                if (i + 1 ==  Integer.parseInt(cs.getString(0)))
-                {
-                    barEntries.add(new BarEntry(i, cs.getInt(1)));
-                    hasvalue = cs.moveToNext();
-                }
-                else
-                    barEntries.add(new BarEntry(i, 0));
-            }
-            else
-                barEntries.add(new BarEntry(i, 0));
-        }
 
 
-        cs.close();
+
 
 
         BarDataSet barDataSet = new BarDataSet(barEntries, "None");

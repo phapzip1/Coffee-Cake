@@ -89,7 +89,6 @@ public class Fragment_menu_coffee extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu_coffee, container, false);
 
-        DBHelper db = new DBHelper(getActivity());
         edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
@@ -147,19 +146,6 @@ public class Fragment_menu_coffee extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM SANPHAM WHERE MASP LIKE 'CA%' ",null);
-                    arrayList.clear();
-                    while(cursor.moveToNext())
-                    {
-                        String TENSP = cursor.getString(cursor.getColumnIndex("TENSP"));
-                        if (TENSP.contains(edtsearch.getText().toString()))
-                        {
-                            String MASP = cursor.getString(cursor.getColumnIndex("MASP"));
-                            int GIA = cursor.getInt(cursor.getColumnIndex("GIA"));
-                            Product temp = new Product(MASP,TENSP,GIA);
-                            arrayList.add(temp);
-                        }
-                    }
                     adapter.notifyDataSetChanged();
             }
             @Override

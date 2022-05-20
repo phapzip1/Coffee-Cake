@@ -48,10 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent a = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(a);
-                        finish();
+
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {

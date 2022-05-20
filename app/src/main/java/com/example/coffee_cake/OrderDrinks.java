@@ -204,7 +204,7 @@ class  OrderDrinksAdapter extends BaseAdapter
                                                         public void onSuccess(Void unused) {
                                                         }
                                                     });
-                                            db.collection("")
+//                                            db.collection("")
                                         }
                                         t++;
                                     }

@@ -67,14 +67,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/imgDetail"
-                android:background="@drawable/ic_more_vert"
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp">
 
-            </ImageView>
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgDetail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_more_vert" />
+            </RelativeLayout>
+
 
 
         </LinearLayout>

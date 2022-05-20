@@ -20,7 +20,7 @@
             android:textStyle="bold|italic"
             android:textSize="20sp"
             android:textColor="#FF8C32"
-            android:text="Stack"
+            android:text="Queue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView

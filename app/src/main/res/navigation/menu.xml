@@ -60,7 +60,8 @@
             app:destination="@id/fragment_staff_info" />
         <action
             android:id="@+id/action_menuStaff_to_fragment_staff_edit"
-            app:destination="@id/fragment_staff_edit" />
+            app:destination="@id/fragment_staff_edit"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/fragment_staff_info"
@@ -69,7 +70,8 @@
         tools:layout="@layout/fragment_staff_info" >
         <action
             android:id="@+id/action_fragment_staff_info_to_fragment_staff_edit"
-            app:destination="@id/fragment_staff_edit" />
+            app:destination="@id/fragment_staff_edit"
+            app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_fragment_staff_info_to_menuStaff"
             app:destination="@id/menuStaff" />
@@ -125,7 +127,8 @@
             app:destination="@id/fragment_drinks_info" />
         <action
             android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_edit"
-            app:destination="@id/fragment_drinks_edit" />
+            app:destination="@id/fragment_drinks_edit"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/fragment_drinks_info"
@@ -134,7 +137,8 @@
         tools:layout="@layout/fragment_drinks_info" >
         <action
             android:id="@+id/action_fragment_drinks_info_to_fragment_drinks_edit"
-            app:destination="@id/fragment_drinks_edit" />
+            app:destination="@id/fragment_drinks_edit"
+            app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_fragment_drinks_info_to_fragment_menu_coffee_notable2"
             app:destination="@id/fragment_menu_coffee_notable2" />

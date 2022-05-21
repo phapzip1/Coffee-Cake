@@ -64,7 +64,7 @@
             android:layout_gravity="center"
             android:text="Misthy"
             android:layout_marginTop="4dp"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:text="CCCD/CMND:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -221,7 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="123"
-                    android:textSize="20dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,7 +229,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Ngày sinh:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -237,7 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="10/10/2002"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Ngày vào làm:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -253,7 +253,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="10/10/2022"
-                    android:textSize="20dp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -261,7 +261,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Số điện thoại:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -269,7 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0968686868"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Hệ số lương:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -285,7 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </ScrollView>

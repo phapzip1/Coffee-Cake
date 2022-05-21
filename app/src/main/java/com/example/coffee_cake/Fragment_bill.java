@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,7 +90,6 @@ public class Fragment_bill extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     FirebaseFirestore db;
     ListView listFood;
     Bill_adapter adapter;
@@ -106,19 +108,20 @@ public class Fragment_bill extends Fragment {
 
         loadFoodIntoBill();
 
-        ((ImageView)view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
             }
         });
 
-        ((Button)view.findViewById(R.id.btnPay)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btnPay)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openPayDialog(Gravity.CENTER, view);
             }
         });
+
 
         return view;
     }
@@ -218,6 +221,7 @@ public class Fragment_bill extends Fragment {
         });
         dialog.show();
     }
+
 
     private void changeTableStatus(int soban) {
         Map<String, Object> map = new HashMap<>();

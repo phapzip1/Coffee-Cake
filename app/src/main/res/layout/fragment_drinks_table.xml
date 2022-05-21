@@ -41,14 +41,37 @@
 
 
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <GridView
-        android:id="@+id/tableList"
-        android:numColumns="2"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/loadingTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tableList"
+            android:layout_marginTop="188dp" />
+        <TextView
+            android:id="@+id/textloadTable"
+            android:layout_alignTop="@+id/tableList"
+            android:layout_marginTop="240dp"
+            android:textSize="20sp"
+            android:text="Chờ tí đcmmmm..."
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <GridView
+            android:id="@+id/tableList"
+            android:numColumns="2"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </GridView>
+        </GridView>
+
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

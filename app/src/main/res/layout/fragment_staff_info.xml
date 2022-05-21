@@ -187,7 +187,7 @@
             <ImageView
                 android:id="@+id/imgPhone"
                 android:padding="12dp"
-                android:src="@drawable/ic_phone"
+                android:src="@drawable/ic_phone1"
                 android:gravity="center"
                 android:background="@drawable/circle_img_green_nhat"
                 android:layout_marginLeft="32dp"
@@ -208,84 +208,167 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CCCD/CMND:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvCCCD"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="123"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Ngày sinh:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_cmnd">
 
-                <TextView
-                    android:id="@+id/tvDob"
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="CCCD/CMND:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvCCCD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123"
+                        android:textStyle="bold"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10/10/2002"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_cake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày sinh:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        />
+                    <TextView
+                        android:id="@+id/tvDob"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="10/10/2002"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Ngày vào làm:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvBeginDate"
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10/10/2022"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic__date_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày vào làm:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        />
+                    <TextView
+                        android:id="@+id/tvBeginDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="10/10/2022"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Số điện thoại:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvPhone1"
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0968686868"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Hệ số lương:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Số điện thoại:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        />
+                    <TextView
+                        android:id="@+id/tvPhone1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="0968686868"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvHSL"
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_hesoluong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_marginRight="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hệ số lương:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        />
+                    <TextView
+                        android:id="@+id/tvHSL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
         </ScrollView>

@@ -88,6 +88,7 @@
                     android:hint="Enter"
                     android:textSize="18sp"
                     android:padding="12dp"
+                    android:gravity="center"
                     android:spinnerMode="dropdown"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"
@@ -128,7 +129,8 @@
                 <!--                    android:layout_height="wrap_content" />-->
                 <Spinner
                     android:id="@+id/editGender"
-                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/dennhat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -149,14 +151,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_cmnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CCCD/CMND:"
-                    android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CCCD/CMND:"
+                        android:textColor="@color/dennhat"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
 
                 <EditText
                     android:id="@+id/edtCCCD"
@@ -167,15 +184,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp" />
-
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_cake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="Ngày sinh:"
                     android:textColor="@color/dennhat"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+            </LinearLayout>
 
                 <EditText
                     android:id="@+id/edtDob"
@@ -190,14 +218,27 @@
                     android:focusableInTouchMode="false"
                     android:textSize="18sp" />
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic__date_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="Ngày vào làm:"
                     android:textColor="@color/dennhat"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+            </LinearLayout>
+
 
                 <EditText
                     android:id="@+id/edtBeginDate"
@@ -211,15 +252,27 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:textSize="18sp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="Số điện thoại:"
                     android:textColor="@color/dennhat"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+            </LinearLayout>
 
                 <EditText
                     android:id="@+id/edtPhone"
@@ -230,15 +283,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_hesoluong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="Hệ số lương:"
                     android:textColor="@color/dennhat"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+            </LinearLayout>
 
                 <EditText
                     android:id="@+id/edtHSL"

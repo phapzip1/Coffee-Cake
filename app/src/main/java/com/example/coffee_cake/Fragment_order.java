@@ -119,7 +119,6 @@ public class Fragment_order extends Fragment {
         View v = inflater.inflate(R.layout.fragment_order, container, false);
         db = FirebaseFirestore.getInstance();
 
-
         //table = viewModel.getTables();
 
         arraytopping = new ArrayList<>();
@@ -136,17 +135,13 @@ public class Fragment_order extends Fragment {
         image = v.findViewById(R.id.imgOder);
 
 
-
         bund = getArguments(); // lấy giá trị, có số bàn
 
         soban = bund.getInt("soban");
         masp = bund.getString("MASP");
         theloai = bund.getString("theloai");
 
-
-
         ImageLoader.Load("images/goods/" + masp + ".jpg", image);
-
 
         add = (ImageView) v.findViewById(R.id.btnAdd);
         remove = (ImageView) v.findViewById(R.id.btnRemove);
@@ -267,7 +262,6 @@ public class Fragment_order extends Fragment {
         gia.setText(String.valueOf(bund.getInt("GIA")));
 
         btnthemngay = (Button) v.findViewById(R.id.btnOrderNow);
-
 
         // ------------------------ Phần sử lý topping
         selectCard = v.findViewById(R.id.selectCard);
@@ -397,6 +391,7 @@ public class Fragment_order extends Fragment {
         map.put("sp_ref_name", db.document(theloai + "/" + masp) );
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
+        map.put("DONE", false);
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);

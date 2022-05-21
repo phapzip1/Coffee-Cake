@@ -33,6 +33,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDrinks {
     private String name,size,soluong, id;
@@ -49,6 +51,7 @@ public class OrderDrinks {
         this.soban = soban;
     }
     public OrderDrinks(String id, String name, String size, String soluong, ArrayList<Product> topping, int soban) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
@@ -127,7 +130,7 @@ class  OrderDrinksAdapter extends BaseAdapter
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return m_array.get(i);
     }
 
     @Override
@@ -138,7 +141,6 @@ class  OrderDrinksAdapter extends BaseAdapter
     @SuppressLint("RestrictedApi")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) { // tên(size), số lượng ,topping, số bàn
-
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
 
         db = FirebaseFirestore.getInstance();
@@ -148,22 +150,19 @@ class  OrderDrinksAdapter extends BaseAdapter
         tvtable = (TextView) view.findViewById(R.id.tvtable);
         daubacham = (ImageView)view.findViewById(R.id.imgDetail);
 
-        tvnametable.setText(   m_array.get(i).getName()     );
+        tvnametable.setText(m_array.get(i).getName());
 
 
-        tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")" );
+        tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")");
 
         if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" ")) // ẩn đi textview topping nếu ko phải là trà sữa
             tvtopping.setVisibility(View.INVISIBLE);
-        else
-        {
+        else {
             String tp = "";
             for (Product data: m_array.get(i).getTopping())
                 tp += data.getTensp() + " ";
             tvtopping.setText( "Topping: " + tp);
         }
-
-
 
         tvtable.setText("Bàn: " + m_array.get(i).getSoban());
 
@@ -182,35 +181,29 @@ class  OrderDrinksAdapter extends BaseAdapter
                     @Override
                     public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                         if (item.getTitle().equals("Hoàn thành")) {
+                            DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
+                            Task<DocumentSnapshot> task = ref.get();
+                            while(!task.isComplete());
 
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("DONE", true);
+
+                            task.getResult().getDocumentReference("food_name").update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                        }
+                                    });
+
+                            task.getResult().getReference().delete();
+                            m_array.remove(i);
+                            notifyDataSetChanged();
 
                         } else if (item.getTitle().equals("Hủy bỏ")) {
-//<<<<<<< HEAD
-                            db.collection("FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    int t = 0;
-                                    for (DocumentSnapshot dataaaa : task.getResult()){
-                                        if(t == i) {
-                                            db.collection("FoodQueue").document(dataaaa.getId()).delete()
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                        }
-                                                    });
-                                            db.collection("");
-                                        }
-                                        t++;
-                                    }
-                                }
-                            });
-//=======
                             DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
                             Task<DocumentSnapshot> task = ref.get();
                             while(!task.isComplete());
                             task.getResult().getDocumentReference("food_name").delete();
                             ref.delete();
-//>>>>>>> a81e2db17c7fd13a39feb60bbbedd06601b0bcb7
                         }
                         return true;
                     }

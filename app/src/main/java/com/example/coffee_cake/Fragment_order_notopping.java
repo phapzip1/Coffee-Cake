@@ -252,6 +252,7 @@ public class Fragment_order_notopping extends Fragment {
         map.put("sp_ref_name", db.document(theloai + '/' + masp));
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
+        map.put("DONE", false);
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);

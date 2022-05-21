@@ -79,6 +79,7 @@ public class Fragment_home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     ListView listDrinks;
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
@@ -96,18 +97,16 @@ public class Fragment_home extends Fragment {
 
         db = FirebaseFirestore.getInstance();
 
-
-
         db.collection("/FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
-
                 arrayList = new ArrayList<>();
                 adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
 
-                for (DocumentSnapshot data : task1.getResult())
-                {
+                for (DocumentSnapshot data : task1.getResult()) {
                     String SIZE, SL, TEN;
+                    String masp, tensp;
+                    long gia;
 
                     Task<DocumentSnapshot> task2 = data.getDocumentReference("food_name").get();
                     while(!task2.isComplete());
@@ -123,26 +122,27 @@ public class Fragment_home extends Fragment {
                     while(!task3.isComplete());
 
                     TEN = task3.getResult().getString("TEN");
-                    if (task3.getResult().getReference().getParent().getParent().getId().equals("TRASUA"))
-                    {
+                    if (task3.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
 
                         Task<QuerySnapshot> task4 = task2.getResult().getReference().collection("Topping").get();
                         while(!task4.isComplete());
                         ArrayList<Product> topping = new ArrayList<>();
+
                         for(DocumentSnapshot dataaaa : task4.getResult()){
                             Task<DocumentSnapshot> task5 = dataaaa.getDocumentReference("topping_ref").get();
                             while(!task5.isComplete());
 
-                            String masp = task5.getResult().getString("MASP");
-                            String tensp = task5.getResult().getString("TENSP");
-                            long gia = task5.getResult().getLong("GIA");
+                            masp = task5.getResult().getReference().getId();
+                            tensp = task5.getResult().getString("TEN");
+                            gia = task5.getResult().getLong("GIA");
 
                             topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                         }
-                        arrayList.add(new OrderDrinks(data.getId() ,TEN, SIZE, SL, topping, SOBAN));
+                        String id = data.getId();
+                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, topping, SOBAN));
+
                     }
-                    else
-                    {
+                    else {
                         arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, SOBAN));
                     }
 

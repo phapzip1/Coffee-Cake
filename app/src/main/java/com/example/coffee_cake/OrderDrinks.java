@@ -39,24 +39,25 @@ import java.util.Map;
 public class OrderDrinks {
     private String name,size,soluong, id;
     private ArrayList<Product> topping;
-    private int soban;
+    private int soban, gia;
 
 
-    public OrderDrinks(String id, String name, String size, String soluong, int soban) {
+    public OrderDrinks(String id, String name, String size, String soluong, int soban, int gia) {
         this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
-        this.topping = topping;
         this.soban = soban;
+        this.gia = gia;
     }
-    public OrderDrinks(String id, String name, String size, String soluong, ArrayList<Product> topping, int soban) {
+    public OrderDrinks(String id, String name, String size, String soluong, ArrayList<Product> topping, int soban, int gia) {
         this.id = id;
         this.name = name;
         this.size = size;
         this.soluong = soluong;
         this.topping = topping;
         this.soban = soban;
+        this.gia = gia;
     }
 
 
@@ -104,6 +105,14 @@ public class OrderDrinks {
 
     public String getId() {
         return id;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
     }
 }
 

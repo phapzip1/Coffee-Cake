@@ -106,7 +106,7 @@ public class Fragment_home extends Fragment {
                 for (DocumentSnapshot data : task1.getResult()) {
                     String SIZE, SL, TEN;
                     String masp, tensp;
-                    long gia;
+                    long gia, GIA;
 
                     Task<DocumentSnapshot> task2 = data.getDocumentReference("food_name").get();
                     while(!task2.isComplete());
@@ -117,6 +117,7 @@ public class Fragment_home extends Fragment {
 
                     SIZE = task2.getResult().getString("SIZE");
                     SL = task2.getResult().getLong("SOLUONG") + "";
+                    GIA = task2.getResult().getLong("GIA");
 
                     Task<DocumentSnapshot> task3 = task2.getResult().getDocumentReference("sp_ref_name").get();
                     while(!task3.isComplete());
@@ -138,11 +139,11 @@ public class Fragment_home extends Fragment {
 
                             topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                         }
-                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, topping, SOBAN));
+                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, topping, SOBAN, (int)GIA));
 
                     }
                     else {
-                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, SOBAN));
+                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, SOBAN, (int)GIA));
                     }
 
                 }

@@ -94,6 +94,7 @@ public class Fragment_bill extends Fragment {
     ListView listFood;
     Bill_adapter adapter;
     ArrayList<OrderDrinks> arrayList;
+    TextView overal;
     int soban;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +103,7 @@ public class Fragment_bill extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
         db = FirebaseFirestore.getInstance();
         listFood = view.findViewById(R.id.food_item);
+        overal = view.findViewById(R.id.tien);
 
         getDateTime(view);
         getTableNumber(view);
@@ -138,14 +140,16 @@ public class Fragment_bill extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                 arrayList = new ArrayList<>();
                 adapter = new Bill_adapter(getActivity(),R.layout.layout_bill,arrayList);
-
+                int sum = 0;
                 for(DocumentSnapshot data : task1.getResult()){
                     String size, ten, masp, tensp;
-                    long gia;
+                    long gia, GIA;
                     int sl;
                     if(data.getBoolean("DONE")){
                         size = data.getString("SIZE");
                         sl = Integer.parseInt(data.getLong("SOLUONG") + "");
+                        GIA = data.getLong("GIA");
+                        sum += GIA;
 
                         Task<DocumentSnapshot> task2 = data.getDocumentReference("sp_ref_name").get();
                         while(!task2.isComplete());
@@ -167,18 +171,22 @@ public class Fragment_bill extends Fragment {
 
                                 topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                             }
-                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", topping, soban));
+                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", topping, soban, (int)GIA));
 
                         }
                         else {
-                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", soban));
+                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+ "", soban, (int)GIA));
                         }
+                        overal.setText(sum + " VND");
                     }
                 }
                 listFood.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
             }
         });
+
+
     }
 
     private void openPayDialog(int gravity, View view) {

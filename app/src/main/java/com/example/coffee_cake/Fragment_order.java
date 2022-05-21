@@ -392,12 +392,14 @@ public class Fragment_order extends Fragment {
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
         map.put("DONE", false);
+        //map.put()
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);
         else format = (soban+1) + "";
 
-        db.collection("/TableStatus/" + format + "/DrinksOrder").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        db.collection("/TableStatus/" + format + "/DrinksOrder").add(map)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 String path = task.getResult().getPath();
@@ -419,11 +421,12 @@ public class Fragment_order extends Fragment {
     private void changeTableStatus(int soban) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", true);
+
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);
         else format = (soban+1) + "";
 
-        db.collection("/TableStatus").document(format).set(map)
+        db.collection("/TableStatus").document(format).update(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

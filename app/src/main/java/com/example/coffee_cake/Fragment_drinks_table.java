@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -115,11 +116,24 @@ public class Fragment_drinks_table extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     table = new ArrayList<>();
+
+                    adapter = new TableAdapter(getContext(), table);
+                    tableList.setAdapter(adapter);
                     for (QueryDocumentSnapshot data : task.getResult()) {
-                        boolean status = data.getBoolean("status");
-                        table.add(status);
+                        boolean flat = false;
+                        Task<QuerySnapshot> task1 = data.getReference().collection("DrinksOrder").get();
+
+                        while(!task1.isComplete());
+
+                        for(DocumentSnapshot dataaa : task1.getResult()){
+                            flat = true;
+                            break;
+                        }
+                        table.add(flat);
+                        adapter.notifyDataSetChanged();
                     }
-                    loadTable();
+
+
                 }
             }
         });

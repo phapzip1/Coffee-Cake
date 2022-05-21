@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,8 +19,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,6 +36,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -77,20 +88,23 @@ public class Fragment_bill extends Fragment {
         }
     }
 
-    File path;
-    ArrayList<Boolean> table;
-
+    FirebaseFirestore db;
+    ListView listFood;
+    Bill_adapter adapter;
+    ArrayList<OrderDrinks> arrayList;
+    int soban;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
-
-        path = getContext().getFilesDir();
+        db = FirebaseFirestore.getInstance();
+        listFood = view.findViewById(R.id.food_item);
 
         getDateTime(view);
-
         getTableNumber(view);
+
+        loadFoodIntoBill();
 
         ((ImageView)view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +121,61 @@ public class Fragment_bill extends Fragment {
         });
 
         return view;
+    }
+
+    private void loadFoodIntoBill() {
+        String format;
+        if(soban < 10) format = "0"+ (soban);
+        else format = soban + "";
+
+
+        db.collection("TableStatus/" + format + "/DrinksOrder").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                arrayList = new ArrayList<>();
+                adapter = new Bill_adapter(getActivity(),R.layout.layout_bill,arrayList);
+
+                for(DocumentSnapshot data : task1.getResult()){
+                    String size, ten, masp, tensp;
+                    long gia;
+                    int sl;
+                    if(data.getBoolean("DONE")){
+                        size = data.getString("SIZE");
+                        sl = Integer.parseInt(data.getLong("SOLUONG") + "");
+
+                        Task<DocumentSnapshot> task2 = data.getDocumentReference("sp_ref_name").get();
+                        while(!task2.isComplete());
+
+                        ten = task2.getResult().getString("TEN");
+                        if (task2.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
+
+                            Task<QuerySnapshot> task3 = data.getReference().collection("Topping").get();
+                            while(!task3.isComplete());
+                            ArrayList<Product> topping = new ArrayList<>();
+
+                            for(DocumentSnapshot dataaaa : task3.getResult()){
+                                Task<DocumentSnapshot> task5 = dataaaa.getDocumentReference("topping_ref").get();
+                                while(!task5.isComplete());
+
+                                masp = task5.getResult().getReference().getId();
+                                tensp = task5.getResult().getString("TEN");
+                                gia = task5.getResult().getLong("GIA");
+
+                                topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
+                            }
+                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", topping, soban));
+
+                        }
+                        else {
+                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", soban));
+                        }
+                    }
+                }
+                listFood.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void openPayDialog(int gravity, View view) {
@@ -150,53 +219,26 @@ public class Fragment_bill extends Fragment {
         dialog.show();
     }
 
-    private void changeTableStatus(int tableNumber) {
-        Bundle bundle = getArguments();
-        String fileName = bundle.getString("key2");
+    private void changeTableStatus(int soban) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", false);
 
-        File savedFile = new File(path + "/" + fileName);
-        if(!savedFile.exists()){
-            Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_SHORT).show();
-        }
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
 
-        //thay đổi trạng thái
-        table.set(tableNumber, false);
+        db.collection("/TableStatus").document(format).update(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
 
-        deleteFile(fileName);
-        writeToFile(fileName);
-
-    }
-
-    private void writeToFile(String fileName) {
-        ArrayList<String> s = new ArrayList<>();
-
-        for(int i = 0; i < table.size(); i++){
-            s.add(i, table.get(i).toString());
-        }
-        try {
-            FileOutputStream writer = new FileOutputStream(new File(path, fileName));
-            for(int i = 0; i < table.size(); i++){
-                writer.write(s.get(i).getBytes());
-            }
-            writer.close();
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "Lỗi file", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void deleteFile(String fileName) {
-        File savedFile = new File(path + "/" + fileName);
-
-        if (!savedFile.exists())
-            Toast.makeText(getContext(), "Không tồn tại file",
-                    Toast.LENGTH_SHORT).show();
-        else {
-            savedFile.delete();
-        }
+                    }
+                });
     }
 
     private void getTableNumber(View view) {
         Bundle bundle = getArguments();
+        soban = bundle.getInt("key1") + 1;
         ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + (bundle.getInt("key1") + 1));
     }
 

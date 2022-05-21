@@ -9,14 +9,31 @@
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/drinks_name"
-            android:layout_weight="4"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:text="Trà sữa "
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="4">
+            <TextView
+                android:id="@+id/drinks_name"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:text="Trà sữa "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/toppingList"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="Topping: " />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/quantity"
             android:layout_weight="2"

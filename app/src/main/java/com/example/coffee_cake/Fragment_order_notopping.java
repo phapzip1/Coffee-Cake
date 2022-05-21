@@ -276,7 +276,7 @@ public class Fragment_order_notopping extends Fragment {
         if(soban+1 < 10) format = "0"+ (soban+1);
         else format = (soban+1) + "";
 
-        db.collection("/TableStatus").document(format).set(map)
+        db.collection("/TableStatus").document(format).update(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

@@ -77,9 +77,7 @@ public class Fragment_Menu extends Fragment {
         if (bundletable!=null)
         {
             soban = bundletable.getInt("soban");
-            String fileName = bundletable.getString("filename");
             bundle.putInt("soban",soban);
-            bundle.putString("fileName", fileName);
         }
 
          // số bàn ở đây

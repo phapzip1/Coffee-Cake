@@ -153,14 +153,22 @@ class  OrderDrinksAdapter extends BaseAdapter
         tvnametable.setText(m_array.get(i).getName());
 
 
-        tvsoluong.setText( "Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")");
+        tvsoluong.setText("Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")");
 
         if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" ")) // ẩn đi textview topping nếu ko phải là trà sữa
             tvtopping.setVisibility(View.INVISIBLE);
         else {
-            String tp = "";
-            for (Product data: m_array.get(i).getTopping())
-                tp += data.getTensp() + " ";
+            String tp = ""; int i1 = 1, max =  m_array.get(i).getTopping().size();
+            for (Product data : m_array.get(i).getTopping()){
+                if(i1 >= max){
+                    tp += data.getTensp();
+                }
+                else {
+                    tp += data.getTensp() + ", ";
+                }
+                i1++;
+            }
+
             tvtopping.setText( "Topping: " + tp);
         }
 
@@ -198,12 +206,26 @@ class  OrderDrinksAdapter extends BaseAdapter
                             m_array.remove(i);
                             notifyDataSetChanged();
 
-                        } else if (item.getTitle().equals("Hủy bỏ")) {
+                        }
+                        else if (item.getTitle().equals("Hủy bỏ")) {
+
+
                             DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
-                            Task<DocumentSnapshot> task = ref.get();
-                            while(!task.isComplete());
-                            task.getResult().getDocumentReference("food_name").delete();
-                            ref.delete();
+                            Task<DocumentSnapshot> task1 = ref.get();
+                            while(!task1.isComplete());
+                            task1.getResult().getDocumentReference("food_name").collection("Topping").get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                            for(DocumentSnapshot dataa : task2.getResult()){
+                                                dataa.getReference().delete();
+                                            }
+                                            task1.getResult().getDocumentReference("food_name").delete();
+                                            ref.delete();
+                                        }
+                                    });
+
+
                         }
                         return true;
                     }

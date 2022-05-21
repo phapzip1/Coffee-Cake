@@ -138,7 +138,6 @@ public class Fragment_home extends Fragment {
 
                             topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                         }
-                        String id = data.getId();
                         arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, topping, SOBAN));
 
                     }

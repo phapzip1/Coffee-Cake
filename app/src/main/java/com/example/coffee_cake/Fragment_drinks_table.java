@@ -209,8 +209,6 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-=======
         // set thời gian hiện thị loading
         textLoadTable = view.findViewById(R.id.textloadTable);
         loadingTable = view.findViewById(R.id.loadingTable);
@@ -222,21 +220,20 @@ public class Fragment_drinks_table extends Fragment {
 
             }
         },3000);
->>>>>>> 670d2889342e5ded9fa062eabb3bf17022f0929f
 
         return view;
     }
 
     private void reloadPage() {
-        Fragment frg = null;
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.addToBackStack("fragment_drinks_table");
-
-        frg = getParentFragmentManager().findFragmentByTag("fragment_drinks_table");
-        final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-        ft.detach(frg);
-        ft.attach(frg);
-        ft.commit();
+//        Fragment frg = null;
+//        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+//        fragmentTransaction.addToBackStack("fragment_drinks_table");
+//
+//        frg = getParentFragmentManager().findFragmentByTag("fragment_drinks_table");
+//        final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+//        ft.detach(frg);
+//        ft.attach(frg);
+//        ft.commit();
     }
 
 

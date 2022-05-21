@@ -253,9 +253,6 @@ public class Fragment_bill extends Fragment {
         dialog.show();
     }
 
-<<<<<<< HEAD
-=======
-
     private void changeTableStatus(int soban) {
         Map<String, Object> map = new HashMap<>();
         map.put("status", false);
@@ -273,7 +270,6 @@ public class Fragment_bill extends Fragment {
                 });
     }
 
->>>>>>> 670d2889342e5ded9fa062eabb3bf17022f0929f
     private void getTableNumber(View view) {
         Bundle bundle = getArguments();
         soban = bundle.getInt("key1") + 1;

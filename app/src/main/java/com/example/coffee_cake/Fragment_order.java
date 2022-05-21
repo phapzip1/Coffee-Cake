@@ -392,7 +392,7 @@ public class Fragment_order extends Fragment {
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
         map.put("DONE", false);
-        //map.put()
+        map.put("GIA", Long.parseLong(gia.getText().toString()));
 
         String format;
         if(soban+1 < 10) format = "0"+ (soban+1);

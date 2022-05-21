@@ -57,7 +57,8 @@ public class Bill_adapter extends BaseAdapter {
         toppingList = view.findViewById(R.id.toppingList);
 
         drinkName.setText(m_array.get(i).getName());
-        //gia.setText(m_array.get(i).get);
+
+        gia.setText(m_array.get(i).getGia() + " VND");
         soluong.setText(m_array.get(i).getSoluong() + "(" + m_array.get(i).getSize() + ")");
 
         if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" "))

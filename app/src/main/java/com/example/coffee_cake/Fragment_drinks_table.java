@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,7 +98,8 @@ public class Fragment_drinks_table extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    TextView textLoadTable;
+    ProgressBar loadingTable;
     GridView tableList;
     ArrayList<Boolean> table;
     TableAdapter adapter;
@@ -205,6 +209,20 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
+<<<<<<< HEAD
+=======
+        // set thời gian hiện thị loading
+        textLoadTable = view.findViewById(R.id.textloadTable);
+        loadingTable = view.findViewById(R.id.loadingTable);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                loadingTable.setVisibility(view.INVISIBLE);
+                textLoadTable.setVisibility(view.INVISIBLE);
+
+            }
+        },3000);
+>>>>>>> 670d2889342e5ded9fa062eabb3bf17022f0929f
 
         return view;
     }

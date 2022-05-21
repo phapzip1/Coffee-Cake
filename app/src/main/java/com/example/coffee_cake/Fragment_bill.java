@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,7 +91,6 @@ public class Fragment_bill extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
     FirebaseFirestore db;
     ListView listFood;
     Bill_adapter adapter;
@@ -109,19 +111,20 @@ public class Fragment_bill extends Fragment {
 
         loadFoodIntoBill();
 
-        ((ImageView)view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
             }
         });
 
-        ((Button)view.findViewById(R.id.btnPay)).setOnClickListener(new View.OnClickListener() {
+        ((Button) view.findViewById(R.id.btnPay)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openPayDialog(Gravity.CENTER, view);
             }
         });
+
 
         return view;
     }
@@ -250,6 +253,27 @@ public class Fragment_bill extends Fragment {
         dialog.show();
     }
 
+<<<<<<< HEAD
+=======
+
+    private void changeTableStatus(int soban) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", false);
+
+        String format;
+        if(soban+1 < 10) format = "0"+ (soban+1);
+        else format = (soban+1) + "";
+
+        db.collection("/TableStatus").document(format).update(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
+>>>>>>> 670d2889342e5ded9fa062eabb3bf17022f0929f
     private void getTableNumber(View view) {
         Bundle bundle = getArguments();
         soban = bundle.getInt("key1") + 1;

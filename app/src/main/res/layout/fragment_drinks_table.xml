@@ -9,7 +9,8 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="12dp"
-    tools:context=".Fragment_drinks_table">
+    tools:context=".Fragment_drinks_table"
+    android:tag="fragment_drinks_table">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

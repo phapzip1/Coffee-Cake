@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -130,7 +131,6 @@ public class Fragment_bill extends Fragment {
         if(soban < 10) format = "0"+ (soban);
         else format = soban + "";
 
-
         db.collection("TableStatus/" + format + "/DrinksOrder").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -179,7 +179,6 @@ public class Fragment_bill extends Fragment {
                 }
                 listFood.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
             }
         });
 
@@ -219,29 +218,36 @@ public class Fragment_bill extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = getArguments();
-                changeTableStatus(bundle.getInt("key1"));
+
+                String format;
+                if(bundle.getInt("key1")+1 < 10) format = "0"+ (bundle.getInt("key1")+1);
+                else format = (bundle.getInt("key1")+1) + "";
+
+                db.collection("TableStatus/" + format + "/DrinksOrder").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for(DocumentSnapshot data : task.getResult()){
+                                    if(data.getBoolean("DONE")){
+                                        data.getReference().delete();
+
+                                        data.getReference().collection("Topping").get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                                        for (DocumentSnapshot dataa : task2.getResult()) dataa.getReference().delete();
+                                                    }
+                                                });
+                                    }
+                                }
+                            }
+                        });
+
                 Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
                 dialog.dismiss();
             }
         });
         dialog.show();
-    }
-
-    private void changeTableStatus(int soban) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", false);
-
-        String format;
-        if(soban+1 < 10) format = "0"+ (soban+1);
-        else format = (soban+1) + "";
-
-        db.collection("/TableStatus").document(format).update(map)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
     }
 
     private void getTableNumber(View view) {

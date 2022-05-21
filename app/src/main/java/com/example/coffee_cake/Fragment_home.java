@@ -92,7 +92,7 @@ public class Fragment_home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        getFragmentManager().beginTransaction().detach(Fragment_home.this).attach(Fragment_home.this).commit();
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
 
         db = FirebaseFirestore.getInstance();
@@ -151,6 +151,7 @@ public class Fragment_home extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
         return view;
     }
 

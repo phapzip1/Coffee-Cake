@@ -25,8 +25,6 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         getSupportActionBar().hide();
 
-
-
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         // Khi click vào nút menu thì mở ra cái Nav
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -72,6 +70,7 @@ public class MainActivity2 extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, controller);
 
     }
+    
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

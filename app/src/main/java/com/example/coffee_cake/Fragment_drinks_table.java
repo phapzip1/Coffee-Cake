@@ -9,6 +9,7 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -157,7 +158,8 @@ public class Fragment_drinks_table extends Fragment {
                             }
                         });
                 //need to reload again
-
+//                getFragmentManager().beginTransaction().detach(Fragment_drinks_table.this).attach(Fragment_drinks_table.this).commit();
+                reloadPage();
             }
         });
 
@@ -203,12 +205,21 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
+
         return view;
     }
 
-    private void loadTable() {
-        adapter = new TableAdapter(getContext(), table);
-        tableList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+    private void reloadPage() {
+        Fragment frg = null;
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack("fragment_drinks_table");
+
+        frg = getParentFragmentManager().findFragmentByTag("fragment_drinks_table");
+        final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
     }
+
+
 }

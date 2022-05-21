@@ -118,8 +118,7 @@ public class Fragment_order extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
         db = FirebaseFirestore.getInstance();
-
-        //table = viewModel.getTables();
+        getFragmentManager().beginTransaction().detach(Fragment_order.this).attach(Fragment_order.this).commit();
 
         arraytopping = new ArrayList<>();
 

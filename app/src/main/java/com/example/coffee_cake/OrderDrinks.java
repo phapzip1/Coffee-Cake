@@ -217,8 +217,6 @@ class  OrderDrinksAdapter extends BaseAdapter
 
                         }
                         else if (item.getTitle().equals("Hủy bỏ")) {
-
-
                             DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
                             Task<DocumentSnapshot> task1 = ref.get();
                             while(!task1.isComplete());
@@ -233,8 +231,6 @@ class  OrderDrinksAdapter extends BaseAdapter
                                             ref.delete();
                                         }
                                     });
-
-
                         }
                         return true;
                     }

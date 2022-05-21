@@ -57,7 +57,6 @@
             android:layout_height="220dp"
             android:scaleType="centerCrop"
             android:src="@drawable/listts1"
-            android:background="@drawable/round_bg"
             app:layout_constraintTop_toBottomOf="@+id/edtAddFood"
             app:riv_corner_radius="12dp"
             >

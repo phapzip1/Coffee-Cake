@@ -199,6 +199,15 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit, bundle);
         });
 
+        // Xử lý nút back
+        ((ImageView)v.findViewById(R.id.backno)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_menuMenu);
+//                getActivity().onBackPressed();
+            }
+        });
+
         return v;
     }
 

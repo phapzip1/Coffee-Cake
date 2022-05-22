@@ -129,6 +129,10 @@
             android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_edit"
             app:destination="@id/fragment_drinks_edit"
             app:enterAnim="@anim/from_right" />
+        <action
+            android:id="@+id/action_fragment_menu_coffee_notable2_to_menuMenu"
+            app:destination="@id/menuMenu"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/fragment_drinks_info"

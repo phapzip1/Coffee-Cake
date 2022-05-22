@@ -100,8 +100,8 @@ class ProductAdapter extends BaseAdapter implements Filterable // dùng cho ph�
         ava = (ImageView) view.findViewById(R.id.imageDrink);
 
         tvname.setText(m_array.get(i).getTensp());
-        tvmasp.setText(m_array.get(i).getGia()+""); // gia'
-        tvprice.setText("");
+        tvprice.setText(m_array.get(i).getGia()+" đ"); // gia'
+        tvmasp.setText("");
 //        StorageReference pathReference = FirebaseStorage.getInstance("gs://firebasse-a6718.appspot.com").getReference().child("images/goods/CA01.jpg");
 //        pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
@@ -111,7 +111,7 @@ class ProductAdapter extends BaseAdapter implements Filterable // dùng cho ph�
 //        });
         // hue
         ImageLoader.Load("/images/goods/" + m_array.get(i).getMasp() + ".jpg", ava);
-        Picasso.get().load("https://cdn.chotot.com/C_xyr_985fhfmnRunVDdkvpaW6asy_FbZUpKV7NfH38/preset:view/plain/eaadcc4a614a19526a3103b41f3db1d6-2751770130514705901.jpg").into(ava);
+        //Picasso.get().load("https://cdn.chotot.com/C_xyr_985fhfmnRunVDdkvpaW6asy_FbZUpKV7NfH38/preset:view/plain/eaadcc4a614a19526a3103b41f3db1d6-2751770130514705901.jpg").into(ava);
 
         return view;
     }
@@ -204,8 +204,8 @@ class ProductAdapterUpdate extends BaseAdapter implements Filterable
         avaupdate = (ImageView) view.findViewById(R.id.imageDrinkupdate);
 
         tvnameupdate.setText(m_array.get(i).getTensp());
-        tvmaspupdate.setText("Giá: " + m_array.get(i).getGia() + ""); // giá
-        tvpriceupdate.setText("");
+        tvpriceupdate.setText("" + m_array.get(i).getGia() + " đ"); // giá
+        tvmaspupdate.setText("");
 
         ImageLoader.Load( "/images/goods/"  + m_array.get(i).getMasp() + ".jpg", avaupdate);
         return view;

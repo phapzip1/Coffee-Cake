@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,11 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:padding="16dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="140dp">
+                android:layout_height="134dp">
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imgName"
                     app:riv_oval="true"
@@ -29,15 +30,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:scaleType="centerCrop"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp">
+                    android:layout_width="100dp"
+                    android:layout_height="100dp">
                 </com.makeramen.roundedimageview.RoundedImageView>
 
                 <LinearLayout
                     android:layout_gravity="center"
-                    android:paddingLeft="12dp"
+                    android:layout_marginLeft="16dp"
                     android:orientation="vertical"
-                    android:layout_width="190dp"
+                    android:layout_width="165dp"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/tvName"
@@ -76,10 +77,12 @@
 
                     <ImageView
                         android:id="@+id/more_vert"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_more_vert"/>
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_more_vert" />
                 </RelativeLayout>
 
 

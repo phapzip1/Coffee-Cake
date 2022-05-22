@@ -26,9 +26,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
@@ -91,12 +93,15 @@ public class Fragment_bill extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     FirebaseFirestore db;
     ListView listFood;
     Bill_adapter adapter;
     ArrayList<OrderDrinks> arrayList;
     TextView overal;
     int soban;
+    ArrayList<String> ref_topping;
+    int sum = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,8 +145,9 @@ public class Fragment_bill extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                 arrayList = new ArrayList<>();
+                ref_topping = new ArrayList<>();
                 adapter = new Bill_adapter(getActivity(),R.layout.layout_bill,arrayList);
-                int sum = 0;
+                //int sum = 0;
                 for(DocumentSnapshot data : task1.getResult()){
                     String size, ten, masp, tensp;
                     long gia, GIA;
@@ -170,6 +176,7 @@ public class Fragment_bill extends Fragment {
                                 tensp = task5.getResult().getString("TEN");
                                 gia = task5.getResult().getLong("GIA");
 
+                                ref_topping.add(masp);
                                 topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                             }
                             arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", topping, soban, (int)GIA));
@@ -222,30 +229,87 @@ public class Fragment_bill extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = getArguments();
-
                 String format;
                 if(bundle.getInt("key1")+1 < 10) format = "0"+ (bundle.getInt("key1")+1);
                 else format = (bundle.getInt("key1")+1) + "";
 
-                db.collection("TableStatus/" + format + "/DrinksOrder").get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for(DocumentSnapshot data : task.getResult()){
-                                    if(data.getBoolean("DONE")){
-                                        data.getReference().delete();
+                String dateTime;
+                Calendar calendar;
+                SimpleDateFormat simpleDateFormat;
 
-                                        data.getReference().collection("Topping").get()
-                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
-                                                        for (DocumentSnapshot dataa : task2.getResult()) dataa.getReference().delete();
-                                                    }
-                                                });
+                calendar = Calendar.getInstance();
+                simpleDateFormat = new SimpleDateFormat("yyyy-LL-dd");
+                dateTime = simpleDateFormat.format(calendar.getTime());
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("NGHD", dateTime);
+                map.put("TRIGIA", sum);
+                map.put("TIME", new Timestamp(new Date()));
+
+                db.collection("HOADON").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        db.collection("TableStatus/" + format + "/DrinksOrder").get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                        for (DocumentSnapshot data : task1.getResult()){
+                                            Map<String, Object> map = new HashMap<>();
+                                            map.put("MASP", data.getDocumentReference("sp_ref_name"));
+                                            map.put("SL", data.getLong("SOLUONG"));
+                                            map.put("GIA", data.getLong("GIA"));
+                                            map.put("SIZE", data.getString("SIZE"));
+
+                                            db.collection(task.getResult().getPath() + "/CTHD").add(map)
+                                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentReference> task3) {
+                                                    data.getReference().collection("Topping").get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                                                    for(DocumentSnapshot dataa : task2.getResult()){
+                                                                        Map<String, Object> map = new HashMap<>();
+                                                                        map.put("MATOPPING", dataa.getDocumentReference("topping_ref"));
+
+                                                                        db.collection(task3.getResult().getPath() + "/TOPPING").add(map)
+                                                                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                                                        dataa.getReference().delete();
+                                                                                    }
+                                                                                });
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                            data.getReference().delete();
+                                        }
                                     }
-                                }
-                            }
-                        });
+                                });
+                    }
+                });
+
+//                db.collection("TableStatus/" + format + "/DrinksOrder").get()
+//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                                for(DocumentSnapshot data : task.getResult()){
+//                                    if(data.getBoolean("DONE")){
+//                                        data.getReference().delete();
+//
+//                                        data.getReference().collection("Topping").get()
+//                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                                                    @Override
+//                                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+//                                                        for (DocumentSnapshot dataa : task2.getResult()) dataa.getReference().delete();
+//                                                    }
+//                                                });
+//                                    }
+//                                }
+//                            }
+//                        });
 
                 Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
                 dialog.dismiss();

@@ -20,12 +20,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -265,6 +268,7 @@ public class Fragment_order_notopping extends Fragment {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 Map<String, Object> queue = new HashMap<>();
                 queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                queue.put("TIME", new Timestamp(new Date()));
                 db.collection("/FoodQueue").add(queue);
             }
         });

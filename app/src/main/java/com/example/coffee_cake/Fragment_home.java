@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
@@ -92,12 +93,12 @@ public class Fragment_home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        getFragmentManager().beginTransaction().detach(Fragment_home.this).attach(Fragment_home.this).commit();
+        //getFragmentManager().beginTransaction().detach(Fragment_home.this).attach(Fragment_home.this).commit();
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("/FoodQueue").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("/FoodQueue").orderBy("TIME", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                 arrayList = new ArrayList<>();
@@ -112,7 +113,6 @@ public class Fragment_home extends Fragment {
                     while(!task2.isComplete());
 
                     String temp = task2.getResult().getReference().getParent().getParent().getId();
-
                     int SOBAN = Integer.parseInt(temp);
 
                     SIZE = task2.getResult().getString("SIZE");

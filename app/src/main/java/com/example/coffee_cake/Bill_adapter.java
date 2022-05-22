@@ -58,7 +58,7 @@ public class Bill_adapter extends BaseAdapter {
 
         drinkName.setText(m_array.get(i).getName());
 
-        gia.setText(m_array.get(i).getGia() + " VND");
+        gia.setText(m_array.get(i).getGia() + " đ");
         soluong.setText(m_array.get(i).getSoluong() + "(" + m_array.get(i).getSize() + ")");
 
         if (m_array.get(i).getTopping()==null || m_array.get(i).getTopping().equals(" "))

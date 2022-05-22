@@ -106,6 +106,7 @@ public class Fragment_bill extends Fragment {
         listFood = view.findViewById(R.id.food_item);
         overal = view.findViewById(R.id.tien);
 
+        overal.setText("0đ");
         getDateTime(view);
         getTableNumber(view);
 
@@ -177,7 +178,7 @@ public class Fragment_bill extends Fragment {
                         else {
                             arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+ "", soban, (int)GIA));
                         }
-                        overal.setText(sum + " VND");
+                        overal.setText(sum + " đ");
                     }
                 }
                 listFood.setAdapter(adapter);
@@ -251,23 +252,6 @@ public class Fragment_bill extends Fragment {
             }
         });
         dialog.show();
-    }
-
-    private void changeTableStatus(int soban) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", false);
-
-        String format;
-        if(soban+1 < 10) format = "0"+ (soban+1);
-        else format = (soban+1) + "";
-
-        db.collection("/TableStatus").document(format).update(map)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
     }
 
     private void getTableNumber(View view) {

@@ -124,8 +124,10 @@ public class Fragment_drinks_table extends Fragment {
 
                     adapter = new TableAdapter(getContext(), table);
                     tableList.setAdapter(adapter);
+                    int t = 0;
                     for (QueryDocumentSnapshot data : task.getResult()) {
                         boolean flat = false;
+                        t++;
                         Task<QuerySnapshot> task1 = data.getReference().collection("DrinksOrder").get();
 
                         while(!task1.isComplete());
@@ -135,6 +137,15 @@ public class Fragment_drinks_table extends Fragment {
                             break;
                         }
                         table.add(flat);
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("status", flat);
+                        db.document("/TableStatus/" + formatString(t)).update(map)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                    }
+                                });
                         adapter.notifyDataSetChanged();
                     }
 
@@ -234,6 +245,11 @@ public class Fragment_drinks_table extends Fragment {
 //        ft.attach(frg);
 //        ft.commit();
     }
-
+    private String formatString(int soban){
+        String format;
+        if(soban < 10) format = "0"+ (soban);
+        else format = (soban) + "";
+        return format;
+    }
 
 }

@@ -159,8 +159,8 @@ public class Fragment_drinks_info extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection(query).document(DrinkInfo.getString("MASP")).delete();
-                FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("MASP" + ".jpg")).delete();
+                db.collection(query).document(DrinkInfo.getString("Masp")).delete();
+                FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("Masp" + ".jpg")).delete();
                 Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
 
                 getActivity().onBackPressed();

@@ -179,7 +179,7 @@ public class Fragment_drinks_edit extends Fragment {
             long giasp = Integer.parseInt(gia);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            if (getArguments() == null) // add mode
+            if (data.getString("Masp") == null) // add mode
             {
                 Map<String, Object> drink = new HashMap<>();
                 drink.put("TEN", tensp);
@@ -204,7 +204,7 @@ public class Fragment_drinks_edit extends Fragment {
                 drink.put("TEN", tensp);
                 drink.put("GIA", giasp);
 
-                String id = getArguments().getString("MASP");
+                String id = getArguments().getString("Masp");
 
                 db.collection(query).document(id).set(drink);
 

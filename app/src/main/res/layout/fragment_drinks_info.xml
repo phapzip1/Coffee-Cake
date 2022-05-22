@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,13 +25,35 @@
                 android:id="@+id/btnDelDrink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_30" />
-            <ImageView
-                android:id="@+id/btnEditDrink"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_baseline_edit_24"
+                android:paddingRight="36dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/ic_delete" />
+            <TextView
+                android:text="Xóa"
+                android:textSize="15sp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="35dp"
+                android:text="Sửa"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/btnEditDrink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="36dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/ic_baseline_edit_24" />
         </RelativeLayout>
 
 
@@ -41,66 +65,75 @@
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-<!--    <ImageView-->
-<!--        android:id="@+id/avtDrink"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        android:background="@drawable/round_edt"-->
-<!--        android:src="@drawable/topping"-->
-<!--        android:layout_width="200dp"-->
-<!--        android:layout_height="200dp"/>-->
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/avtDrink"
         android:layout_marginTop="12dp"
         android:padding="1dp"
         android:background="@drawable/round_edt"
         app:riv_corner_radius="10dp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:src="@drawable/topping"
         android:scaleType="centerCrop">
     </com.makeramen.roundedimageview.RoundedImageView>
-    <TextView
-        android:text="Tên sản phẩm:"
+    <LinearLayout
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_coffee_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+        <TextView
+            android:text="Tên sản phẩm:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvNameDrinks"
         android:text="Trà sữa"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-<!--    <TextView-->
-<!--        android:text="Mô tả:"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:text="abc"-->
-<!--        android:textSize="20sp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-    <TextView
-        android:text="Giá:"
-        android:layout_marginTop="12dp"
+        android:textStyle="bold"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvGia"
-        android:text="100"
-        android:textSize="18sp"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_attach_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:text="Giá:"
+            android:textSize="20sp"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tvGia"
+            android:textStyle="bold"
+            android:text="100"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -37,18 +37,31 @@
         android:padding="1dp"
         android:background="@drawable/round_edt"
         app:riv_corner_radius="10dp"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:src="@drawable/taianh"
         android:scaleType="centerCrop">
     </com.makeramen.roundedimageview.RoundedImageView>
-    <TextView
-        android:text="Tên sản phẩm:"
+    <LinearLayout
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_coffee_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:text="Tên sản phẩm:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <EditText
         android:id="@+id/edtNameDrink"
         android:layout_marginTop="8dp"
@@ -69,13 +82,27 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="180dp"/>-->
 
-    <TextView
-        android:text="Giá:"
+    <LinearLayout
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_attach_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:text="Giá:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
     <EditText
         android:id="@+id/edtPrice"
         android:textSize="18sp"

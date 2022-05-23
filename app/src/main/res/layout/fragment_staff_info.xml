@@ -15,7 +15,7 @@
         app:cardUseCompatPadding="true"
         android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="288dp"
         android:src="@drawable/round_bg_white_min">
     </ImageView>
 
@@ -81,8 +81,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="centerCrop"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:layout_width="112dp"
+            android:layout_height="112dp">
         </com.makeramen.roundedimageview.RoundedImageView>
         <TextView
             android:id="@+id/edtName"
@@ -97,7 +97,7 @@
 
         <LinearLayout
             android:weightSum="8"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -224,7 +224,7 @@
         </LinearLayout>
 
         <ScrollView
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout

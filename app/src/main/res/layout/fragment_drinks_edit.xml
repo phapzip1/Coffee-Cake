@@ -31,17 +31,36 @@
 <!--        android:src="@drawable/taianh"-->
 <!--        android:layout_width="200dp"-->
 <!--        android:layout_height="200dp"/>-->
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imgEditDink"
+    <RelativeLayout
         android:layout_marginTop="12dp"
-        android:padding="1dp"
-        android:background="@drawable/round_edt"
-        app:riv_corner_radius="10dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/taianh"
-        android:scaleType="centerCrop">
-    </com.makeramen.roundedimageview.RoundedImageView>
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imgEditDink"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/round_edt"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/taianh"
+            app:riv_corner_radius="12dp">
+
+        </com.makeramen.roundedimageview.RoundedImageView>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_margin="12dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/imgEditDink"
+            android:layout_alignLeft="@id/imgEditDink"
+            android:background="@drawable/circle_img_white"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_camera_alt"
+            app:riv_oval="true">
+        </com.makeramen.roundedimageview.RoundedImageView>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_marginTop="12dp"
         android:orientation="horizontal"

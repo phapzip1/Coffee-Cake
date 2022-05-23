@@ -90,7 +90,7 @@ public class Fragment_drinks_info extends Fragment {
                 query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
                 break;
             case "topping":
-                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
         }
 

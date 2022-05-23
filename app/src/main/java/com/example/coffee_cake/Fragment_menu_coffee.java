@@ -112,7 +112,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
                 query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
                 break;
             case "topping":
-                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
         }
         theloai = query;

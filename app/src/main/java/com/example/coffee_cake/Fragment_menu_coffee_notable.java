@@ -98,18 +98,12 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_menu_coffee_notable, container, false);
 
-
-
         edtcoffeeno = (EditText) v.findViewById(R.id.edtcoffeeno);
         lvcoffeeno = (ListView) v.findViewById(R.id.lvcoffeeno);
-
-
-
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
         String query = "";
-
 
 
         switch (tam)
@@ -124,7 +118,7 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
                 query = "/SANPHAM/SINHTO/DANHSACHSINHTO";
                 break;
             case "topping":
-                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
         }
 
@@ -150,7 +144,6 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
                 }
             }
         });
-
 
 
         ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {

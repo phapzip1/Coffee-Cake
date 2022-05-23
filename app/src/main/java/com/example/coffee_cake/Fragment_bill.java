@@ -291,26 +291,6 @@ public class Fragment_bill extends Fragment {
                     }
                 });
 
-//                db.collection("TableStatus/" + format + "/DrinksOrder").get()
-//                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                                for(DocumentSnapshot data : task.getResult()){
-//                                    if(data.getBoolean("DONE")){
-//                                        data.getReference().delete();
-//
-//                                        data.getReference().collection("Topping").get()
-//                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                                                    @Override
-//                                                    public void onComplete(@NonNull Task<QuerySnapshot> task2) {
-//                                                        for (DocumentSnapshot dataa : task2.getResult()) dataa.getReference().delete();
-//                                                    }
-//                                                });
-//                                    }
-//                                }
-//                            }
-//                        });
-
                 Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
                 dialog.dismiss();
             }

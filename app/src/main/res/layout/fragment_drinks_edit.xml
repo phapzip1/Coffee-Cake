@@ -19,8 +19,8 @@
     <TextView
         android:layout_marginTop="12dp"
         android:text="Hình ảnh:"
-        android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textColor="@color/dennhat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 <!--    <ImageView-->
@@ -75,8 +75,8 @@
         </ImageView>
         <TextView
             android:text="Tên sản phẩm:"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -115,8 +115,8 @@
         </ImageView>
         <TextView
             android:text="Giá:"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/dennhat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

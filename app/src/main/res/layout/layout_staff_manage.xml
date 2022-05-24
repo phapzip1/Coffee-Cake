@@ -9,15 +9,13 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardUseCompatPadding="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:paddingLeft="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
+                android:padding="16dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -25,7 +23,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imgName"
                     app:riv_oval="true"
-                    android:src="@drawable/defaultava"
+                    android:src="@drawable/atvimg"
                     android:layout_gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -77,12 +75,12 @@
 
                     <ImageView
                         android:id="@+id/more_vert"
+                        android:alpha="0.8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_more_vert" />
+                        android:src="@drawable/ic_info" />
                 </RelativeLayout>
 
 

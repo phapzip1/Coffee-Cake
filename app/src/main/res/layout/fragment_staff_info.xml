@@ -76,7 +76,9 @@
         <com.makeramen.roundedimageview.RoundedImageView
             app:riv_oval="true"
             android:id="@+id/avatar"
-            android:src="@drawable/defaultava"
+            android:padding="2dp"
+            android:background="@drawable/round_bg_white"
+            android:src="@drawable/atvimg"
             android:layout_gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -253,7 +255,7 @@
                         android:layout_marginRight="8dp"
                         android:text="CCCD/CMND:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
 
                     <TextView
@@ -261,8 +263,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="123"
+                        android:textColor="@color/dennhat"
                         android:textStyle="bold"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -287,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ngày sinh:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
                     <TextView
                         android:id="@+id/tvDob"
@@ -295,7 +298,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10/10/2002"
-                        android:textSize="20sp" />
+                        android:textColor="@color/dennhat"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -318,15 +322,16 @@
                         android:layout_height="wrap_content"
                         android:text="Ngày vào làm:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
                     <TextView
                         android:id="@+id/tvBeginDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:textColor="@color/dennhat"
                         android:text="10/10/2022"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -350,7 +355,7 @@
                         android:layout_height="wrap_content"
                         android:text="Số điện thoại:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
                     <TextView
                         android:id="@+id/tvPhone1"
@@ -358,7 +363,8 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="0968686868"
-                        android:textSize="20sp" />
+                        android:textColor="@color/dennhat"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -382,7 +388,7 @@
                         android:layout_height="wrap_content"
                         android:text="Hệ số lương:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         />
                     <TextView
                         android:id="@+id/tvHSL"
@@ -390,7 +396,8 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="0"
-                        android:textSize="20sp" />
+                        android:textColor="@color/dennhat"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 

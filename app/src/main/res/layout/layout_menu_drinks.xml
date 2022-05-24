@@ -81,8 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_more_vert"/>
+                    android:padding="6dp"
+                    android:src="@drawable/ic_more_vert" />
             </RelativeLayout>
 
 

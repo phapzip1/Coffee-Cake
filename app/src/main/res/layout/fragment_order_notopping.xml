@@ -31,13 +31,14 @@
     </ImageView>
 
     <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:layout_marginTop="12dp"
-            android:layout_marginLeft="24dp"
             android:id="@+id/tvOrdernotopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,12 +51,12 @@
             android:id="@+id/imgOdernotopping"
             android:outlineSpotShadowColor="@color/white"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:padding="1dp"
             android:layout_gravity="center"
             android:layout_width="320dp"
             android:layout_height="220dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/round_edt"
             android:src="@drawable/listts1"
             app:layout_constraintTop_toBottomOf="@+id/edtAddFood"
             app:riv_corner_radius="12dp"
@@ -67,7 +68,6 @@
             android:textColor="@color/dennhat"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -80,9 +80,8 @@
 
             <TextView
                 android:id="@+id/sizeSnotopping"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginLeft="24dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
                 android:background="@drawable/round_bg"
                 android:gravity="center"
                 android:text="S"
@@ -97,8 +96,8 @@
                 android:layout_marginLeft="32dp"
                 android:textSize="25sp"
                 android:textColor="@color/black"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
+                android:layout_width="52dp"
+                android:layout_height="52dp"/>
             <TextView
                 android:id="@+id/sizeLnotopping"
                 android:text="L"
@@ -107,8 +106,8 @@
                 android:layout_marginLeft="32dp"
                 android:textSize="25sp"
                 android:textColor="@color/black"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
+                android:layout_width="52dp"
+                android:layout_height="52dp"/>
 
         </LinearLayout>
         <TextView
@@ -116,7 +115,6 @@
             android:textColor="@color/dennhat"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -129,7 +127,6 @@
             <ImageView
                 android:id="@+id/btnRemovenotopping"
                 android:padding="8dp"
-                android:layout_marginLeft="24dp"
                 android:src="@drawable/ic_remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -155,8 +152,6 @@
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="12dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
             android:background="@drawable/round_bg"
             android:orientation="horizontal"
             android:layout_width="match_parent"

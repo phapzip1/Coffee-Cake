@@ -40,8 +40,10 @@
                 android:layout_width="112dp"
                 android:layout_height="112dp"
                 android:layout_gravity="center"
+                android:background="@drawable/round_bg_white"
+                android:padding="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/defaultava"
+                android:src="@drawable/atvimg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_oval="true">
@@ -190,8 +192,7 @@
                         android:layout_height="wrap_content"
                         android:text="CCCD/CMND:"
                         android:textColor="@color/dennhat"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="18sp"/>
 
                 </LinearLayout>
 
@@ -223,8 +224,7 @@
                     android:layout_height="wrap_content"
                     android:text="Ngày sinh:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"/>
             </LinearLayout>
 
                 <EditText
@@ -257,8 +257,7 @@
                     android:layout_height="wrap_content"
                     android:text="Ngày vào làm:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"/>
             </LinearLayout>
 
 
@@ -292,8 +291,7 @@
                     android:layout_height="wrap_content"
                     android:text="Số điện thoại:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"/>
             </LinearLayout>
 
                 <EditText
@@ -323,8 +321,7 @@
                     android:layout_height="wrap_content"
                     android:text="Hệ số lương:"
                     android:textColor="@color/dennhat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"/>
             </LinearLayout>
 
                 <EditText

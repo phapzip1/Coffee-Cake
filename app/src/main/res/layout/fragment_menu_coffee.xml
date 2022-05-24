@@ -5,29 +5,16 @@
     android:layout_height="match_parent"
     android:background="#F4E5C4"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context=".Fragment_menu_coffee">
 
     <!-- TODO: Update blank fragment layout -->
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/back"-->
-<!--        android:src="@drawable/ic_arrow_back"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--    </ImageView>-->
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/edtcoffee"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_bg_btn_white"
@@ -39,6 +26,8 @@
         android:textSize="16sp" />
     <ListView
         android:id="@+id/lvcoffee"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
         android:layout_marginTop="12dp"
         android:divider="@null"
         android:layout_width="match_parent"

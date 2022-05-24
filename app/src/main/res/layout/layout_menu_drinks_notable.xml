@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="12dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="2dp"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:layout_marginLeft="16dp"
                 android:paddingRight="16dp"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="165dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tvname"
@@ -73,8 +73,23 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/btnupdate"
+                    android:background="@drawable/bg_graycorner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:padding="6dp"
+                    android:alpha="0.5"
+                    android:src="@drawable/ic_add" />
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

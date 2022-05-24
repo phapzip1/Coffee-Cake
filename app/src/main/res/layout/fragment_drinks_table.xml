@@ -27,17 +27,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/btnAddTable"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="5dp"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/round_bg_white"
+                android:background="@drawable/round_bg_btn_white"
                 android:gravity="center"
+                android:padding="4dp"
                 android:src="@drawable/ic_add"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
         </RelativeLayout>
 
 

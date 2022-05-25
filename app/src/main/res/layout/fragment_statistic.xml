@@ -98,23 +98,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/ic_trending_up"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-            <TextView
-                android:text="Xu hướng"
-                android:layout_marginLeft="12dp"
-                android:layout_gravity="center"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
-        </LinearLayout>
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_marginTop="12dp"

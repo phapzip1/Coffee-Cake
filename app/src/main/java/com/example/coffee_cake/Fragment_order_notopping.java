@@ -28,6 +28,7 @@ import com.google.firebase.firestore.Query;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,11 +88,7 @@ public class Fragment_order_notopping extends Fragment {
     Bundle bund;
     String size = "S", theloai, masp;
     MaterialCardView selectCard;
-//    File path;
-//    ArrayList<Boolean> table;
-//    ArrayList<OrderDrinks> foodOrders;
-//    MyVM viewModel;
-//    ViewModel_for_food viewModel_for_food;
+    final Calendar instance = Calendar.getInstance();
     FirebaseFirestore db;
 
     @Override
@@ -268,7 +265,7 @@ public class Fragment_order_notopping extends Fragment {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 Map<String, Object> queue = new HashMap<>();
                 queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
-                queue.put("TIME", new Timestamp(new Date()));
+                queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }
         });

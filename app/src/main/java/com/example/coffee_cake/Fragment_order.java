@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,6 +115,7 @@ public class Fragment_order extends Fragment {
     String[] mangtengiatopping,mangtentopping;
     int[] manggiatopping;
     String tentoppingdachon = "";
+    final Calendar instance = Calendar.getInstance();
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -415,7 +417,7 @@ public class Fragment_order extends Fragment {
 
                 Map<String, Object> queue = new HashMap<>();
                 queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
-                queue.put("TIME", new Timestamp(new Date()));
+                queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }
         });

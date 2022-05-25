@@ -101,6 +101,8 @@ public class Fragment_bill extends Fragment {
     TextView overal;
     int soban;
     ArrayList<String> ref_topping;
+
+    final Calendar instance = Calendar.getInstance();
     int sum = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -233,18 +235,10 @@ public class Fragment_bill extends Fragment {
                 if(bundle.getInt("key1")+1 < 10) format = "0"+ (bundle.getInt("key1")+1);
                 else format = (bundle.getInt("key1")+1) + "";
 
-                String dateTime;
-                Calendar calendar;
-                SimpleDateFormat simpleDateFormat;
-
-                calendar = Calendar.getInstance();
-                simpleDateFormat = new SimpleDateFormat("yyyy-LL-dd");
-                dateTime = simpleDateFormat.format(calendar.getTime());
 
                 Map<String, Object> map = new HashMap<>();
-                map.put("NGHD", dateTime);
+                map.put("NGHD", instance.getTimeInMillis() / 1000);
                 map.put("TRIGIA", sum);
-                map.put("TIME", new Timestamp(new Date()));
 
                 db.collection("HOADON").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override

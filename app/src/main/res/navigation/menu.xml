@@ -33,7 +33,8 @@
             app:destination="@id/menuMenu" />
         <action
             android:id="@+id/action_menuDrinkTable_to_fragment_bill"
-            app:destination="@id/fragment_bill" />
+            app:destination="@id/fragment_bill"
+            app:enterAnim="@anim/zoom_in" />
     </fragment>
     <fragment
         android:id="@+id/menuMenu"
@@ -45,10 +46,12 @@
             app:destination="@id/menuDrinkTable" />
         <action
             android:id="@+id/action_menuMenu_to_fragment_menu_coffee"
-            app:destination="@id/fragment_menu_coffee" />
+            app:destination="@id/fragment_menu_coffee"
+            app:enterAnim="@anim/zoom_in" />
         <action
             android:id="@+id/action_menuMenu_to_fragment_menu_coffee_notable2"
-            app:destination="@id/fragment_menu_coffee_notable2" />
+            app:destination="@id/fragment_menu_coffee_notable2"
+            app:enterAnim="@anim/zoom_in" />
     </fragment>
     <fragment
         android:id="@+id/menuStaff"
@@ -57,7 +60,8 @@
         tools:layout="@layout/fragment_staff" >
         <action
             android:id="@+id/action_menuStaff_to_fragment_staff_info"
-            app:destination="@id/fragment_staff_info" />
+            app:destination="@id/fragment_staff_info"
+            app:enterAnim="@anim/zoom_in" />
         <action
             android:id="@+id/action_menuStaff_to_fragment_staff_edit"
             app:destination="@id/fragment_staff_edit"
@@ -83,7 +87,8 @@
         tools:layout="@layout/fragment_bill" >
         <action
             android:id="@+id/action_fragment_bill_to_menuDrinkTable"
-            app:destination="@id/menuDrinkTable" />
+            app:destination="@id/menuDrinkTable"
+            app:enterAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/fragment_staff_edit"
@@ -124,7 +129,8 @@
         android:label="Fragment_menu_coffee_notable" >
         <action
             android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_info"
-            app:destination="@id/fragment_drinks_info" />
+            app:destination="@id/fragment_drinks_info"
+            app:enterAnim="@anim/zoom_in" />
         <action
             android:id="@+id/action_fragment_menu_coffee_notable2_to_fragment_drinks_edit"
             app:destination="@id/fragment_drinks_edit"

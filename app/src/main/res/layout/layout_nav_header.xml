@@ -1,44 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginTop="-17dp"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_wave_header">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imgProfile"
-        app:riv_oval="true"
-        android:src="@drawable/misthy1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        android:layout_width="70dp"
-        android:layout_height="70dp">
+    </ImageView>
+    <LinearLayout
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/misthy1"
+            app:riv_oval="true">
 
-    </com.makeramen.roundedimageview.RoundedImageView>
+        </com.makeramen.roundedimageview.RoundedImageView>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView"
+                android:text="Admin"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online"
+                android:textColor="#06FF00"
+                android:textSize="16sp"
+                android:textStyle="italic"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:text="Admin"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/imgProfile"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:text="Online"
-        android:textStyle="italic"
-        android:textSize="16sp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintStart_toEndOf="@id/imgProfile"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#06FF00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:text="Admin"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toEndOf="@id/imgProfile"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imgheader" />-->
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:text="Online"-->
+<!--        android:textColor="#06FF00"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="italic"-->
+<!--        app:layout_constraintStart_toEndOf="@id/imgProfile"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+
+
+</LinearLayout>

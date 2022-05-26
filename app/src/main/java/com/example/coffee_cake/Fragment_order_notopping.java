@@ -80,13 +80,13 @@ public class Fragment_order_notopping extends Fragment {
         }
     }
 
-    TextView name,soluong,gia,s,m,l;
+    TextView name,soluong,gia,m,l;
     Button btnthemngay;
-    Boolean bs,bl,bm;
+    Boolean bl,bm;
     ImageView add,remove, image;
     int sl,soban;
     Bundle bund;
-    String size = "S", theloai, masp;
+    String size = "M", theloai, masp;
     MaterialCardView selectCard;
     final Calendar instance = Calendar.getInstance();
     FirebaseFirestore db;
@@ -104,7 +104,6 @@ public class Fragment_order_notopping extends Fragment {
 
         gia = (TextView) v.findViewById(R.id.tvPricenotopping);
 
-        s = (TextView) v.findViewById(R.id.sizeSnotopping);
         m = (TextView) v.findViewById(R.id.sizeMnotopping);
         l = (TextView) v.findViewById(R.id.sizeLnotopping);
 
@@ -118,8 +117,8 @@ public class Fragment_order_notopping extends Fragment {
         image = (ImageView) v.findViewById(R.id.imgOdernotopping);
 
         sl = 1;
-        bs = true;
-        bm = false;
+
+        bm = true;
         bl = false;
 
         ImageLoader.Load("images/goods/" + masp + ".jpg", image);
@@ -129,13 +128,10 @@ public class Fragment_order_notopping extends Fragment {
             public void onClick(View view) {
                 sl++;
                 soluong.setText(String.valueOf(sl));
-                if (bs)
+                if (bm)
                     gia.setText(String.valueOf(sl*( bund.getInt("GIA")   ) ));
-                else if (bm)
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA")   + 5000 ) ));
                 else
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
-
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA")   + 5000 ) ));
             }
         });
         remove.setOnClickListener(new View.OnClickListener() {
@@ -146,58 +142,28 @@ public class Fragment_order_notopping extends Fragment {
                     sl--;
                     soluong.setText(String.valueOf(sl));
 
-                    if (bs)
+                    if (bm)
                         gia.setText(String.valueOf(sl*( bund.getInt("GIA")   ) ));
-                    else if (bm)
-                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
                     else
-                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
-
+                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
                 }
             }
         });
 
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( bm==true || bl== true )
-                {
-                    size = "S";
-                    gia.setText(String.valueOf(sl*bund.getInt("GIA") ));
-                    bs = true;
-                    s.setTextColor(Color.parseColor("#ffffff"));
-                    s.setBackgroundResource(R.drawable.round_bg);
-
-                    bm = bl = false;
-                    m.setText("M");
-                    m.setTextColor(Color.parseColor("#111111"));
-                    m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    l.setText("L");
-                    l.setTextColor(Color.parseColor("#000000"));
-                    l.setBackgroundResource(R.drawable.round_bg_white);
-
-                }
-            }
-        });
+//
 
         m.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( bs==true || bl== true )
+                if ( bl )
                 {
                     size = "M";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000  ) ));
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA")   ) ));
                     bm = true;
                     m.setTextColor(Color.parseColor("#ffffff"));
                     m.setBackgroundResource(R.drawable.round_bg);
 
-
-                    bs = bl = false;
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#111111"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
-
+                    bl = false;
                     l.setText("L");
                     l.setTextColor(Color.parseColor("#000000"));
                     l.setBackgroundResource(R.drawable.round_bg_white);
@@ -205,25 +171,22 @@ public class Fragment_order_notopping extends Fragment {
                 }
             }
         });
+
         l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( bm==true || bs== true )
+                if ( bm )
                 {
                     size = "L";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000  ) ));
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000  ) ));
                     bl = true;
                     l.setTextColor(Color.parseColor("#ffffff"));
                     l.setBackgroundResource(R.drawable.round_bg);
 
-                    bm = bs = false;
+                    bm = false;
                     m.setText("M");
                     m.setTextColor(Color.parseColor("#111111"));
                     m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#000000"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
 
                 }
             }

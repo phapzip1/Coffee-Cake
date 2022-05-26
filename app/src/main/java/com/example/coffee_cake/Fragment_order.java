@@ -89,13 +89,13 @@ public class Fragment_order extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView name,soluong,gia,s,m,l;
+    TextView name,soluong,gia,l,m;
     Button btnthemngay;
-    Boolean bs,bl,bm;
+    Boolean bl,bm;
     ImageView add,remove;
     int sl,soban;
     Bundle bund;
-    String size = "S";
+    String size = "M";
     String masp, theloai, temp;
     MaterialCardView selectCard;
     TextView tvtopping;
@@ -132,9 +132,9 @@ public class Fragment_order extends Fragment {
 
         gia = (TextView) v.findViewById(R.id.tvPrice);
 
-        s = (TextView) v.findViewById(R.id.sizeS);
         m = (TextView) v.findViewById(R.id.sizeM);
         l = (TextView) v.findViewById(R.id.sizeL);
+
 
         image = v.findViewById(R.id.imgOder);
 
@@ -150,9 +150,9 @@ public class Fragment_order extends Fragment {
         add = (ImageView) v.findViewById(R.id.btnAdd);
         remove = (ImageView) v.findViewById(R.id.btnRemove);
         sl = 1;
-        bs = true;
-        bm = false;
+        bm = true;
         bl = false;
+        //bl = false;
 
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -160,13 +160,10 @@ public class Fragment_order extends Fragment {
             public void onClick(View view) {
                 sl++;
                 soluong.setText(String.valueOf(sl));
-                if (bs)
+                if (bm)
                     gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping  ) ));
-                else if (bm)
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                 else
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
-
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
             }
         });
 
@@ -178,37 +175,10 @@ public class Fragment_order extends Fragment {
                     sl--;
                     soluong.setText(String.valueOf(sl));
 
-                    if (bs)
+                    if (bm)
                         gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping  ) ));
-                    else if (bm)
-                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                     else
-                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
-
-                }
-            }
-        });
-
-        s.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( bm==true || bl== true )
-                {
-                    size = "S";
-                    gia.setText(String.valueOf(sl*bund.getInt("GIA") + tientopping));
-                    bs = true;
-                    s.setTextColor(Color.parseColor("#ffffff"));
-                    s.setBackgroundResource(R.drawable.round_bg);
-
-                    bm = bl = false;
-                    m.setText("M");
-                    m.setTextColor(Color.parseColor("#111111"));
-                    m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    l.setText("L");
-                    l.setTextColor(Color.parseColor("#000000"));
-                    l.setBackgroundResource(R.drawable.round_bg_white);
-
+                        gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                 }
             }
         });
@@ -216,20 +186,15 @@ public class Fragment_order extends Fragment {
         m.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( bs==true || bl== true )
+                if ( bl )
                 {
                     size = "M";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 + tientopping ) ));
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + tientopping ) ));
                     bm = true;
                     m.setTextColor(Color.parseColor("#ffffff"));
                     m.setBackgroundResource(R.drawable.round_bg);
 
-
-                    bs = bl = false;
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#111111"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
-
+                    bl = false;
                     l.setText("L");
                     l.setTextColor(Color.parseColor("#000000"));
                     l.setBackgroundResource(R.drawable.round_bg_white);
@@ -241,22 +206,18 @@ public class Fragment_order extends Fragment {
         l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( bm==true || bs== true )
+                if ( bm )
                 {
                     size = "L";
-                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 10000 + tientopping ) ));
+                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + 5000 + tientopping ) ));
                     bl = true;
                     l.setTextColor(Color.parseColor("#ffffff"));
                     l.setBackgroundResource(R.drawable.round_bg);
 
-                    bm = bs = false;
+                    bm = false;
                     m.setText("M");
                     m.setTextColor(Color.parseColor("#111111"));
                     m.setBackgroundResource(R.drawable.round_bg_white);
-
-                    s.setText("S");
-                    s.setTextColor(Color.parseColor("#000000"));
-                    s.setBackgroundResource(R.drawable.round_bg_white);
 
                 }
             }
@@ -325,7 +286,7 @@ public class Fragment_order extends Fragment {
                                 for ( int j=0; j < toppinglist.size();j++) // toppinglist(int): thứ tự các món đã chọn
                                 {
                                     // stringBuilder: 1 cái mảng lấy thành phần trong box
-                                    stringBuilder.append(mangtengiatopping[toppinglist.get(j)]); // mangtengiatopping[5]
+                                    stringBuilder.append(mangtentopping[toppinglist.get(j)]); // mangtengiatopping[5]
                                     //String giatemp = gia.toString();
                                     tentoppingdachon +=  mangtentopping[toppinglist.get(j)];
                                     tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
@@ -338,12 +299,10 @@ public class Fragment_order extends Fragment {
                                     }
                                     tvtopping.setText(stringBuilder.toString());
                                 }
-                                if (bs)
+                                if (bm)
                                     gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
-                                else if (bm)
-                                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                                 else
-                                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 10000 ) ));
+                                    gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                             }
                         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                             @Override
@@ -360,12 +319,10 @@ public class Fragment_order extends Fragment {
                                     tvtopping.setText("");
                                     tentoppingdachon = "";
                                     tientopping = 0 ;
-                                    if (bs)
+                                    if (bm)
                                         gia.setText( String.valueOf( sl * bund.getInt("GIA") ) );
-                                    else if (bm)
-                                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
                                     else
-                                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 10000 ) ));
+                                        gia.setText(String.valueOf(sl*( bund.getInt("GIA")  + 5000 ) ));
                                 }
                             }
                         });

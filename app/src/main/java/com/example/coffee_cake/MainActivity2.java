@@ -25,11 +25,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity2 extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         getSupportActionBar().hide();
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() == null){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         // Khi click vào nút menu thì mở ra cái Nav
@@ -52,7 +58,9 @@ public class MainActivity2 extends AppCompatActivity {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        mAuth.signOut();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -61,8 +69,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                     }
                 });
-                AlertDialog dialog = builder.show();
-
+                builder.show();
             }
         });
 
@@ -73,9 +80,5 @@ public class MainActivity2 extends AppCompatActivity {
         NavController controller = Navigation.findNavController(this, R.id.fragmentContainerView3);
         NavigationUI.setupWithNavController(navigationView, controller);
 
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

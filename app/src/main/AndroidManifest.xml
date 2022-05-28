@@ -11,14 +11,28 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.CoffeeCake">
+
         <activity
             android:name=".MainActivity2"
             android:exported="true" >
+
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
+
+        </activity>
+
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

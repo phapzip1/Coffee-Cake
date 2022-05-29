@@ -32,7 +32,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Drinks"
+                        android:text="Menu"
                         android:textColor="#FF8C32"
                         android:textSize="20sp"
                         android:textStyle="bold|italic" />
@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="Menu"
+                        android:text="Các Món"
                         android:textSize="20sp"
                         android:textStyle="bold|italic" />
 

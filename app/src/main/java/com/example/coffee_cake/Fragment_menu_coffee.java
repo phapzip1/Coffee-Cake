@@ -92,9 +92,6 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
         edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
 
-
-
-
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
         soban = bundle.getInt("soban");

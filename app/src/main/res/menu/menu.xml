@@ -4,17 +4,17 @@
     <item
         android:id="@+id/menuHome"
         android:icon="@drawable/imgtrangchu"
-        android:title="Home" />
+        android:title="Trang chủ" />
     <item
         android:id="@+id/menuStatistic"
         android:icon="@drawable/imgthongke"
-        android:title="Statistic" />
-    <item android:title="Manage">
+        android:title="Thống kê" />
+    <item android:title="Quản lý">
         <menu>
             <item
                 android:id="@+id/menuDrinkTable"
                 android:icon="@drawable/imgban"
-                android:title="Drink Table" />
+                android:title="Bàn" />
             <item
                 android:id="@+id/menuMenu"
                 android:icon="@drawable/imgmenuu"
@@ -22,7 +22,7 @@
             <item
                 android:id="@+id/menuStaff"
                 android:icon="@drawable/imgnhanvien"
-                android:title="Staff" />
+                android:title="Nhân viên" />
 
 
         </menu>

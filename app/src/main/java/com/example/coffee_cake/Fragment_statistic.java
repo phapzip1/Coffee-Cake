@@ -2,6 +2,7 @@ package com.example.coffee_cake;
 
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -22,12 +27,14 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
@@ -37,14 +44,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Fragment_statistic#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class Fragment_statistic extends Fragment {
     private View mview;
+    SimpleDateFormat dateFormat;
     BarChart barChart;
 
 
@@ -88,88 +100,299 @@ public class Fragment_statistic extends Fragment {
         }
     }
 
-    final Calendar instance = Calendar.getInstance();
+    TextView sumtv, avgtv, peaktv;
+    RadioGroup radios;
 
-    private String[] MOY = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-    ArrayList<BarEntry> barEntries;
+    private String[] MOY = new String[]{"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",},
+            WEEK = new String[] {"Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4" };
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mview = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-
-
+        // setup chart
         barChart = mview.findViewById(R.id.barChart);
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         barChart.getXAxis().setGranularity(1.0f);
-        barChart.getXAxis();
-       // barChart.getXAxis().setValueFormatter(new Formatter(MOY));
-        barChart.getAxisLeft().setSpaceBottom(0);
+        barChart.getXAxis().setLabelRotationAngle(-45);
+        barChart.getXAxis().setTextSize(10);
+        barChart.getXAxis().setCenterAxisLabels(false);
+        barChart.getXAxis().setTypeface(Typeface.DEFAULT_BOLD);
+        barChart.getAxisLeft().setTextSize(10);
+        barChart.getAxisLeft().setAxisMinimum(0);
+        barChart.getAxisLeft().setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getAxisRight().setAxisMinimum(0);
+        barChart.getAxisLeft().setSpaceBottom(10);
         barChart.getXAxis().setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        barChart.getAxisLeft().setTypeface(Typeface.DEFAULT_BOLD);
+        barChart.setPinchZoom(false);
+        barChart.setVisibleXRangeMinimum(10);
+        barChart.getLegend().setEnabled(false);
+        //
 
-//        BarDataSet barDataSet = new BarDataSet(barEntries, "None");
 
-//        barDataSet.setColors(Color.argb( 200,22, 208, 255)); // ocean blue
-//        barDataSet.setDrawValues(true);
-//        barChart.setData(new BarData(barDataSet));
-//        barChart.animateY(3000);
 
-        SetBarchart(2021);
+
+        sumtv = (TextView) mview.findViewById(R.id.summarytv);
+        avgtv = (TextView) mview.findViewById(R.id.avgtv);
+        peaktv = (TextView) mview.findViewById(R.id.peaktv);
+
+        radios = (RadioGroup)mview.findViewById(R.id.radioGr);
+
+
+        radios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+            }
+        });
+
+        ((RadioButton)radios.getChildAt(0)).setChecked(true);
+        Get1WeekPirorData();
+
+        radios.setOnCheckedChangeListener((radioGroup, id) -> {
+            switch (id)
+            {
+                case R.id.one_week:
+                    Get1WeekPirorData();
+                    break;
+                case R.id.four_week:
+                    GetFourPirorWeekData();
+                    break;
+                case R.id.lastyear:
+                    GetPreviousYearData();
+                    break;
+            }
+        });
+
 
         return mview;
     }
 
-    private void SetBarchart(int Year)
+
+
+    private void Get1WeekPirorData() //  7 days
     {
-        instance.set(Year, 1, 1, 0, 0, 0);
-        long start = instance.getTimeInMillis() / 1000;
-        instance.set(Year + 1, 1, 1, 0, 0, 0);
+        Calendar instance = Calendar.getInstance();
+
+        // set date to end of previuos day
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+        instance.add(Calendar.SECOND, -1);
+
+        //get end tick
         long end = instance.getTimeInMillis() / 1000;
 
-        FirebaseFirestore.getInstance().collection("HOADON").whereGreaterThanOrEqualTo( "NGHD", start).whereLessThanOrEqualTo("NGHD", end).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // set date to start of 7-piror date
+        instance.add(Calendar.DAY_OF_YEAR, -6);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+
+        // get start tick
+        long start = instance.getTimeInMillis() / 1000;
+
+        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+                .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                barEntries = new ArrayList<>();
-                for (int i = 0; i < 12; i++)
-                    barEntries.add(new BarEntry(i + 1, 0));
 
-                for (DocumentSnapshot data : task.getResult())
+                ArrayList<BarEntry> entries = new ArrayList<>();
+                long sum = 0, avg, peak;
+                String[] DATE = new String[7];
+                for (int i = 0; i < 7; i++)
                 {
-                   instance.setTimeInMillis(data.getLong("NGHD") * 1000);
-                   int index = instance.get(Calendar.MONTH) - 1;
-                   barEntries.get(index).setY( barEntries.get(index).getY() + data.getLong("TRIGIA"));
+                    entries.add(new BarEntry(i, 0));
+                    DATE[i] = instance.get(Calendar.DAY_OF_MONTH) + "/" + instance.get(Calendar.MONTH);
+                    instance.add(Calendar.DAY_OF_YEAR, 1);
                 }
 
-                for (BarEntry entry : barEntries)
-                {
-                    Log.i (entry.getX() + "", entry.getY() + "");
+                for (DocumentSnapshot data: task.getResult()) {
+
+                    long value = data.getLong("TRIGIA");
+                    sum += value;
+                    int index = (int) ((data.getLong("NGHD") - start) / 86400);
+                    entries.get(index).setY(entries.get(index).getY() + value);
                 }
 
-                BarDataSet dataSet = new BarDataSet(barEntries, "");
-                barChart.setData(new BarData(dataSet));
+                avg = sum / 7;
+                peak = (long)entries.get(0).getY();
+
+                for (int i = 1; i < 7; i++)
+                    if (peak < (long)entries.get(i).getY())
+                        peak = (long)entries.get(i).getY();
+
+                sumtv.setText(sum + "");
+
+                avgtv.setText(avg + "");
+
+                peaktv.setText(peak + "");
+
+
+                BarDataSet dataSet = new BarDataSet(entries, "");
+                dataSet.setColors(Color.argb( 200,56, 161, 74)); // red
+                dataSet.setValueTextSize(10f);
+
+                barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(DATE));
+                BarData barData = new BarData(dataSet);
+                barData.setBarWidth(0.5f);
+
+                barChart.setData(barData);
                 barChart.animateY(3000);
             }
         });
     }
 
-    class Formatter extends ValueFormatter
+    private void GetFourPirorWeekData() // 28days
     {
-        private String[] Labels;
 
-        Formatter(String[] labels) { Labels = labels;}
+        Calendar instance = Calendar.getInstance();
 
-        @Override
-        public String getFormattedValue(float value) {
-            return Labels[(int)value];
-        }
+        // set date to end of previuos month
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+        instance.set(Calendar.MILLISECOND, 0);
+        instance.add(Calendar.MILLISECOND, -1);
 
-        @Override
-        public String getBarLabel(BarEntry barEntry)
-        {
-            return getFormattedValue(barEntry.getY());
-        }
+        // get end tick
+        long end = instance.getTimeInMillis() / 1000;
+
+        // minus date to 28 of the previous month
+        instance.add(Calendar.DAY_OF_MONTH, -27);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+        instance.set(Calendar.MILLISECOND, 0);
+
+        // get start tick
+        long start = instance.getTimeInMillis() / 1000;
+
+
+        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+                .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<BarEntry> entries = new ArrayList<>();
+                long sum =0, avg, peak;
+                for (int i = 0; i < 4; i++)
+                    entries.add(new BarEntry(i, 0));
+                for (DocumentSnapshot data : task.getResult())
+                {
+                    instance.setTimeInMillis(data.getLong("NGHD") * 1000);
+                    int index = (int) ((instance.getTimeInMillis() / 1000 - start) / 604800);
+                    long value = data.getLong("TRIGIA");
+                    sum += value;
+                    entries.get(index).setY(entries.get(index).getY() + value);
+                }
+
+                avg = sum / 4;
+                peak = (long)entries.get(0).getY();
+
+                for (int i = 1; i < 4; i++)
+                    if (peak < (long)entries.get(i).getY())
+                        peak = (long)entries.get(i).getY();
+
+                sumtv.setText(sum + "");
+
+                avgtv.setText(avg + "");
+
+                peaktv.setText(peak + "");
+
+                BarDataSet dataSet = new BarDataSet(entries, "");
+                dataSet.setColors(Color.argb( 200,56, 161, 74)); // green
+                dataSet.setValueTextSize(10f);
+
+                barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(WEEK));
+                BarData barData = new BarData(dataSet);
+                barData.setBarWidth(0.5f);
+
+                barChart.setData(barData);
+                barChart.animateY(3000);
+                barChart.invalidate();
+            }
+        });
     }
+
+    private void GetPreviousYearData() // 365 days and 6 hours :)))
+    {
+        // get proper time
+
+        // set time to start of the year
+        Calendar instance = Calendar.getInstance();
+        instance.set(Calendar.DAY_OF_YEAR, 1);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+
+        // back to end of previous year
+        instance.add(Calendar.SECOND, -1);
+
+        // get end tick
+        long end = instance.getTimeInMillis() / 1000;
+
+        // back to start of previous year
+        instance.set(Calendar.MONTH, 1);
+        instance.set(Calendar.DAY_OF_MONTH, 1);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+
+        // get start tick
+        long start = instance.getTimeInMillis() / 1000;
+
+
+        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+                .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                long sum = 0, peak, avg;
+                ArrayList<BarEntry> entries = new ArrayList<>();
+                for (int i = 0; i < 12; i++)
+                    entries.add(new BarEntry(i ,0));
+
+                for (DocumentSnapshot data : task.getResult())
+                {
+                    instance.setTimeInMillis(data.getLong("NGHD") * 1000);
+                    int index = instance.get(Calendar.MONTH);
+                    long value = data.getLong("TRIGIA");
+                    sum += value;
+                    entries.get(index).setY(entries.get(index).getY() + value);
+                }
+
+                avg = sum / 12;
+                peak = (long)entries.get(0).getY();
+
+                for (int i = 1; i < 12; i++)
+                    if (peak < (long)entries.get(i).getY())
+                        peak = (long)entries.get(i).getY();
+
+                sumtv.setText(sum + "");
+
+                avgtv.setText(avg + "");
+
+                peaktv.setText(peak + "");
+
+                BarDataSet dataSet = new BarDataSet(entries, "");
+                dataSet.setColors(Color.argb( 200,56, 161, 74)); // green
+                dataSet.setValueTextSize(10f);
+
+
+                barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(MOY));
+                BarData barData = new BarData(dataSet);
+                barData.setBarWidth(0.5f);
+                barChart.setData(barData);
+                barChart.animateY(3000);
+                barChart.invalidate();
+            }
+        });
+    }
+
 }

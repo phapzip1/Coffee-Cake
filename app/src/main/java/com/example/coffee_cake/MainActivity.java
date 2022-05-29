@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent a = new Intent(getApplicationContext(), MainActivity2.class);
                         startActivity(a);
                         finish();
+                        Toast.makeText(MainActivity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Vui lòng nhập lại!", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });

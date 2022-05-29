@@ -19,17 +19,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Quản lý "
-            android:textColor="#FF8C32"
             android:textSize="20sp"
             android:textStyle="bold|italic"
             android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/idTextview"
-            android:textColor="@color/black"
-            android:text="bàn"
+            android:text="Bàn"
             android:layout_marginLeft="4dp"
             android:layout_gravity="center"
+            android:textColor="@color/color_main"
             android:textStyle="italic|bold"
             android:textSize="20sp"
             android:layout_width="wrap_content"

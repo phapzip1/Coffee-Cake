@@ -10,77 +10,98 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <LinearLayout
         android:id="@+id/layoutToolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-
-
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thống kê bán hàng"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
+        android:orientation="vertical">
         <LinearLayout
-
-            android:paddingTop="12dp"
-            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:paddingTop="12dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thống kê "
+                android:textSize="20dp"
+                android:textStyle="bold|italic" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bán hàng "
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/color_main"
+                android:textSize="20dp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RadioGroup
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:id="@+id/radioGr"
+                android:weightSum="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:layout_weight="1"
                     android:id="@+id/one_week"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:button="@android:color/transparent"
-                    android:layout_marginRight="10dp"
                     android:textColor="@drawable/radio_text"
-                    android:padding="5dp"
+                    android:padding="6dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
                     android:background="@drawable/my_radio_button"
-                    android:text="1 Tuần"/>
+                    android:text="Theo Tuần"/>
                 <RadioButton
+                    android:layout_weight="1"
                     android:id="@+id/four_week"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
                     android:textColor="@drawable/radio_text"
                     android:button="@android:color/transparent"
-                    android:padding="5dp"
+                    android:padding="6dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
                     android:background="@drawable/my_radio_button"
-                    android:text="4 Tuần"/>
+                    android:text="Theo Tháng"/>
                 <RadioButton
+                    android:layout_weight="1"
                     android:id="@+id/lastyear"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
                     android:textColor="@drawable/radio_text"
                     android:button="@android:color/transparent"
-                    android:padding="5dp"
+                    android:padding="6dp"
+                    android:textSize="16sp"
+                    android:gravity="center"
                     android:background="@drawable/my_radio_button"
-                    android:text="Năm ngoái"/>
+                    android:text="Năm trước"/>
             </RadioGroup>
 
             <androidx.cardview.widget.CardView
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                app:cardElevation="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="189dp"
-                app:cardCornerRadius="8dp"
-                android:layout_marginVertical="10dp">
+                android:layout_height="174dp"
+                app:cardCornerRadius="8dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,29 +109,32 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tổng cộng"
+                        android:text="Tổng cộng:"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dennhat"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
-                        android:textSize="15dp"/>
+                        android:textSize="18sp"/>
                     <TextView
+                        android:layout_marginTop="8dp"
                         android:id="@+id/summarytv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
                         android:textColor="@color/light_blue"
                         android:text="1000000"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold"
-                        android:textSize="35dp"/>
+                        android:textSize="28sp"/>
                     <View
-                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="3px"
                         android:background="@color/light_gray"/>
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:columnCount="2">
                         <LinearLayout
                             android:orientation="vertical"
@@ -118,6 +142,7 @@
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_horizontal">
                             <TextView
+                                android:textSize="16sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
@@ -127,7 +152,8 @@
                                 android:id="@+id/avgtv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
+                                android:textColor="@color/dennhat"
                                 android:layout_gravity="center_horizontal"
                                 android:text="1000000"/>
                         </LinearLayout>
@@ -137,6 +163,7 @@
                             android:layout_columnWeight="1"
                             android:layout_gravity="center_horizontal">
                             <TextView
+                                android:textSize="16sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="10dp"
@@ -147,7 +174,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
+                                android:textColor="@color/dennhat"
                                 android:text="1000000"/>
                         </LinearLayout>
                     </GridLayout>
@@ -156,22 +184,42 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                app:cardElevation="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                android:layout_marginVertical="10dp"
-                android:padding="10dp">
+                app:cardCornerRadius="8dp">
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChart"
-                    android:layout_marginTop="12dp"
+                    android:layout_margin="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="340dp"/>
             </androidx.cardview.widget.CardView>
-            <TextView
+
+            <LinearLayout
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="*Đơn vị: VND"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="* "
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dennhat"
+                    android:text="Đơn vị: VND"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

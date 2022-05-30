@@ -101,7 +101,7 @@ public class Fragment_staff_info extends Fragment {
                     ((TextView)root.findViewById(R.id.tvDob)).setText(snap.getString("NGAYSINH"));
                     ((TextView)root.findViewById(R.id.tvBeginDate)).setText(snap.getString("NGVL"));
                     ((TextView)root.findViewById(R.id.tvPhone1)).setText(snap.getString("SDT"));
-                    ((TextView)root.findViewById(R.id.tvHSL)).setText( ""+snap.getDouble("HESOLUONG"));
+                    ((TextView)root.findViewById(R.id.tvHSL)).setText(snap.getString("EMAIL"));
                 }
             }
         });

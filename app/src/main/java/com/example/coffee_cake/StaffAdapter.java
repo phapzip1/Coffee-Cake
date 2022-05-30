@@ -21,9 +21,7 @@ import java.util.ArrayList;
 
 class Staff {
     private String MANV, HOTEN, NGAYSINH, GIOITINH, SDT, NGVL, CHUCVU, CCCD;
-    private double HESOLUONG;
-
-
+    private String email;
 
     public Staff(String ma_nha_vien,
                 String ho_va_ten,
@@ -33,7 +31,7 @@ class Staff {
                 String ngay_vao_lam,
                 String chuc_vu,
                 String cccd_cmnd,
-                double he_so_luong) {
+                String email) {
         MANV = ma_nha_vien;
         HOTEN = ho_va_ten;
         NGAYSINH = ngay_thang_nam_sinh;
@@ -42,11 +40,7 @@ class Staff {
         NGVL = ngay_vao_lam;
         CHUCVU = chuc_vu;
         CCCD = cccd_cmnd;
-        HESOLUONG = he_so_luong;
-    }
-
-    public double HeSoLuong() {
-        return HESOLUONG;
+        this.email = email;
     }
 
     public String CCDD_CMND() {
@@ -79,6 +73,10 @@ class Staff {
 
     public String GioiTinh() {
         return GIOITINH;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
 

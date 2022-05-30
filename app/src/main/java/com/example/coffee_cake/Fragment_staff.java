@@ -96,10 +96,10 @@ public class Fragment_staff extends Fragment {
                         SDT = data.getString("SDT"),
                         NGVL = data.getString("NGVL"),
                         CHUCVU = data.getString("CHUCVU"),
-                        MANV = data.getId();
-                        double HSL = (double)data.get("HESOLUONG");
+                        MANV = data.getId(),
+                        Email = data.getString("EMAIL");
 
-                        staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, HSL ));
+                        staffs.add(new Staff(MANV, HOTEN, NGAYSINH, GIOITINH ,SDT, NGVL, CHUCVU, CCCD, Email ));
                     }
                     adapter = new StaffAdapter(getActivity(), R.layout.layout_staff_manage, staffs);
                     listView.setAdapter(adapter);

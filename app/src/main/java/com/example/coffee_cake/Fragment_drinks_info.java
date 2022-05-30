@@ -109,51 +109,6 @@ public class Fragment_drinks_info extends Fragment {
                 }
             }
         });
-//        FirebaseFirestore.getInstance().collection("/SANPHAM/TRASUA/DANHSACHTRASUA").document(DrinkInfo.getString("MASP"))
-//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful())
-//                {
-//                    DocumentSnapshot snap =  task.getResult();
-//
-//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
-//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
-//
-//
-//                }
-//            }
-//        });
-//        FirebaseFirestore.getInstance().collection("/SANPHAM/SINHTO/DANHSACHSINHTO").document(DrinkInfo.getString("MASP"))
-//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful())
-//                {
-//                    DocumentSnapshot snap =  task.getResult();
-//
-//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
-//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
-//
-//
-//                }
-//            }
-//        });
-//        FirebaseFirestore.getInstance().collection("/SANPHAM/TOPPING/DANHSACHTOPPING").document(DrinkInfo.getString("MASP"))
-//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful())
-//                {
-//                    DocumentSnapshot snap =  task.getResult();
-//
-//                    ((TextView)root.findViewById(R.id.tvNameDrinks)).setText(snap.getString("TEN"));
-//                    ((TextView)root.findViewById(R.id.tvGia)).setText(""+snap.getLong("GIA")+" đ");
-//
-//
-//                }
-//            }
-//        });
 
         ((ImageView)root.findViewById(R.id.btnDelDrink)).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/cut_card_bg"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="12dp"
     tools:context=".Fragment_drinks_table"
     android:tag="fragment_drinks_table">
     <LinearLayout
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -68,7 +68,7 @@
             android:layout_alignTop="@+id/tableList"
             android:layout_marginTop="240dp"
             android:textSize="20sp"
-            android:text="Loading"
+            android:text="Đang tải"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -78,7 +78,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
-            android:numColumns="2">
+            android:numColumns="2"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
         </GridView>
 

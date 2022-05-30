@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +31,25 @@ public class MainActivity extends AppCompatActivity {
         EditText edtUsername = findViewById(R.id.inputUsername);
         EditText edtPassword = findViewById(R.id.inputPassword);
         //Button btnInput = findViewById(R.id.btnInput);
+        ImageView hide = findViewById(R.id.hidepw);
+        ImageView show = findViewById(R.id.showpw);
+
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                show.setVisibility(view.INVISIBLE);
+                hide.setVisibility(view.VISIBLE);
+            }
+        });
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                hide.setVisibility(view.INVISIBLE);
+                show.setVisibility(view.VISIBLE);
+            }
+        });
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent a = new Intent(getApplicationContext(), MainActivity2.class);

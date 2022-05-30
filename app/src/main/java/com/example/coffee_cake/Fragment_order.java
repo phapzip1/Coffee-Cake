@@ -343,6 +343,13 @@ public class Fragment_order extends Fragment {
             }
         });
 
+        ((ImageView)v.findViewById(R.id.back)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         // --------------------------------------------------------------
         return v;
     }

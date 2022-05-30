@@ -183,7 +183,7 @@ public class Fragment_staff_edit extends Fragment {
                         edtDob.setText(snap.getString("NGAYSINH"));
                         edtBegin.setText(snap.getString("NGVL"));
                         edtPhone.setText(snap.getString("SDT"));
-                        edtHSL.setText( ""+snap.getDouble("HESOLUONG"));
+                        edtHSL.setText( ""+snap.getString("EMAIL"));
 
                         int gender;
 
@@ -275,7 +275,7 @@ public class Fragment_staff_edit extends Fragment {
                 return;
             }
 
-            double hesoluong = Double.parseDouble(hsl);
+//            double hesoluong = Double.parseDouble(hsl);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if (getArguments() == null) // add mode
@@ -286,7 +286,7 @@ public class Fragment_staff_edit extends Fragment {
                 user.put("CCCD", cccd);
                 user.put("CHUCVU", chucvu);
                 user.put("GIOITINH", gioitinh);
-                user.put("HESOLUONG", hesoluong);
+                user.put("EMAIL", hsl);
                 user.put("HOTEN", hoten);
                 user.put("NGAYSINH", ngaysinh);
                 user.put("NGVL", ngayvl);
@@ -311,7 +311,7 @@ public class Fragment_staff_edit extends Fragment {
                 user.put("CCCD", cccd);
                 user.put("CHUCVU", chucvu);
                 user.put("GIOITINH", gioitinh);
-                user.put("HESOLUONG", hesoluong);
+                user.put("EMAIL", hsl);
                 user.put("HOTEN", hoten);
                 user.put("NGAYSINH", ngaysinh);
                 user.put("NGVL", ngayvl);

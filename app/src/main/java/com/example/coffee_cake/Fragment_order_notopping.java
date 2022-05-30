@@ -207,6 +207,14 @@ public class Fragment_order_notopping extends Fragment {
             }
         });
 
+        // Xử lý nút back
+        ((ImageView)v.findViewById(R.id.backno)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
         return v;
     }
 

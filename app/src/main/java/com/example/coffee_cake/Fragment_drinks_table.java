@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -98,14 +99,14 @@ public class Fragment_drinks_table extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView textLoadTable;
-    ProgressBar loadingTable;
+
     GridView tableList;
-    ArrayList<Boolean> table;
+    ArrayList<MyBool> table;
     TableAdapter adapter;
     MenuBuilder menuBuilder;
-
+//    DocumentReference db;
     FirebaseFirestore db;
+    FirebaseAuth mAuth;
     @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,6 +114,8 @@ public class Fragment_drinks_table extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
+        mAuth = FirebaseAuth.getInstance();
+        //db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
         db = FirebaseFirestore.getInstance();
 
         //Lưu trạng thái
@@ -121,35 +124,38 @@ public class Fragment_drinks_table extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     table = new ArrayList<>();
-
                     adapter = new TableAdapter(getContext(), table);
                     tableList.setAdapter(adapter);
-                    int t = 0;
                     for (QueryDocumentSnapshot data : task.getResult()) {
-                        boolean flat = false;
-                        t++;
-                        Task<QuerySnapshot> task1 = data.getReference().collection("DrinksOrder").get();
-
-                        while(!task1.isComplete());
-
-                        for(DocumentSnapshot dataaa : task1.getResult()){
-                            flat = true;
-                            break;
-                        }
+                        MyBool flat = new MyBool();
                         table.add(flat);
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("status", flat);
-                        db.document("/TableStatus/" + formatString(t)).update(map)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-
-                                    }
-                                });
                         adapter.notifyDataSetChanged();
+                        data.getReference().collection("DrinksOrder").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                for(DocumentSnapshot dataaa : task1.getResult()){
+                                    flat.Set(true);
+                                    break;
+                                }
+                                adapter.notifyDataSetChanged();
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("status", flat.Get());
+
+//                                db.collection("/TableStatus/").document(data.getId()).update(map)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//
+//                                        }});
+                                db.document("/TableStatus/"+ data.getId()).update(map)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                        }});
+                            }
+                        });
                     }
-
-
                 }
             }
         });
@@ -172,9 +178,6 @@ public class Fragment_drinks_table extends Fragment {
 
                             }
                         });
-                //need to reload again
-//                getFragmentManager().beginTransaction().detach(Fragment_drinks_table.this).attach(Fragment_drinks_table.this).commit();
-                reloadPage();
             }
         });
 
@@ -184,7 +187,7 @@ public class Fragment_drinks_table extends Fragment {
                 menuBuilder = new MenuBuilder(getContext());
                 MenuInflater inflater = new MenuInflater(getContext());
 
-                if(table.get(i)){
+                if(table.get(i).Get()){
                     inflater.inflate(R.menu.menu_for_noempty, menuBuilder);
                 }
                 else{
@@ -219,37 +222,9 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
-        // set thời gian hiện thị loading
-        textLoadTable = view.findViewById(R.id.textloadTable);
-        loadingTable = view.findViewById(R.id.loadingTable);
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                loadingTable.setVisibility(view.INVISIBLE);
-                textLoadTable.setVisibility(view.INVISIBLE);
-
-            }
-        },3000);
 
         return view;
     }
 
-    private void reloadPage() {
-//        Fragment frg = null;
-//        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-//        fragmentTransaction.addToBackStack("fragment_drinks_table");
-//
-//        frg = getParentFragmentManager().findFragmentByTag("fragment_drinks_table");
-//        final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-//        ft.detach(frg);
-//        ft.attach(frg);
-//        ft.commit();
-    }
-    private String formatString(int soban){
-        String format;
-        if(soban < 10) format = "0"+ (soban);
-        else format = (soban) + "";
-        return format;
-    }
 
 }

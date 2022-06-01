@@ -10,14 +10,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+class MyBool
+{
+    private boolean value;
+
+    public MyBool()
+    {
+        this.value = false;
+    }
+
+    public boolean Get() {return this.value;}
+    public void Set(boolean value) {this.value = value;}
+}
+
 public class TableAdapter extends BaseAdapter {
-    private ArrayList<Boolean> table;
+    private ArrayList<MyBool> table;
     private Context context;
 
     public TableAdapter() {
     }
 
-    public TableAdapter(Context context, ArrayList<Boolean> table) {
+    public TableAdapter(Context context, ArrayList<MyBool> table) {
         this.context = context;
         this.table = table;
     }
@@ -40,7 +53,7 @@ public class TableAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         for(int j = 0; j < getCount(); j++){
-            if(table.get(i)){
+            if(table.get(i).Get()){
                 view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table, viewGroup, false);
                 ((TextView)view.findViewById(R.id.title1)).setText("Bàn " + (i+1));
             }

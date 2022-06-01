@@ -30,6 +30,10 @@ public class Product {
     private String masp,tensp;
     private int gia;
 
+    public Product() {
+
+    }
+
     public Product(String masp, String tensp, int gia) {
         this.masp = masp;
         this.tensp = tensp;

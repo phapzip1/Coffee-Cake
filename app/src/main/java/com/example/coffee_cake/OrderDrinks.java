@@ -37,12 +37,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderDrinks {
-    private String name,size,soluong, id;
+    private String name,size, id;
     private ArrayList<Product> topping;
-    private int soban, gia;
+    private int soban, soluong;
+    long gia;
 
 
-    public OrderDrinks(String id, String name, String size, String soluong, int soban, int gia) {
+    public OrderDrinks(String id)
+    {
+        this.id = id;
+    }
+    public OrderDrinks(String id, String name, String size, int soluong, int soban, long gia) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -50,7 +55,7 @@ public class OrderDrinks {
         this.soban = soban;
         this.gia = gia;
     }
-    public OrderDrinks(String id, String name, String size, String soluong, ArrayList<Product> topping, int soban, int gia) {
+    public OrderDrinks(String id, String name, String size, int soluong, ArrayList<Product> topping, int soban, long gia) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -78,11 +83,11 @@ public class OrderDrinks {
         this.size = size;
     }
 
-    public String getSoluong() {
+    public int getSoluong() {
         return soluong;
     }
 
-    public void setSoluong(String soluong) {
+    public void setSoluong(int soluong) {
         this.soluong = soluong;
     }
 
@@ -99,6 +104,10 @@ public class OrderDrinks {
         return topping;
     }
 
+    public void addTopping(Product topping){
+        this.topping.add(topping);
+    }
+
     public void setTopping(ArrayList<Product> topping) {
         this.topping = topping;
     }
@@ -107,11 +116,11 @@ public class OrderDrinks {
         return id;
     }
 
-    public int getGia() {
+    public long getGia() {
         return gia;
     }
 
-    public void setGia(int gia) {
+    public void setGia(long gia) {
         this.gia = gia;
     }
 }

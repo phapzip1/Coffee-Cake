@@ -149,48 +149,62 @@ public class Fragment_bill extends Fragment {
                 arrayList = new ArrayList<>();
                 ref_topping = new ArrayList<>();
                 adapter = new Bill_adapter(getActivity(),R.layout.layout_bill,arrayList);
-                //int sum = 0;
+                listFood.setAdapter(adapter);
+
                 for(DocumentSnapshot data : task1.getResult()){
-                    String size, ten, masp, tensp;
-                    long gia, GIA;
-                    int sl;
+                    long GIA;
+
                     if(data.getBoolean("DONE")){
-                        size = data.getString("SIZE");
-                        sl = Integer.parseInt(data.getLong("SOLUONG") + "");
+                        OrderDrinks good = new OrderDrinks(data.getId());
+                        arrayList.add(good);
+                        adapter.notifyDataSetChanged();
+
+                        good.setSize(data.getString("SIZE"));
+                        good.setSoluong(Integer.parseInt(data.getLong("SOLUONG") + ""));
                         GIA = data.getLong("GIA");
+                        good.setGia(GIA);
                         sum += GIA;
+                        adapter.notifyDataSetChanged();
 
-                        Task<DocumentSnapshot> task2 = data.getDocumentReference("sp_ref_name").get();
-                        while(!task2.isComplete());
+                        data.getDocumentReference("sp_ref_name").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task2) {
+                                good.setName(task2.getResult().getString("TEN"));
+                                adapter.notifyDataSetChanged();
 
-                        ten = task2.getResult().getString("TEN");
-                        if (task2.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
+                                if (task2.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
+                                    good.setTopping(new ArrayList<Product>());
 
-                            Task<QuerySnapshot> task3 = data.getReference().collection("Topping").get();
-                            while(!task3.isComplete());
-                            ArrayList<Product> topping = new ArrayList<>();
+                                    data.getReference().collection("Topping").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task3) {
+                                            for(DocumentSnapshot dataaaa : task3.getResult()){
+                                                Product topping = new Product();
+                                                good.addTopping(topping);
+                                                adapter.notifyDataSetChanged();
 
-                            for(DocumentSnapshot dataaaa : task3.getResult()){
-                                Task<DocumentSnapshot> task5 = dataaaa.getDocumentReference("topping_ref").get();
-                                while(!task5.isComplete());
+                                                dataaaa.getDocumentReference("topping_ref").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task5) {
+                                                        topping.setMasp(task5.getResult().getReference().getId());
+                                                        topping.setTensp(task5.getResult().getString("TEN"));
+                                                        topping.setGia(Integer.parseInt(task5.getResult().getLong("GIA") + ""));
 
-                                masp = task5.getResult().getReference().getId();
-                                tensp = task5.getResult().getString("TEN");
-                                gia = task5.getResult().getLong("GIA");
+                                                        adapter.notifyDataSetChanged();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
 
-                                ref_topping.add(masp);
-                                topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
+                                }
                             }
-                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+"", topping, soban, (int)GIA));
+                        });
 
-                        }
-                        else {
-                            arrayList.add(new OrderDrinks(data.getId(),ten, size, sl+ "", soban, (int)GIA));
-                        }
                         overal.setText(sum + " đ");
                     }
                 }
-                listFood.setAdapter(adapter);
+
                 adapter.notifyDataSetChanged();
             }
         });

@@ -84,7 +84,6 @@ public class Fragment_home extends Fragment {
     ListView listDrinks;
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
-    ArrayList<Product> products;
     FirebaseFirestore db;
 
 
@@ -93,7 +92,6 @@ public class Fragment_home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //getFragmentManager().beginTransaction().detach(Fragment_home.this).attach(Fragment_home.this).commit();
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
 
         db = FirebaseFirestore.getInstance();
@@ -103,51 +101,62 @@ public class Fragment_home extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                 arrayList = new ArrayList<>();
                 adapter = new OrderDrinksAdapter(getActivity(),R.layout.layout_menu_drinks,arrayList);
+                listDrinks.setAdapter(adapter);
 
                 for (DocumentSnapshot data : task1.getResult()) {
-                    String SIZE, SL, TEN;
-                    String masp, tensp;
-                    long gia, GIA;
+                    OrderDrinks good = new OrderDrinks(data.getId());
+                    arrayList.add(good);
+                    adapter.notifyDataSetChanged();
 
-                    Task<DocumentSnapshot> task2 = data.getDocumentReference("food_name").get();
-                    while(!task2.isComplete());
+                    data.getDocumentReference("food_name").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task2) {
+                            String temp = task2.getResult().getReference().getParent().getParent().getId();
+                            int SOBAN = Integer.parseInt(temp);
 
-                    String temp = task2.getResult().getReference().getParent().getParent().getId();
-                    int SOBAN = Integer.parseInt(temp);
+                            good.setSoban(SOBAN);
+                            good.setSize(task2.getResult().getString("SIZE"));
+                            good.setGia(task2.getResult().getLong("GIA"));
+                            good.setSoluong(Integer.parseInt(task2.getResult().getLong("SOLUONG")+""));
+                            adapter.notifyDataSetChanged();
 
-                    SIZE = task2.getResult().getString("SIZE");
-                    SL = task2.getResult().getLong("SOLUONG") + "";
-                    GIA = task2.getResult().getLong("GIA");
+                            task2.getResult().getDocumentReference("sp_ref_name").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task3) {
+                                    good.setName(task3.getResult().getString("TEN"));
+                                    adapter.notifyDataSetChanged();
 
-                    Task<DocumentSnapshot> task3 = task2.getResult().getDocumentReference("sp_ref_name").get();
-                    while(!task3.isComplete());
+                                    if (task3.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
+                                        good.setTopping(new ArrayList<Product>());
+                                        task2.getResult().getReference().collection("Topping").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task4) {
+                                                for(DocumentSnapshot dataaaa : task4.getResult()){
+                                                    Product topping = new Product();
+                                                    good.addTopping(topping);
+                                                    adapter.notifyDataSetChanged();
+                                                    dataaaa.getDocumentReference("topping_ref").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task5) {
+                                                            topping.setMasp(task5.getResult().getReference().getId());
+                                                            topping.setTensp(task5.getResult().getString("TEN"));
+                                                            topping.setGia(Integer.parseInt(task5.getResult().getLong("GIA") + ""));
+                                                            adapter.notifyDataSetChanged();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
 
-                    TEN = task3.getResult().getString("TEN");
-                    if (task3.getResult().getReference().getParent().getParent().getId().equals("TRASUA")) {
-
-                        Task<QuerySnapshot> task4 = task2.getResult().getReference().collection("Topping").get();
-                        while(!task4.isComplete());
-                        ArrayList<Product> topping = new ArrayList<>();
-
-                        for(DocumentSnapshot dataaaa : task4.getResult()){
-                            Task<DocumentSnapshot> task5 = dataaaa.getDocumentReference("topping_ref").get();
-                            while(!task5.isComplete());
-
-                            masp = task5.getResult().getReference().getId();
-                            tensp = task5.getResult().getString("TEN");
-                            gia = task5.getResult().getLong("GIA");
-
-                            topping.add(new Product(masp, tensp, Integer.parseInt(gia + "")));
                         }
-                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, topping, SOBAN, (int)GIA));
+                    });
 
-                    }
-                    else {
-                        arrayList.add(new OrderDrinks(data.getId(),TEN, SIZE, SL, SOBAN, (int)GIA));
-                    }
 
                 }
-                listDrinks.setAdapter(adapter);
+
                 adapter.notifyDataSetChanged();
             }
         });

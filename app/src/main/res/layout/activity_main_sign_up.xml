@@ -5,7 +5,7 @@
     android:background="@color/trangduc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity_SignUp">
     <View
         android:id="@+id/topView"
         android:layout_width="0dp"
@@ -22,6 +22,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topView" />
+
+    <ImageView
+        android:id="@+id/btnBack3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="@+id/topView"
+        app:layout_constraintTop_toTopOf="@+id/topView" />
+
     <ImageView
         android:id="@+id/imageView"
         android:padding="16dp"
@@ -41,7 +53,7 @@
         android:layout_marginTop="-20dp"
         android:layout_marginEnd="16dp"
         android:paddingBottom="16dp"
-        android:text="Đăng nhập"
+        android:text="Tạo tài khoản mới"
         android:textColor="#FFB72B"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -51,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <EditText
-        android:id="@+id/inputUsername"
+        android:id="@+id/edtUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -60,7 +72,7 @@
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="16dp"
         android:ems="10"
-        android:hint="Mail"
+        android:hint="Nhập Email mới "
         android:inputType="textPersonName"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
 
     <EditText
-        android:id="@+id/inputPassword"
+        android:id="@+id/edtNewPw"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -79,41 +91,50 @@
         android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
         android:drawablePadding="16dp"
         android:ems="10"
-        android:hint="Mật khẩu"
+        android:hint="Nhập mật khẩu mới"
         android:inputType="textPassword"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
 
-    <ImageView
-        android:id="@+id/hidepw"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edtPwAgain"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:src="@drawable/ic_show_pass"
-        app:layout_constraintBottom_toBottomOf="@+id/inputPassword"
-        app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-        app:layout_constraintHorizontal_bias="0.976"
-        app:layout_constraintStart_toStartOf="@+id/inputPassword"
-        app:layout_constraintTop_toTopOf="@+id/inputPassword"
-        app:layout_constraintVertical_bias="0.375" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_boder"
+        android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Nhập lại mật khẩu"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtNewPw" />
 
-    <ImageView
-        android:id="@+id/showpw"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnInputSignUp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/trangduc"
-        android:padding="12dp"
-        android:src="@drawable/ic_hide_pass"
-        app:layout_constraintBottom_toBottomOf="@+id/inputPassword"
-        app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-        app:layout_constraintHorizontal_bias="0.973"
-        app:layout_constraintStart_toStartOf="@+id/inputPassword"
-        app:layout_constraintTop_toTopOf="@+id/inputPassword"
-        app:layout_constraintVertical_bias="0.375" />
-
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_bg_btn"
+        android:text="Đăng Ký"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPwAgain"
+        app:layout_constraintVertical_bias="0.094" />
     <!--app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />-->
 
     <!--<TextView
@@ -131,54 +152,5 @@
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />-->
-
-    <Button
-        android:id="@+id/btnInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/round_bg_btn"
-        android:text="Đăng nhập"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-        app:layout_constraintVertical_bias="0.077" />
-
-    <LinearLayout
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInput"
-        app:layout_constraintVertical_bias="0.115">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn chưa có tài khoản?"
-            android:textColor="@color/dennhat"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/btnSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Đăng kí ngay"
-            android:textColor="@color/color_main"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,9 @@ import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -73,6 +76,8 @@ public class Fragment_staff extends Fragment {
     ArrayList<Staff> staffs;
     StaffAdapter adapter;
     ListView listView ;
+    FirebaseAuth mAuth;
+    DocumentReference db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +86,11 @@ public class Fragment_staff extends Fragment {
         View root = inflater.inflate(R.layout.fragment_staff, container, false);
 
         listView = (ListView) root.findViewById(R.id.ListOfStaffs);
-        FirebaseFirestore.getInstance().collection("/NHANVIEN").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+
+        db.collection("/NHANVIEN").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())

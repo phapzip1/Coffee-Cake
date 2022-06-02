@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -100,7 +101,8 @@ public class Fragment_drinks_edit extends Fragment {
                 }
     });
 
-
+    FirebaseAuth mAuth;
+    DocumentReference db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,6 +113,9 @@ public class Fragment_drinks_edit extends Fragment {
         edtPrice = (EditText)root.findViewById(R.id.edtPrice);
         imgDrink = (ImageView) root.findViewById(R.id.imgEditDink);
         btnSaveDrink = (Button) root.findViewById(R.id.btnSaveDrink);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         // thay đổi ảnh drink
         imgDrink.setOnClickListener(view -> {
@@ -126,8 +131,6 @@ public class Fragment_drinks_edit extends Fragment {
         });
 
         Bundle data = getArguments();
-
-
 
         switch (data.getString("temp"))
         {
@@ -149,7 +152,7 @@ public class Fragment_drinks_edit extends Fragment {
         if (data.getString("Masp") != null) // Che do chinh sua drink
         {
             // hien thi thong tin co the thay doi duoc
-            FirebaseFirestore.getInstance().collection(query).document(data.getString("Masp"))
+            db.collection(query).document(data.getString("Masp"))
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -177,7 +180,7 @@ public class Fragment_drinks_edit extends Fragment {
             }
 
             long giasp = Integer.parseInt(gia);
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if (data.getString("Masp") == null) // add mode
             {

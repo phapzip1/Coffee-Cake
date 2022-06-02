@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -130,7 +131,9 @@ class  OrderDrinksAdapter extends BaseAdapter
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
-    FirebaseFirestore db;
+//    FirebaseFirestore db;
+    FirebaseAuth mAuth;
+    DocumentReference db;
 
     private Context m_Context;
     private ArrayList<OrderDrinks> m_array;
@@ -161,7 +164,11 @@ class  OrderDrinksAdapter extends BaseAdapter
     public View getView(int i, View view, ViewGroup viewGroup) { // tên(size), số lượng ,topping, số bàn
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
 
-        db = FirebaseFirestore.getInstance();
+//        db = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+
         tvnametable = (TextView) view.findViewById(R.id.tvnametable);
         tvsoluong = (TextView) view.findViewById(R.id.tvsoluong);
         tvtopping = (TextView) view.findViewById(R.id.tvtopping);
@@ -207,7 +214,7 @@ class  OrderDrinksAdapter extends BaseAdapter
                     @Override
                     public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                         if (item.getTitle().equals("Hoàn thành")) {
-                            DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
+                            DocumentReference ref = db.collection("FoodQueue").document(m_array.get(i).getId());
                             Task<DocumentSnapshot> task = ref.get();
                             while(!task.isComplete());
 
@@ -226,7 +233,7 @@ class  OrderDrinksAdapter extends BaseAdapter
 
                         }
                         else if (item.getTitle().equals("Hủy bỏ")) {
-                            DocumentReference ref = db.document("FoodQueue/"+ m_array.get(i).getId());
+                            DocumentReference ref = db.collection("FoodQueue").document(m_array.get(i).getId());
                             Task<DocumentSnapshot> task1 = ref.get();
                             while(!task1.isComplete());
                             task1.getResult().getDocumentReference("food_name").collection("Topping").get()

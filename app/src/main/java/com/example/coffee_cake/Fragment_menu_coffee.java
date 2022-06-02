@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -82,6 +84,8 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
     String tam, theloai;
     int soban;
     //String xacnhan = "";
+    FirebaseAuth mAuth;
+    DocumentReference db;
     @SuppressLint("Range")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +95,9 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
 
         edtsearch = (EditText) v.findViewById(R.id.edtcoffee);
         lvcoffee = (ListView) v.findViewById(R.id.lvcoffee);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
@@ -113,7 +120,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
                 break;
         }
         theloai = query;
-        FirebaseFirestore.getInstance().collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())

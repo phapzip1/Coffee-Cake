@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -94,13 +95,15 @@ public class Fragment_bill extends Fragment {
         }
     }
 
-    FirebaseFirestore db;
+    //FirebaseFirestore db;
+    DocumentReference db;
     ListView listFood;
     Bill_adapter adapter;
     ArrayList<OrderDrinks> arrayList;
     TextView overal;
     int soban;
     ArrayList<String> ref_topping;
+    FirebaseAuth mAuth;
 
     final Calendar instance = Calendar.getInstance();
     int sum = 0;
@@ -109,7 +112,11 @@ public class Fragment_bill extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+
         listFood = view.findViewById(R.id.food_item);
         overal = view.findViewById(R.id.tien);
 
@@ -142,7 +149,7 @@ public class Fragment_bill extends Fragment {
         if(soban < 10) format = "0"+ (soban);
         else format = soban + "";
 
-        db.collection("TableStatus/" + format + "/DrinksOrder").get()
+        db.collection("/TableStatus/" + format + "/DrinksOrder").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
@@ -254,7 +261,7 @@ public class Fragment_bill extends Fragment {
                 map.put("NGHD", instance.getTimeInMillis() / 1000);
                 map.put("TRIGIA", sum);
 
-                db.collection("HOADON").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                db.collection("/HOADON/").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         db.collection("TableStatus/" + format + "/DrinksOrder").get()

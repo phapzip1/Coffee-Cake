@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -84,9 +85,9 @@ public class Fragment_home extends Fragment {
     ListView listDrinks;
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
-    FirebaseFirestore db;
-
-
+    DocumentReference db;
+    //FirebaseFirestore db;
+    FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,9 +95,11 @@ public class Fragment_home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
 
-        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        //db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
-        db.collection("/FoodQueue").orderBy("TIME", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("/FoodQueue/").orderBy("TIME", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
                 arrayList = new ArrayList<>();

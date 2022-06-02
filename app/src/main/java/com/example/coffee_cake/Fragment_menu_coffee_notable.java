@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -87,7 +89,8 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
     ListView lvcoffeeno;
     EditText edtcoffeeno;
     String tam;
-
+    FirebaseAuth mAuth;
+    DocumentReference db;
     //
     MenuBuilder menuBuilder;
     //
@@ -100,6 +103,9 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
 
         edtcoffeeno = (EditText) v.findViewById(R.id.edtcoffeeno);
         lvcoffeeno = (ListView) v.findViewById(R.id.lvcoffeeno);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
@@ -123,7 +129,7 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
         }
 
         edtcoffeeno.addTextChangedListener(this);
-        FirebaseFirestore.getInstance().collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())

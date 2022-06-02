@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -68,15 +70,18 @@ public class Fragment_drinks_info extends Fragment {
 
 
     String query = "";
-
+    FirebaseAuth mAuth;
+    DocumentReference db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_drinks_info, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+
         Bundle DrinkInfo = getArguments();
-
-
 
         switch (DrinkInfo.getString("temp"))
         {
@@ -94,7 +99,7 @@ public class Fragment_drinks_info extends Fragment {
                 break;
         }
 
-        FirebaseFirestore.getInstance().collection(query).document(DrinkInfo.getString("Masp"))
+        db.collection(query).document(DrinkInfo.getString("Masp"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -113,7 +118,7 @@ public class Fragment_drinks_info extends Fragment {
         ((ImageView)root.findViewById(R.id.btnDelDrink)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection(query).document(DrinkInfo.getString("Masp")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("Masp" + ".jpg")).delete();
                 Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();

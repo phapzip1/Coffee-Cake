@@ -104,8 +104,8 @@ public class Fragment_drinks_table extends Fragment {
     ArrayList<MyBool> table;
     TableAdapter adapter;
     MenuBuilder menuBuilder;
-//    DocumentReference db;
-    FirebaseFirestore db;
+    DocumentReference db;
+    //FirebaseFirestore db;
     FirebaseAuth mAuth;
     @SuppressLint("RestrictedApi")
     @Override
@@ -115,8 +115,8 @@ public class Fragment_drinks_table extends Fragment {
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
         mAuth = FirebaseAuth.getInstance();
-        //db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
-        db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+        //db = FirebaseFirestore.getInstance();
 
         //Lưu trạng thái
         db.collection("/TableStatus").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -141,18 +141,18 @@ public class Fragment_drinks_table extends Fragment {
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("status", flat.Get());
 
-//                                db.collection("/TableStatus/").document(data.getId()).update(map)
-//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                                        }});
-                                db.document("/TableStatus/"+ data.getId()).update(map)
+                                db.collection("/TableStatus/").document(data.getId()).update(map)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
                                         }});
+//                                db.document("/TableStatus/"+ data.getId()).update(map)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//
+//                                        }});
                             }
                         });
                     }
@@ -171,7 +171,7 @@ public class Fragment_drinks_table extends Fragment {
                 else format =  "0"+ (table.size() + 1);
 
                 //Lưu trạng thái
-                db.collection("/TableStatus").document( format).set(map)
+                db.collection("/TableStatus/").document(format).set(map)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

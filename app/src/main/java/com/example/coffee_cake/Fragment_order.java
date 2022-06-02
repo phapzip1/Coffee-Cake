@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -96,19 +97,18 @@ public class Fragment_order extends Fragment {
     int sl,soban;
     Bundle bund;
     String size = "M";
-    String masp, theloai, temp;
+    String masp, theloai;
     MaterialCardView selectCard;
     TextView tvtopping;
     ImageView image;
     boolean[] selecttopping;
     ArrayList<Integer> toppinglist; // Integer?
-    //String[] toppingAraay = {"Trân châu","Khoai lang","Bánh Plan"}; // cái này đổi nữa
 
-    ArrayList<Boolean> table;
+    FirebaseAuth mAuth;
+    DocumentReference db;
 
-    Cursor cursor = null;
     ArrayList<Product> arraytopping;
-    FirebaseFirestore db;
+    //FirebaseFirestore db;
 
     int tientopping = 0 ;
 
@@ -122,8 +122,11 @@ public class Fragment_order extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
-        db = FirebaseFirestore.getInstance();
-//        getFragmentManager().beginTransaction().detach(Fragment_order.this).attach(Fragment_order.this).commit();
+
+        //db = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         arraytopping = new ArrayList<>();
 
@@ -356,7 +359,8 @@ public class Fragment_order extends Fragment {
 
     private void saveFoodOrderIntoAFile() {
         Map<String, Object> map = new HashMap<>();
-        map.put("sp_ref_name", db.document(theloai + "/" + masp) );
+        map.put("sp_ref_name", db.collection(theloai).document(masp));
+        //map.put("sp_ref_name", db.document(theloai + "/" + masp) );
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
         map.put("DONE", false);
@@ -374,13 +378,16 @@ public class Fragment_order extends Fragment {
 
                 for(int i = 0; i < toppinglist.size(); i++){
                     Map<String, Object> topping = new HashMap<>();
-                    String link = "SANPHAM/TOPPING/DANHSACHTOPPING/" + arraytopping.get(toppinglist.get(i)).getMasp();
-                    topping.put("topping_ref", db.document(link));
-                    db.document(path).collection("/Topping").add(topping);
+                    //String link = "SANPHAM/TOPPING/DANHSACHTOPPING/" + arraytopping.get(toppinglist.get(i)).getMasp();
+                    String link = arraytopping.get(toppinglist.get(i)).getMasp();
+                    topping.put("topping_ref", db.collection("SANPHAM/TOPPING/DANHSACHTOPPING/").document(link));
+                    //db.document(path).collection("/Topping").add(topping);
+                    db.collection(path + "/Topping").add(topping);
                 }
 
                 Map<String, Object> queue = new HashMap<>();
-                queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }

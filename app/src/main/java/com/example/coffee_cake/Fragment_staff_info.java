@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,7 +77,8 @@ public class Fragment_staff_info extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    FirebaseAuth mAuth;
+    DocumentReference db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,9 +87,11 @@ public class Fragment_staff_info extends Fragment {
 
         Bundle staffInfo = getArguments();
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         // get truc tiep tu firebase
-        FirebaseFirestore.getInstance().collection("/NHANVIEN/").document(staffInfo.getString("MANV"))
+        db.collection("/NHANVIEN/").document(staffInfo.getString("MANV"))
         .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -109,7 +113,7 @@ public class Fragment_staff_info extends Fragment {
         ((ImageView)root.findViewById(R.id.btnDelete)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+//                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("/NHANVIEN/").document(staffInfo.getString("MANV")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/staff/"+ staffInfo.getString("MANV" + ".jpg")).delete();
                 Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_menuStaff);
@@ -119,15 +123,10 @@ public class Fragment_staff_info extends Fragment {
 
         // cái này để test load ảnh xin đừng xóa
 
-
         ImageLoader.Load( "images/staff/" + staffInfo.getString("MANV") + ".jpg", ((ImageView)root.findViewById(R.id.avatar)));
         //hihi
 
         // get truc tiep tu data base
-
-
-
-
 
         ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_fragment_staff_edit, staffInfo);

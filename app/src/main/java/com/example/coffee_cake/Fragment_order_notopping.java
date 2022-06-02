@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -89,15 +90,18 @@ public class Fragment_order_notopping extends Fragment {
     String size = "M", theloai, masp;
     MaterialCardView selectCard;
     final Calendar instance = Calendar.getInstance();
-    FirebaseFirestore db;
-
+    //irebaseFirestore db;
+    FirebaseAuth mAuth;
+    DocumentReference db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order_notopping, container, false);
 
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         name = (TextView) v.findViewById(R.id.tvOrdernotopping);
         soluong = (TextView) v.findViewById(R.id.tvQuantitynotopping);
@@ -220,7 +224,8 @@ public class Fragment_order_notopping extends Fragment {
 
     private void saveFoodOrderIntoAFile() {
         Map<String, Object> map = new HashMap<>();
-        map.put("sp_ref_name", db.document(theloai + '/' + masp));
+        //map.put("sp_ref_name", db.document(theloai + '/' + masp));
+        map.put("sp_ref_name", db.collection(theloai).document(masp));
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
         map.put("DONE", false);
@@ -235,7 +240,8 @@ public class Fragment_order_notopping extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 Map<String, Object> queue = new HashMap<>();
-                queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }

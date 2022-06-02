@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -110,6 +111,8 @@ public class Fragment_staff_edit extends Fragment {
     ImageView avatar;
     Button btnSave;
     Spinner genderSpinner;
+    FirebaseAuth mAuth;
+    DocumentReference db;
 
     private ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -129,9 +132,8 @@ public class Fragment_staff_edit extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_staff_edit, container, false);
 
-
-
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 
@@ -170,7 +172,7 @@ public class Fragment_staff_edit extends Fragment {
             Bundle data = getArguments();
 
             // hien thi thong tin co the thay doi duoc
-            FirebaseFirestore.getInstance().collection("/NHANVIEN/").document(data.getString("MANV"))
+            db.collection("/NHANVIEN/").document(data.getString("MANV"))
                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -198,15 +200,7 @@ public class Fragment_staff_edit extends Fragment {
                 }
             });
 
-
-
-
-
-
-
             ImageLoader.Load("images/staff/" + data.getString("MANV") + ".jpg", ((ImageView)root.findViewById(R.id.avatar)));
-
-
 
             try {
                 myCalendar1.setTime(dateFormat.parse(edtDob.getText().toString()));
@@ -215,7 +209,6 @@ public class Fragment_staff_edit extends Fragment {
                 e.printStackTrace();
             }
         }
-
 
         edtDob.setOnClickListener(view -> {
 
@@ -276,12 +269,9 @@ public class Fragment_staff_edit extends Fragment {
             }
 
 //            double hesoluong = Double.parseDouble(hsl);
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if (getArguments() == null) // add mode
             {
-
-
                 Map<String, Object> user = new HashMap<>();
                 user.put("CCCD", cccd);
                 user.put("CHUCVU", chucvu);

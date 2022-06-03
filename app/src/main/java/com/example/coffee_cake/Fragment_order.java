@@ -340,7 +340,8 @@ public class Fragment_order extends Fragment {
                         //lưu đồ order vào file
 
                         saveFoodOrderIntoAFile();
-                        Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuHome);
+                        //Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuMenu);
+                        getActivity().onBackPressed();
                     }
                 });
             }
@@ -360,7 +361,6 @@ public class Fragment_order extends Fragment {
     private void saveFoodOrderIntoAFile() {
         Map<String, Object> map = new HashMap<>();
         map.put("sp_ref_name", db.collection(theloai).document(masp));
-        //map.put("sp_ref_name", db.document(theloai + "/" + masp) );
         map.put("SIZE", size);
         map.put("SOLUONG", Long.parseLong(soluong.getText().toString()));
         map.put("DONE", false);
@@ -387,7 +387,7 @@ public class Fragment_order extends Fragment {
 
                 Map<String, Object> queue = new HashMap<>();
                 //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
-                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/").document(task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }

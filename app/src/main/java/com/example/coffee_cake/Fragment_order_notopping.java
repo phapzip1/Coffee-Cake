@@ -207,7 +207,8 @@ public class Fragment_order_notopping extends Fragment {
 
                 saveFoodOrderIntoAFile();
 
-                Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuHome);
+                //Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuMenu3);
+                getActivity().onBackPressed();
             }
         });
 
@@ -241,7 +242,7 @@ public class Fragment_order_notopping extends Fragment {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 Map<String, Object> queue = new HashMap<>();
                 //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
-                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
+                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/").document(task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }

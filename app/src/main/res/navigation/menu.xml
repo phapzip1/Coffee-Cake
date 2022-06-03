@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_fragment_order_to_menuHome"
             app:destination="@id/menuHome" />
+        <action
+            android:id="@+id/action_fragment_order_to_menuMenu"
+            app:destination="@id/menuMenu" />
     </fragment>
     <fragment
         android:id="@+id/fragment_menu_coffee_notable2"
@@ -137,8 +140,7 @@
             app:enterAnim="@anim/from_right" />
         <action
             android:id="@+id/action_fragment_menu_coffee_notable2_to_menuMenu"
-            app:destination="@id/menuMenu"
-            app:enterAnim="@anim/from_left" />
+            app:destination="@id/menuMenu" />
     </fragment>
     <fragment
         android:id="@+id/fragment_drinks_info"
@@ -171,5 +173,11 @@
         <action
             android:id="@+id/action_fragment_order_notopping_to_menuHome"
             app:destination="@id/menuHome" />
+        <action
+            android:id="@+id/action_fragment_order_notopping_to_menuMenu2"
+            app:destination="@id/menuMenu" />
+        <action
+            android:id="@+id/action_fragment_order_notopping_to_menuMenu3"
+            app:destination="@id/menuMenu" />
     </fragment>
 </navigation>

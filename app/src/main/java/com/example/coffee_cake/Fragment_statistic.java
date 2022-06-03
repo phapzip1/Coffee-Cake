@@ -32,6 +32,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -106,6 +108,8 @@ public class Fragment_statistic extends Fragment {
     private String[] MOY = new String[]{"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",},
             WEEK = new String[] {"Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4" };
 
+    FirebaseAuth mAuth;
+    DocumentReference db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,10 +138,9 @@ public class Fragment_statistic extends Fragment {
         barChart.setPinchZoom(false);
         barChart.setVisibleXRangeMinimum(10);
         barChart.getLegend().setEnabled(false);
-        //
 
-
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         sumtv = (TextView) mview.findViewById(R.id.summarytv);
         avgtv = (TextView) mview.findViewById(R.id.avgtv);
@@ -170,12 +173,8 @@ public class Fragment_statistic extends Fragment {
                     break;
             }
         });
-
-
         return mview;
     }
-
-
 
     private void Get1WeekPirorData() //  7 days
     {
@@ -199,7 +198,7 @@ public class Fragment_statistic extends Fragment {
         // get start tick
         long start = instance.getTimeInMillis() / 1000;
 
-        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+        db.collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
                 .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -276,7 +275,7 @@ public class Fragment_statistic extends Fragment {
         long start = instance.getTimeInMillis() / 1000;
 
 
-        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+        db.collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
                 .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -324,7 +323,6 @@ public class Fragment_statistic extends Fragment {
     private void GetPreviousYearData() // 365 days and 6 hours :)))
     {
         // get proper time
-
         // set time to start of the year
         Calendar instance = Calendar.getInstance();
         instance.set(Calendar.DAY_OF_YEAR, 1);
@@ -348,8 +346,7 @@ public class Fragment_statistic extends Fragment {
         // get start tick
         long start = instance.getTimeInMillis() / 1000;
 
-
-        FirebaseFirestore.getInstance().collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
+        db.collection("HOADON").whereLessThan("NGHD", end).whereGreaterThanOrEqualTo("NGHD" ,start)
                 .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -383,7 +380,6 @@ public class Fragment_statistic extends Fragment {
                 BarDataSet dataSet = new BarDataSet(entries, "");
                 dataSet.setColors(Color.argb( 200,56, 161, 74)); // green
                 dataSet.setValueTextSize(10f);
-
 
                 barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(MOY));
                 BarData barData = new BarData(dataSet);

@@ -320,8 +320,7 @@ public class Fragment_statistic extends Fragment {
         });
     }
 
-    private void GetPreviousYearData() // 365 days and 6 hours :)))
-    {
+    private void GetPreviousYearData() {
         // get proper time
         // set time to start of the year
         Calendar instance = Calendar.getInstance();

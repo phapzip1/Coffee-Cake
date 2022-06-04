@@ -59,7 +59,7 @@ public class Fragment_Menu extends Fragment {
 
     CardView coffee,trasua,sinhto,topping;
     Bundle bundletable;
-    int soban;
+    String tableId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,50 +76,47 @@ public class Fragment_Menu extends Fragment {
         bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
         Bundle bundle = new Bundle();
         if (bundletable!=null)
-        {
-            soban = bundletable.getInt("soban");
-            bundle.putInt("soban",soban);
-        }
+            tableId = bundletable.getString("soban");
 
          // số bàn ở đây
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("temp","coffee");
+                bundletable.putString("temp","coffee");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
                 else
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
         });
         trasua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("temp","trasua");
+                bundletable.putString("temp","trasua");
                 if (bundletable==null) // đi từ home --> menu
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
                 else // đi từ table --> menu
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
         });
         sinhto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("temp","sinhto");
+                bundletable.putString("temp","sinhto");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
                 else
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
         });
         topping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("temp","topping");
+                bundletable.putString("temp","topping");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
                 else
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
         });
         return v;

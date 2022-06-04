@@ -13,14 +13,30 @@ import java.util.Random;
 class MyBool
 {
     private boolean value;
+    private int index;
+    private String id;
 
-    public MyBool()
+    public MyBool(String id , boolean value, int index)
     {
-        this.value = false;
+        this.id = id;
+        this.value = value;
+        this.index = index;
     }
 
     public boolean Get() {return this.value;}
     public void Set(boolean value) {this.value = value;}
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getId() {
+        return id;
+    }
 }
 
 public class TableAdapter extends BaseAdapter {
@@ -52,19 +68,16 @@ public class TableAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        for(int j = 0; j < getCount(); j++){
-            if(table.get(i).Get()){
-                view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table, viewGroup, false);
-                ((TextView)view.findViewById(R.id.title1)).setText("Bàn " + (i+1));
-            }
-            else {
-                view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table_empty, viewGroup, false);
-                ((TextView)view.findViewById(R.id.title2)).setText("Bàn " + (i+1));
-            }
+
+        if(table.get(i).Get()){
+            view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table, viewGroup, false);
+            ((TextView)view.findViewById(R.id.title1)).setText("Bàn " + table.get(i).getIndex());
+        }
+        else {
+            view = LayoutInflater.from(context).inflate(R.layout.layout_drinks_table_empty, viewGroup, false);
+            ((TextView)view.findViewById(R.id.title2)).setText("Bàn " + table.get(i).getIndex());
         }
         return view;
     }
-
-
 
 }

@@ -82,7 +82,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
     ListView lvcoffee;
     EditText edtsearch;
     String tam, theloai;
-    int soban;
+    String tableId;
     //String xacnhan = "";
     FirebaseAuth mAuth;
     DocumentReference db;
@@ -101,7 +101,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
 
         Bundle bundle = getArguments(); // có cái temp: tức là chọn vào cái nào của menu và số bàn
         tam = bundle.getString("temp");
-        soban = bundle.getInt("soban");
+        tableId = bundle.getString("soban");
         String query = "";
 
         switch (tam)
@@ -157,7 +157,7 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
                 bund.putString("MASP",Masp);
                 bund.putString("TENSP",Tensp);
                 bund.putInt("GIA",Gia);
-                bund.putInt("soban",soban);
+                bund.putString("soban",tableId);
                 bund.putString("theloai", theloai);
                 if (tam.equals("trasua")) // contains: chứa chuỗi
                     Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_to_fragment_order,bund);

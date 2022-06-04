@@ -1,6 +1,10 @@
 package com.example.coffee_cake;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,17 +17,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -38,6 +48,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -108,6 +119,7 @@ public class Fragment_drinks_table extends Fragment {
     FirebaseAuth mAuth;
 
     ImageView addImg;
+    SwipeRefreshLayout refreshLayout;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -117,30 +129,74 @@ public class Fragment_drinks_table extends Fragment {
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
         addImg = (ImageView)view.findViewById(R.id.btnAddTable);
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayoutTable);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
         addImg.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("status", false);
 
-                String format;
+                final Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.layout_table_index);
 
-//              Stupid Khánh
-//              if(table.size() + 1 >= 10) format = (table.size() + 1) + "";
-//              else format =  "0"+ (table.size() + 1);
+                Window window = dialog.getWindow();
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                format = table.size() + 1 >= 10 ? (table.size() + 1) + "" : "0"+ (table.size() + 1);
+                if(window == null){
+                    return;
+                }
 
-                //Lưu trạng thái
-                db.collection("/TableStatus/").document(format).set(map)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                ((Button)dialog.findViewById(R.id.btnCancel)).setOnClickListener(view1 ->  {
+                    dialog.dismiss();
+                });
+
+                ((Button)dialog.findViewById(R.id.btnAdd)).setOnClickListener(view2 -> {
+                    String s = ((EditText)dialog.findViewById(R.id.edtTableIndex)).getText().toString();
+                    if (!s.isEmpty())
+                    {
+                        int index = Integer.parseInt(s);
+                        db.collection("TableStatus").whereEqualTo("Index", index).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful())
+                                {
+                                    for (DocumentSnapshot data : task.getResult())
+                                    {
+                                        CToast.e(getActivity(), "Bàn số " + index + " đã có sẵn", Toast.LENGTH_SHORT);
+                                        return;
+                                    }
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("Index", index);
+                                    db.collection("TableStatus").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                            Map<String, Object> map = new HashMap<>();
+                                            map.put("status", false);
+                                            db.collection("/TableStatus/").document(task.getResult().getId()).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    CreateList();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    dialog.dismiss();
+                                }
+                                else
+                                    CToast.e(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG);
                             }
                         });
+                    }
+                    else
+                        CToast.e(getActivity(), "Vui lòng nhập số bàn!", Toast.LENGTH_SHORT);
+                });
+
+                dialog.show();
+
                 CreateList();
             }
         });
@@ -164,14 +220,66 @@ public class Fragment_drinks_table extends Fragment {
                 menuBuilder.setCallback(new MenuBuilder.Callback() {
                     @Override
                     public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                        if (item.getTitle().equals("Tính tiền")) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("key1", i);
-                            Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
-                        } else if (item.getTitle().equals("Gọi món")) {
-                            Bundle bund = new Bundle();
-                            bund.putInt("soban",i);
-                            Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
+                        switch (item.getItemId())
+                        {
+                            case R.id.tinhTien:
+                            {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("key1", table.get(i).getId());
+                                Navigation.findNavController(view).navigate(R.id.action_menuDrinkTable_to_fragment_bill, bundle);
+                                break;
+                            }
+                            case R.id.goiMon:
+                            {
+                                Bundle bund = new Bundle();
+                                bund.putString("soban", table.get(i).getId());
+                                Navigation.findNavController(view).navigate(R.id.action_fragment_drinks_table_to_fragment_Menu,bund);
+                                break;
+                            }
+                            case R.id.xoaBan:
+                            {
+                                final Dialog dialog = new Dialog(getContext());
+                                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                dialog.setContentView(R.layout.layout_payment);
+
+                                ((TextView)dialog.findViewById(R.id.textView2)).setText("Bạn có muốn xóa bàn số " + table.get(i).getIndex());
+                                ((Button)dialog.findViewById(R.id.btnNo)).setText("Không");
+                                ((Button)dialog.findViewById(R.id.btnThanhToan)).setText("Có");
+                                Window window = dialog.getWindow();
+                                if(window == null){
+                                    return true;
+                                }
+
+                                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                WindowManager.LayoutParams windowAttribute = window.getAttributes();
+                                windowAttribute.gravity = Gravity.CENTER;
+                                window.setAttributes(windowAttribute);
+
+                                ((Button)dialog.findViewById(R.id.btnNo)).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                ((Button)dialog.findViewById(R.id.btnThanhToan)).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        db.collection("TableStatus").document(table.get(i).getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                CToast.w(getActivity(), "Đã xóa bàn số " + table.get(i).getIndex() + "!", Toast.LENGTH_LONG);
+                                                CreateList();
+                                            }
+                                        });
+                                        dialog.dismiss();
+                                    }
+                                });
+                                dialog.show();
+                                break;
+                            }
                         }
                         return true;
                     }
@@ -186,15 +294,22 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                CreateList();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
         CreateList();
 
         return view;
     }
 
     private void CreateList() {
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
-        db.collection("/TableStatus").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        db.collection("/TableStatus").orderBy("Index", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -202,29 +317,24 @@ public class Fragment_drinks_table extends Fragment {
                     adapter = new TableAdapter(getContext(), table);
                     tableList.setAdapter(adapter);
                     for (QueryDocumentSnapshot data : task.getResult()) {
-                        MyBool flat = new MyBool();
-                        table.add(flat);
-                        adapter.notifyDataSetChanged();
-                        data.getReference().collection("DrinksOrder").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        MyBool val = new MyBool(data.getId(), false, Integer.parseInt(data.getLong("Index")+""));
+                        table.add(val);
+
+                        db.collection("TableStatus/" + data.getId() + "/DrinksOrder").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
-                                for(DocumentSnapshot dataaa : task1.getResult()){
-                                    flat.Set(true);
+                                for (DocumentSnapshot data : task1.getResult())
+                                {
+                                    val.Set(true);
+                                    adapter.notifyDataSetChanged();
                                     break;
                                 }
-                                adapter.notifyDataSetChanged();
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("status", flat.Get());
 
-                                db.collection("/TableStatus/").document(data.getId()).update(map)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-
-                                            }});
                             }
                         });
+
                     }
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

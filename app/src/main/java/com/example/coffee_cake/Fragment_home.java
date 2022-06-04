@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,22 +84,39 @@ public class Fragment_home extends Fragment {
     }
 
     ListView listDrinks;
+    SwipeRefreshLayout refreshLayout;
+
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
     DocumentReference db;
-    //FirebaseFirestore db;
     FirebaseAuth mAuth;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         listDrinks = (ListView) view.findViewById(R.id.lvDrinkStack);
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeLayoutHome);
 
         mAuth = FirebaseAuth.getInstance();
-        //db = FirebaseFirestore.getInstance();
+
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LoadQueue();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+        LoadQueue();
+
+        return view;
+    }
+
+    private void LoadQueue() {
         db.collection("/FoodQueue/").orderBy("TIME", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
@@ -114,10 +132,14 @@ public class Fragment_home extends Fragment {
                     data.getDocumentReference("food_name").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task2) {
-                            String temp = task2.getResult().getReference().getParent().getParent().getId();
-                            int SOBAN = Integer.parseInt(temp);
-
-                            good.setSoban(SOBAN);
+                            task2.getResult().getReference().getParent().getParent().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task5) {
+                                    String id = task5.getResult().getId();
+                                    good.setSoban(Integer.parseInt(task5.getResult().getLong("Index")+""));
+                                    adapter.notifyDataSetChanged();
+                                }
+                            });
                             good.setSize(task2.getResult().getString("SIZE"));
                             good.setGia(task2.getResult().getLong("GIA"));
                             good.setSoluong(Integer.parseInt(task2.getResult().getLong("SOLUONG")+""));
@@ -156,15 +178,12 @@ public class Fragment_home extends Fragment {
 
                         }
                     });
-
-
                 }
 
                 adapter.notifyDataSetChanged();
             }
         });
 
-        return view;
     }
 
 }

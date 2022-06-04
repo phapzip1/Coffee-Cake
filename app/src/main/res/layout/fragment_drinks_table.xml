@@ -53,9 +53,11 @@
 
 
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipeLayoutTable">
+
         <GridView
             android:id="@+id/tableList"
             android:layout_width="match_parent"
@@ -68,7 +70,7 @@
         </GridView>
 
 
-    </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

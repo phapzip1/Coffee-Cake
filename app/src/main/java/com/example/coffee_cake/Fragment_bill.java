@@ -101,7 +101,7 @@ public class Fragment_bill extends Fragment {
     Bill_adapter adapter;
     ArrayList<OrderDrinks> arrayList;
     TextView overal;
-    int soban;
+    String tableId;
     ArrayList<String> ref_topping;
     FirebaseAuth mAuth;
 
@@ -116,6 +116,7 @@ public class Fragment_bill extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+        tableId = getArguments().getString("key1");
 
         listFood = view.findViewById(R.id.food_item);
         overal = view.findViewById(R.id.tien);
@@ -123,7 +124,6 @@ public class Fragment_bill extends Fragment {
         overal.setText("0đ");
         getDateTime(view);
         getTableNumber(view);
-
         loadFoodIntoBill();
 
         ((ImageView) view.findViewById(R.id.btnBack)).setOnClickListener(new View.OnClickListener() {
@@ -145,11 +145,8 @@ public class Fragment_bill extends Fragment {
     }
 
     private void loadFoodIntoBill() {
-        String format;
-        if(soban < 10) format = "0"+ (soban);
-        else format = soban + "";
 
-        db.collection("/TableStatus/" + format + "/DrinksOrder").get()
+        db.collection("/TableStatus/" + tableId + "/DrinksOrder").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
@@ -251,11 +248,6 @@ public class Fragment_bill extends Fragment {
         ((Button)dialog.findViewById(R.id.btnThanhToan)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = getArguments();
-                String format;
-                if(bundle.getInt("key1")+1 < 10) format = "0"+ (bundle.getInt("key1")+1);
-                else format = (bundle.getInt("key1")+1) + "";
-
 
                 Map<String, Object> map = new HashMap<>();
                 map.put("NGHD", instance.getTimeInMillis() / 1000);
@@ -264,7 +256,7 @@ public class Fragment_bill extends Fragment {
                 db.collection("/HOADON/").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
-                        db.collection("TableStatus/" + format + "/DrinksOrder").get()
+                        db.collection("TableStatus/" + tableId + "/DrinksOrder").get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task1) {
@@ -303,9 +295,9 @@ public class Fragment_bill extends Fragment {
                                         }
                                     }
                                 });
+
                     }
                 });
-
                 Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
                 dialog.dismiss();
             }
@@ -314,10 +306,16 @@ public class Fragment_bill extends Fragment {
     }
 
     private void getTableNumber(View view) {
-        Bundle bundle = getArguments();
-        soban = bundle.getInt("key1") + 1;
-        ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + (bundle.getInt("key1") + 1));
+        db.collection("TableStatus/").document(tableId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                ((TextView)view.findViewById(R.id.table_number)).setText("Bàn " + task.getResult().getLong("Index"));
+            }
+        });
+
     }
+
+
 
     private void getDateTime(View view) {
         String dateTime;

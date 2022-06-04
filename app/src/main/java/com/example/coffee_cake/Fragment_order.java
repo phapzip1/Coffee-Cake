@@ -94,10 +94,10 @@ public class Fragment_order extends Fragment {
     Button btnthemngay;
     Boolean bl,bm;
     ImageView add,remove;
-    int sl,soban;
+    int sl;
     Bundle bund;
     String size = "M";
-    String masp, theloai;
+    String masp, theloai, tableId;
     MaterialCardView selectCard;
     TextView tvtopping;
     ImageView image;
@@ -144,7 +144,7 @@ public class Fragment_order extends Fragment {
 
         bund = getArguments(); // lấy giá trị, có số bàn
 
-        soban = bund.getInt("soban");
+        tableId = bund.getString("soban");
         masp = bund.getString("MASP");
         theloai = bund.getString("theloai");
 
@@ -336,7 +336,7 @@ public class Fragment_order extends Fragment {
                 btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
                     @Override
                     public void onClick(View view) {
-                        changeTableStatus(soban);
+                        //changeTableStatus(soban);
                         //lưu đồ order vào file
 
                         saveFoodOrderIntoAFile();
@@ -366,11 +366,9 @@ public class Fragment_order extends Fragment {
         map.put("DONE", false);
         map.put("GIA", Long.parseLong(gia.getText().toString()));
 
-        String format;
-        if(soban+1 < 10) format = "0"+ (soban+1);
-        else format = (soban+1) + "";
 
-        db.collection("/TableStatus/" + format + "/DrinksOrder").add(map)
+
+        db.collection("/TableStatus/" + tableId + "/DrinksOrder").add(map)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -387,28 +385,13 @@ public class Fragment_order extends Fragment {
 
                 Map<String, Object> queue = new HashMap<>();
                 //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
-                queue.put("food_name", db.collection("/TableStatus/" + format + "/DrinksOrder/").document(task.getResult().getId()));
+                queue.put("food_name", db.collection("/TableStatus/" + tableId + "/DrinksOrder/").document(task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);
             }
         });
     }
 
-    private void changeTableStatus(int soban) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", true);
 
-        String format;
-        if(soban+1 < 10) format = "0"+ (soban+1);
-        else format = (soban+1) + "";
-
-        db.collection("/TableStatus").document(format).update(map)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
-    }
 
 }

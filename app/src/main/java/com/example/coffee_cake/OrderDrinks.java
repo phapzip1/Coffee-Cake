@@ -247,6 +247,7 @@ class  OrderDrinksAdapter extends BaseAdapter
                                             ref.delete();
                                         }
                                     });
+                            notifyDataSetChanged();
                         }
                         return true;
                     }

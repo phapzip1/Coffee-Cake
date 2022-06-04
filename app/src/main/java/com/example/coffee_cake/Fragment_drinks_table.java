@@ -105,8 +105,10 @@ public class Fragment_drinks_table extends Fragment {
     TableAdapter adapter;
     MenuBuilder menuBuilder;
     DocumentReference db;
-    //FirebaseFirestore db;
     FirebaseAuth mAuth;
+
+    ImageView addImg;
+
     @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,61 +116,22 @@ public class Fragment_drinks_table extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_drinks_table, container, false);
         tableList = (GridView) view.findViewById(R.id.tableList);
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
-        //db = FirebaseFirestore.getInstance();
+        addImg = (ImageView)view.findViewById(R.id.btnAddTable);
 
-        //Lưu trạng thái
-        db.collection("/TableStatus").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    table = new ArrayList<>();
-                    adapter = new TableAdapter(getContext(), table);
-                    tableList.setAdapter(adapter);
-                    for (QueryDocumentSnapshot data : task.getResult()) {
-                        MyBool flat = new MyBool();
-                        table.add(flat);
-                        adapter.notifyDataSetChanged();
-                        data.getReference().collection("DrinksOrder").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
-                                for(DocumentSnapshot dataaa : task1.getResult()){
-                                    flat.Set(true);
-                                    break;
-                                }
-                                adapter.notifyDataSetChanged();
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("status", flat.Get());
+        addImg.setOnClickListener(new View.OnClickListener() {
 
-                                db.collection("/TableStatus/").document(data.getId()).update(map)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-
-                                        }});
-//                                db.document("/TableStatus/"+ data.getId()).update(map)
-//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//
-//                                        }});
-                            }
-                        });
-                    }
-                }
-            }
-        });
-
-        ((ImageView)view.findViewById(R.id.btnAddTable)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", false);
 
                 String format;
-                if(table.size() + 1 >= 10) format = (table.size() + 1) + "";
-                else format =  "0"+ (table.size() + 1);
+
+//              Stupid Khánh
+//              if(table.size() + 1 >= 10) format = (table.size() + 1) + "";
+//              else format =  "0"+ (table.size() + 1);
+
+                format = table.size() + 1 >= 10 ? (table.size() + 1) + "" : "0"+ (table.size() + 1);
 
                 //Lưu trạng thái
                 db.collection("/TableStatus/").document(format).set(map)
@@ -178,6 +141,7 @@ public class Fragment_drinks_table extends Fragment {
 
                             }
                         });
+                CreateList();
             }
         });
 
@@ -222,8 +186,50 @@ public class Fragment_drinks_table extends Fragment {
             }
         });
 
+        CreateList();
 
         return view;
+    }
+
+    private void CreateList() {
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+        db.collection("/TableStatus").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    table = new ArrayList<>();
+                    adapter = new TableAdapter(getContext(), table);
+                    tableList.setAdapter(adapter);
+                    for (QueryDocumentSnapshot data : task.getResult()) {
+                        MyBool flat = new MyBool();
+                        table.add(flat);
+                        adapter.notifyDataSetChanged();
+                        data.getReference().collection("DrinksOrder").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task1) {
+                                for(DocumentSnapshot dataaa : task1.getResult()){
+                                    flat.Set(true);
+                                    break;
+                                }
+                                adapter.notifyDataSetChanged();
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("status", flat.Get());
+
+                                db.collection("/TableStatus/").document(data.getId()).update(map)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }});
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+
     }
 
 

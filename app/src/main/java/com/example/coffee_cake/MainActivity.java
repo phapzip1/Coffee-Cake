@@ -65,21 +65,28 @@ public class MainActivity extends AppCompatActivity {
             String s1 = edtUsername.getText().toString(),
                     s2 = edtPassword.getText().toString();
 
-            mAuth.signInWithEmailAndPassword(s1, s2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Intent a = new Intent(getApplicationContext(), MainActivity2.class);
-                        startActivity(a);
-                        finish();
-                        Toast.makeText(MainActivity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(MainActivity.this, "Vui lòng nhập lại!", Toast.LENGTH_SHORT).show();
+            if (!s1.isEmpty() && !s2.isEmpty())
+            {
+                mAuth.signInWithEmailAndPassword(s1, s2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent a = new Intent(getApplicationContext(), MainActivity2.class);
+                            startActivity(a);
+                            CToast.i(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG);
+                            finish();
 
+                        }
+                        else {
+                            CToast.e(MainActivity.this, "Sai email hoặc mật khẩu!", Toast.LENGTH_LONG);
+                        }
                     }
-                }
-            });
+                });
+            }
+            else
+                CToast.e(MainActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_LONG);
+
+
 
         });
         ((TextView) findViewById(R.id.btnSignUp)).setOnClickListener(view -> {

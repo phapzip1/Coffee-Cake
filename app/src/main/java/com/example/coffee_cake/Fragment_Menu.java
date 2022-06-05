@@ -82,9 +82,9 @@ public class Fragment_Menu extends Fragment {
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundletable.putString("temp","coffee");
+                bundle.putString("temp","coffee");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
@@ -94,7 +94,7 @@ public class Fragment_Menu extends Fragment {
             public void onClick(View view) {
                 bundletable.putString("temp","trasua");
                 if (bundletable==null) // đi từ home --> menu
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 else // đi từ table --> menu
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
@@ -104,7 +104,7 @@ public class Fragment_Menu extends Fragment {
             public void onClick(View view) {
                 bundletable.putString("temp","sinhto");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }
@@ -114,7 +114,7 @@ public class Fragment_Menu extends Fragment {
             public void onClick(View view) {
                 bundletable.putString("temp","topping");
                 if (bundletable==null)
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundletable);
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 else
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
             }

@@ -83,7 +83,6 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
     EditText edtsearch;
     String tam, theloai;
     String tableId;
-    //String xacnhan = "";
     FirebaseAuth mAuth;
     DocumentReference db;
     @SuppressLint("Range")

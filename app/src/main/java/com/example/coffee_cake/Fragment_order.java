@@ -108,7 +108,6 @@ public class Fragment_order extends Fragment {
     DocumentReference db;
 
     ArrayList<Product> arraytopping;
-    //FirebaseFirestore db;
 
     int tientopping = 0 ;
 
@@ -122,8 +121,6 @@ public class Fragment_order extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
-
-        //db = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
@@ -290,10 +287,8 @@ public class Fragment_order extends Fragment {
                                 {
                                     // stringBuilder: 1 cái mảng lấy thành phần trong box
                                     stringBuilder.append(mangtentopping[toppinglist.get(j)]); // mangtengiatopping[5]
-                                    //String giatemp = gia.toString();
                                     tentoppingdachon +=  mangtentopping[toppinglist.get(j)];
                                     tientopping += manggiatopping[toppinglist.get(j)]; // tổng tiền topping đã thanh toán
-                                    //gia.setText(giatemp + manggiatopping[j]);
                                     if (j != toppinglist.size() -1 )
                                     {
                                         // để kiểm tra giá trị j và thêm vào dấu ","
@@ -336,11 +331,8 @@ public class Fragment_order extends Fragment {
                 btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
                     @Override
                     public void onClick(View view) {
-                        //changeTableStatus(soban);
                         //lưu đồ order vào file
-
                         saveFoodOrderIntoAFile();
-                        //Navigation.findNavController(view).navigate(R.id.action_fragment_order_to_menuMenu);
                         getActivity().onBackPressed();
                     }
                 });
@@ -366,8 +358,6 @@ public class Fragment_order extends Fragment {
         map.put("DONE", false);
         map.put("GIA", Long.parseLong(gia.getText().toString()));
 
-
-
         db.collection("/TableStatus/" + tableId + "/DrinksOrder").add(map)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -376,15 +366,12 @@ public class Fragment_order extends Fragment {
 
                 for(int i = 0; i < toppinglist.size(); i++){
                     Map<String, Object> topping = new HashMap<>();
-                    //String link = "SANPHAM/TOPPING/DANHSACHTOPPING/" + arraytopping.get(toppinglist.get(i)).getMasp();
                     String link = arraytopping.get(toppinglist.get(i)).getMasp();
                     topping.put("topping_ref", db.collection("SANPHAM/TOPPING/DANHSACHTOPPING/").document(link));
-                    //db.document(path).collection("/Topping").add(topping);
                     db.collection(path + "/Topping").add(topping);
                 }
 
                 Map<String, Object> queue = new HashMap<>();
-                //queue.put("food_name", db.document("/TableStatus/" + format + "/DrinksOrder/" + task.getResult().getId()));
                 queue.put("food_name", db.collection("/TableStatus/" + tableId + "/DrinksOrder/").document(task.getResult().getId()));
                 queue.put("TIME", instance.getTimeInMillis() / 1000);
                 db.collection("/FoodQueue").add(queue);

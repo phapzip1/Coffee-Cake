@@ -244,7 +244,6 @@ public class Fragment_staff_edit extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
-                // Navigation.findNavController(view).navigate(R.id.action_fragment_staff_edit_to_menuStaff);
                 // Nav cái này vẫn sài dc
             }
         });
@@ -268,8 +267,6 @@ public class Fragment_staff_edit extends Fragment {
                 return;
             }
 
-//            double hesoluong = Double.parseDouble(hsl);
-
             if (getArguments() == null) // add mode
             {
                 Map<String, Object> user = new HashMap<>();
@@ -281,7 +278,6 @@ public class Fragment_staff_edit extends Fragment {
                 user.put("NGAYSINH", ngaysinh);
                 user.put("NGVL", ngayvl);
                 user.put("SDT", sdt);
-
 
 
                 db.collection("/NHANVIEN/").add(user).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -296,7 +292,6 @@ public class Fragment_staff_edit extends Fragment {
             }
             else // edit mode
             {
-
                 Map<String, Object> user = new HashMap<>();
                 user.put("CCCD", cccd);
                 user.put("CHUCVU", chucvu);

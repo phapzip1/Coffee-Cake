@@ -95,7 +95,6 @@ public class Fragment_bill extends Fragment {
         }
     }
 
-    //FirebaseFirestore db;
     DocumentReference db;
     ListView listFood;
     Bill_adapter adapter;
@@ -112,7 +111,6 @@ public class Fragment_bill extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bill, container, false);
-        //db = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
@@ -248,7 +246,6 @@ public class Fragment_bill extends Fragment {
         ((Button)dialog.findViewById(R.id.btnThanhToan)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Map<String, Object> map = new HashMap<>();
                 map.put("NGHD", instance.getTimeInMillis() / 1000);
                 map.put("TRIGIA", sum);

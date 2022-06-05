@@ -72,9 +72,8 @@ public class Fragment_Menu extends Fragment {
         topping = (CardView) v.findViewById(R.id.cvTopping);
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
-        //topping.setVisibility(View.INVISIBLE); // ẩn topping
         bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
-        Bundle bundle = new Bundle();
+
         if (bundletable!=null)
             tableId = bundletable.getString("soban");
 

@@ -91,9 +91,7 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
     String tam;
     FirebaseAuth mAuth;
     DocumentReference db;
-    //
-    MenuBuilder menuBuilder;
-    //
+
     @SuppressLint({"RestrictedApi", "Range"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -156,38 +154,6 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
         });
 
-        // ấn giữ
-//        lvcoffeeno.setOnItemLongClickListener((adapterView, view, i, l) -> {
-//
-//            menuBuilder = new MenuBuilder(getContext());
-//            MenuInflater inflater1 = new MenuInflater(getContext());
-//            inflater1.inflate(R.menu.menu_popup, menuBuilder);
-//
-//            MenuPopupHelper menuPopupHelper = new MenuPopupHelper(getContext(), menuBuilder, view);
-//            menuPopupHelper.setForceShowIcon(true);
-//            menuBuilder.setCallback(new MenuBuilder.Callback() {
-//                @Override
-//                public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-//                    switch (item.getItemId()){
-//                        case R.id.menuDelete:
-//                            Toast.makeText(getContext(), "okioki", Toast.LENGTH_SHORT).show();
-//
-//                            return true;
-//                    }
-//                    return false;
-//                }
-//
-//                @Override
-//                public void onMenuModeChange(@NonNull MenuBuilder menu) {
-//
-//                }
-//            });
-//            menuPopupHelper.show();
-//
-//
-//            return true;
-//        });
-
         lvcoffeeno.setOnItemClickListener((adapterView, view, i, l) -> {
 
             bundle.putString("Masp", ((Product)adapterView.getAdapter().getItem(i)).getMasp());
@@ -204,7 +170,6 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_menuMenu);
-//                getActivity().onBackPressed();
             }
         });
 

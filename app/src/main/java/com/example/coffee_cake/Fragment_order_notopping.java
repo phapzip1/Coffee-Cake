@@ -88,9 +88,7 @@ public class Fragment_order_notopping extends Fragment {
     int sl;
     Bundle bund;
     String size = "M", theloai, masp, tableId;
-    MaterialCardView selectCard;
     final Calendar instance = Calendar.getInstance();
-    //irebaseFirestore db;
     FirebaseAuth mAuth;
     DocumentReference db;
     @Override
@@ -99,7 +97,6 @@ public class Fragment_order_notopping extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order_notopping, container, false);
 
-        //db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
 
@@ -203,11 +200,8 @@ public class Fragment_order_notopping extends Fragment {
         btnthemngay.setOnClickListener(new View.OnClickListener() { // tên(size), số lượng ,topping, số bàn
             @Override
             public void onClick(View view) {
-                //changeTableStatus(soban);
-
                 saveFoodOrderIntoAFile();
 
-                //Navigation.findNavController(view).navigate(R.id.action_fragment_order_notopping_to_menuMenu3);
                 getActivity().onBackPressed();
             }
         });

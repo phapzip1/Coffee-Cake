@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         EditText edtUsername = findViewById(R.id.inputUsername);
         EditText edtPassword = findViewById(R.id.inputPassword);
-        //Button btnInput = findViewById(R.id.btnInput);
         ImageView hide = findViewById(R.id.hidepw);
         ImageView show = findViewById(R.id.showpw);
 
@@ -58,15 +57,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-        ((Button) findViewById(R.id.btnInput)).setOnClickListener(view ->
-        {
+        ((Button) findViewById(R.id.btnInput)).setOnClickListener(view -> {
             mAuth = FirebaseAuth.getInstance();
 
             String s1 = edtUsername.getText().toString(),
                     s2 = edtPassword.getText().toString();
 
-            if (!s1.isEmpty() && !s2.isEmpty())
-            {
+            if (!s1.isEmpty() && !s2.isEmpty()) {
                 mAuth.signInWithEmailAndPassword(s1, s2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

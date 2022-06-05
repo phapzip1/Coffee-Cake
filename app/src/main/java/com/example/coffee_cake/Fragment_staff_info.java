@@ -113,7 +113,6 @@ public class Fragment_staff_info extends Fragment {
         ((ImageView)root.findViewById(R.id.btnDelete)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("/NHANVIEN/").document(staffInfo.getString("MANV")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/staff/"+ staffInfo.getString("MANV" + ".jpg")).delete();
                 Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_menuStaff);
@@ -124,8 +123,6 @@ public class Fragment_staff_info extends Fragment {
         // cái này để test load ảnh xin đừng xóa
 
         ImageLoader.Load( "images/staff/" + staffInfo.getString("MANV") + ".jpg", ((ImageView)root.findViewById(R.id.avatar)));
-        //hihi
-
         // get truc tiep tu data base
 
         ((ImageView)root.findViewById(R.id.btnEdit)).setOnClickListener(view -> {

@@ -85,7 +85,6 @@ public class Fragment_home extends Fragment {
 
     ListView listDrinks;
     SwipeRefreshLayout refreshLayout;
-
     OrderDrinksAdapter adapter;
     ArrayList<OrderDrinks> arrayList;
     DocumentReference db;

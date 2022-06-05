@@ -131,7 +131,6 @@ class  OrderDrinksAdapter extends BaseAdapter
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
-//    FirebaseFirestore db;
     FirebaseAuth mAuth;
     DocumentReference db;
 
@@ -163,8 +162,6 @@ class  OrderDrinksAdapter extends BaseAdapter
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) { // tên(size), số lượng ,topping, số bàn
         view = LayoutInflater.from(m_Context).inflate(m_Layout,null);
-
-//        db = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());

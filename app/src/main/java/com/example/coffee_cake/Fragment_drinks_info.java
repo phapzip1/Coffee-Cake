@@ -121,7 +121,7 @@ public class Fragment_drinks_info extends Fragment {
 //                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection(query).document(DrinkInfo.getString("Masp")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/goods/"+ DrinkInfo.getString("Masp" + ".jpg")).delete();
-                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                CToast.i(getContext(), "Xóa thành công", Toast.LENGTH_SHORT);
 
                 getActivity().onBackPressed();
             }

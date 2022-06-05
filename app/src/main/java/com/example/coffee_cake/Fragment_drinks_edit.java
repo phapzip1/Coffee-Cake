@@ -175,7 +175,7 @@ public class Fragment_drinks_edit extends Fragment {
 
             if (tensp == ""  || gia == "")
             {
-                Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                CToast.e(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT);
                 return;
             }
 
@@ -213,7 +213,7 @@ public class Fragment_drinks_edit extends Fragment {
 
                 ImageLoader.Upload("images/goods/" + id + ".jpg", imgDrink);
             }
-            Toast.makeText(getContext(), "Lưu thành công", Toast.LENGTH_SHORT).show();
+            CToast.i(getContext(), "Lưu thành công", Toast.LENGTH_SHORT);
 
             getActivity().onBackPressed();
         });

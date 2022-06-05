@@ -57,7 +57,7 @@ public class MainActivity_SignUp extends AppCompatActivity {
         String shopName = edtShopName.getText().toString();
 
         if(userName.isEmpty() || passWord.isEmpty()|| checkPass.isEmpty() || shopName.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Thông tin còn thiếu", Toast.LENGTH_SHORT).show();
+            CToast.e(getApplicationContext(), "Thông tin còn thiếu", Toast.LENGTH_SHORT);
         }
         else{
             if(passWord.equals(checkPass)){
@@ -71,18 +71,18 @@ public class MainActivity_SignUp extends AppCompatActivity {
 
                             db.collection("CUAHANG").document(task.getResult().getUser().getUid()).set(map);
 
-                            Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+                            CToast.i(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT);
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
                         }
                         else{
-                            Toast.makeText(getApplicationContext(), "Đăng kí thất bại " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            CToast.e(getApplicationContext(), "Đăng kí thất bại " + task.getException().getMessage(), Toast.LENGTH_SHORT);
                         }
                     }
                 });
             }
             else {
-                Toast.makeText(getApplicationContext(), "Kiểm tra lại mật khẩu", Toast.LENGTH_SHORT).show();
+                CToast.e(getApplicationContext(), "Kiểm tra lại mật khẩu", Toast.LENGTH_SHORT);
             }
         }
     }

@@ -116,7 +116,7 @@ public class Fragment_staff_info extends Fragment {
                 db.collection("/NHANVIEN/").document(staffInfo.getString("MANV")).delete();
                 FirebaseStorage.getInstance().getReference().child("images/staff/"+ staffInfo.getString("MANV" + ".jpg")).delete();
                 Navigation.findNavController(view).navigate(R.id.action_fragment_staff_info_to_menuStaff);
-                Toast.makeText(getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+               CToast.e(getContext(), "Xóa thành công", Toast.LENGTH_SHORT);
             }
         });
 

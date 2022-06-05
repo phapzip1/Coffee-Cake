@@ -72,7 +72,7 @@ public class Fragment_Menu extends Fragment {
         topping = (CardView) v.findViewById(R.id.cvTopping);
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
-        bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
+            bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
 
         if (bundletable!=null)
             tableId = bundletable.getString("soban");
@@ -81,41 +81,72 @@ public class Fragment_Menu extends Fragment {
         coffee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundle.putString("temp","coffee");
                 if (bundletable==null)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("temp","coffee");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                }
                 else
+                {
+                    bundletable.putString("temp","coffee");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
+
             }
         });
         trasua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundletable.putString("temp","trasua");
+
                 if (bundletable==null) // đi từ home --> menu
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("temp","coffee");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                }
                 else // đi từ table --> menu
+                {
+                    bundletable.putString("temp","trasua");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
+
             }
         });
         sinhto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundletable.putString("temp","sinhto");
+
                 if (bundletable==null)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("temp","sinhto");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                }
                 else
+                {
+                    bundletable.putString("temp","sinhto");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
+
             }
         });
         topping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bundletable.putString("temp","topping");
                 if (bundletable==null)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("temp","topping");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                }
+
                 else
+                {
+                    bundletable.putString("temp","topping");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
+
             }
         });
         return v;

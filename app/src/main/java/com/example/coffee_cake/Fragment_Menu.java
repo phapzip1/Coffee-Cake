@@ -57,7 +57,7 @@ public class Fragment_Menu extends Fragment {
         }
     }
 
-    CardView coffee,trasua,sinhto,topping;
+    CardView coffee,trasua,sinhto,topping, topping1;
     Bundle bundletable;
     String tableId;
 
@@ -70,6 +70,8 @@ public class Fragment_Menu extends Fragment {
         trasua = (CardView) v.findViewById(R.id.cvTraSua);
         sinhto = (CardView) v.findViewById(R.id.cvSinhTo);
         topping = (CardView) v.findViewById(R.id.cvTopping);
+        topping1 = (CardView) v.findViewById(R.id.cvTopping1);
+
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
             bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
@@ -102,7 +104,7 @@ public class Fragment_Menu extends Fragment {
                 if (bundletable==null) // đi từ home --> menu
                 {
                     Bundle bundle = new Bundle();
-                    bundle.putString("temp","coffee");
+                    bundle.putString("temp","trasua");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 }
                 else // đi từ table --> menu
@@ -144,6 +146,24 @@ public class Fragment_Menu extends Fragment {
                 else
                 {
                     bundletable.putString("temp","topping");
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
+
+            }
+        });
+        topping1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bundletable==null)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("temp","topping1");
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
+                }
+
+                else
+                {
+                    bundletable.putString("temp","topping1");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
                 }
 

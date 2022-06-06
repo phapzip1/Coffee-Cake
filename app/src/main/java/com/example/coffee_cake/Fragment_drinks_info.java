@@ -97,6 +97,9 @@ public class Fragment_drinks_info extends Fragment {
             case "topping":
                 query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
+            case "topping1":
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                break;
         }
 
         db.collection(query).document(DrinkInfo.getString("Masp"))

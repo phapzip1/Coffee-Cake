@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -171,8 +172,12 @@ public class Fragment_statistic extends Fragment {
                 case R.id.lastyear:
                     GetPreviousYearData();
                     break;
+                case R.id.ytd:
+                    GetYTDData();
+                    break;
             }
         });
+
         return mview;
     }
 
@@ -320,7 +325,8 @@ public class Fragment_statistic extends Fragment {
         });
     }
 
-    private void GetPreviousYearData() {
+    private void GetPreviousYearData() // 1 year
+    {
         // get proper time
         // set time to start of the year
         Calendar instance = Calendar.getInstance();
@@ -390,4 +396,87 @@ public class Fragment_statistic extends Fragment {
         });
     }
 
+    private void GetYTDData() // this year
+    {
+        Calendar instance = Calendar.getInstance();
+
+        if (instance.get(Calendar.MONTH) < 2)
+        {
+            CToast.i(getActivity(), "No Data!", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        instance.set(Calendar.DAY_OF_MONTH, 1);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+
+        final int maxMonth = instance.get(Calendar.MONTH);
+
+        // back to end of previous year
+        instance.add(Calendar.SECOND, -1);
+
+        //get start tick
+        long start = instance.getTimeInMillis() / 1000;
+
+        instance.set(Calendar.MONTH, 1);
+        instance.set(Calendar.DAY_OF_MONTH, 1);
+        instance.set(Calendar.HOUR_OF_DAY, 0);
+        instance.set(Calendar.MINUTE, 0);
+        instance.set(Calendar.SECOND, 0);
+
+        long end = instance.getTimeInMillis() / 1000;
+
+        db.collection("HOADON").whereLessThanOrEqualTo("NGHD", end).whereGreaterThanOrEqualTo("NGHD", start)
+                .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful())
+                        {
+                            ArrayList<BarEntry> entries = new ArrayList<>();
+                            String[] MONTH = new String[maxMonth];
+                            for (int i = 0; i < maxMonth; i++) {
+                                entries.add(new BarEntry(i ,0));
+                                MONTH[i] = MOY[i];
+                            }
+
+                            long sum = 0, peak, avg;
+                            for (DocumentSnapshot data : task.getResult())
+                            {
+                                instance.setTimeInMillis( data.getLong("NGHD") * 1000);
+                                int index = instance.get(Calendar.MONTH);
+                                long value = data.getLong("TRIGIA");
+                                sum += value;
+                                entries.get(index).setY(entries.get(index).getY() + value);
+                            }
+
+                            avg = sum / maxMonth;
+                            peak = (long)entries.get(0).getY();
+
+                            for (int i = 1; i < maxMonth; i++)
+                                if (peak < (long)entries.get(i).getY())
+                                    peak = (long)entries.get(i).getY();
+
+                            sumtv.setText(sum + "");
+
+                            avgtv.setText(avg + "");
+
+                            peaktv.setText(peak + "");
+
+                            BarDataSet dataSet = new BarDataSet(entries, "");
+                            dataSet.setColors(Color.argb( 200,56, 161, 74)); // green
+                            dataSet.setValueTextSize(10f);
+
+                            barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(MONTH));
+                            BarData barData = new BarData(dataSet);
+                            barData.setBarWidth(0.5f);
+                            barChart.setData(barData);
+                            barChart.animateY(3000);
+                            barChart.invalidate();
+                        }
+                        else
+                            CToast.e(getActivity(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
+    }
 }

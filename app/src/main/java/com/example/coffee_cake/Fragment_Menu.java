@@ -102,7 +102,7 @@ public class Fragment_Menu extends Fragment {
                 if (bundletable==null) // đi từ home --> menu
                 {
                     Bundle bundle = new Bundle();
-                    bundle.putString("temp","coffee");
+                    bundle.putString("temp","trasua");
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 }
                 else // đi từ table --> menu

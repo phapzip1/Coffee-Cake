@@ -39,12 +39,13 @@
         </LinearLayout>
 
         <LinearLayout
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:background="@color/trangduc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -52,7 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="0dp">
+                    android:layout_marginStart="0dp"
+                    android:scrollbarThumbHorizontal="@null">
 
                     <RadioGroup
                         android:id="@+id/radioGr"
@@ -73,10 +75,10 @@
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
                             android:gravity="center"
-                            android:padding="6dp"
-                            android:text="7 ngày qua"
+                            android:padding="8dp"
+                            android:text="7 ngày trước"
                             android:textColor="@drawable/radio_text"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/four_week"
@@ -87,10 +89,10 @@
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
                             android:gravity="center"
-                            android:padding="6dp"
+                            android:padding="8dp"
                             android:text="Tháng trước"
                             android:textColor="@drawable/radio_text"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/lastyear"
@@ -101,10 +103,10 @@
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
                             android:gravity="center"
-                            android:padding="6dp"
-                            android:text="Năm ngoái"
+                            android:padding="8dp"
+                            android:text="Năm trước"
                             android:textColor="@drawable/radio_text"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/ytd"
@@ -114,10 +116,11 @@
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
                             android:gravity="center"
-                            android:padding="6dp"
+                            android:padding="8dp"
                             android:text="Đầu năm đến nay"
                             android:textColor="@drawable/radio_text"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
+
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -128,8 +131,8 @@
                             android:padding="6dp"
                             android:text="xxxxxxx"
                             android:textColor="@drawable/radio_text"
-                            android:visibility="invisible"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:visibility="invisible" />
                     </RadioGroup>
                 </HorizontalScrollView>
             </RelativeLayout>
@@ -138,7 +141,7 @@
             <androidx.cardview.widget.CardView
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     app:cardElevation="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="174dp"
@@ -167,7 +170,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/light_blue"
-                                android:text="1000000"
+                                android:text="0"
                                 android:layout_gravity="center_horizontal"
                                 android:textStyle="bold"
                                 android:textSize="28sp"/>
@@ -215,7 +218,7 @@
                                         android:layout_height="wrap_content"
                                         android:textSize="20sp"
                                         android:textColor="@color/dennhat"
-                                        android:text="1000000"/>
+                                        android:text="0"/>
                                     <TextView
                                         android:layout_marginLeft="4dp"
                                         android:text="đ"
@@ -240,7 +243,7 @@
                                     android:layout_gravity="center_horizontal"
                                     android:text="Cao nhất"/>
                                 <LinearLayout
-                                    android:orientation="horizontal"
+                                    android:layout_gravity="center_horizontal"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content">
                                     <TextView
@@ -250,7 +253,7 @@
                                         android:layout_gravity="center_horizontal"
                                         android:textSize="20sp"
                                         android:textColor="@color/dennhat"
-                                        android:text="1000000"/>
+                                        android:text="0"/>
                                     <TextView
                                         android:layout_marginLeft="4dp"
                                         android:text="đ"

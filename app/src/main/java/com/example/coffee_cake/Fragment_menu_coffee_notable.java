@@ -109,7 +109,6 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
         tam = bundle.getString("temp");
         String query = "";
 
-
         switch (tam)
         {
             case "coffee":
@@ -151,8 +150,7 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
                 }
             }
         });
-
-
+        
         ((ImageView)v.findViewById(R.id.btnAddDrink)).setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_fragment_menu_coffee_notable2_to_fragment_drinks_edit);
         });

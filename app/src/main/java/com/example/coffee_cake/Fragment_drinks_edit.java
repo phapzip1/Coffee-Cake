@@ -169,28 +169,24 @@ public class Fragment_drinks_edit extends Fragment {
             ImageLoader.Load("images/goods/" + data.getString("Masp") + ".jpg", ((ImageView)root.findViewById(R.id.imgEditDink)));
         }
 
-
-
         ((Button)root.findViewById(R.id.btnSaveDrink)).setOnClickListener(view ->{
 
             String tensp = edtNameDrink.getText().toString(),
                     gia = edtPrice.getText().toString();
 
-            if (tensp == ""  || gia == "")
+            if (tensp.isEmpty() || gia.isEmpty())
             {
                 CToast.e(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT);
                 return;
             }
 
             long giasp = Integer.parseInt(gia);
-            //FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             if (data.getString("Masp") == null) // add mode
             {
                 Map<String, Object> drink = new HashMap<>();
                 drink.put("TEN", tensp);
                 drink.put("GIA", giasp);
-
 
                 db.collection(query).add(drink).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -205,7 +201,6 @@ public class Fragment_drinks_edit extends Fragment {
             }
             else // edit mode
             {
-
                 Map<String, Object> drink = new HashMap<>();
                 drink.put("TEN", tensp);
                 drink.put("GIA", giasp);

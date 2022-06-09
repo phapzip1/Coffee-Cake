@@ -18,20 +18,35 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+
+    DocumentReference db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
+        // code
+        db = FirebaseFirestore.getInstance().document("CUAHANG/" + mAuth.getUid());
+        // code
         if(mAuth.getCurrentUser() == null){
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -73,8 +88,20 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        // hiện màu sắc của nav
         NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.getHeaderView(0).findViewById(R.id.tvNameCf);
+        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.tvNameCf)).setText("TEN_CUAHANG");
+
+        db.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    ((TextView)navigationView.getHeaderView(0).findViewById(R.id.tvNameCf)).setText(task.getResult().getString("TEN_CUAHANG"));
+
+                }
+            }
+        });
+
         navigationView.setItemIconTintList(null);
 
         NavController controller = Navigation.findNavController(this, R.id.fragmentContainerView3);

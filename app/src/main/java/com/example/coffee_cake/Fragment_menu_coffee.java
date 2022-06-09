@@ -117,6 +117,9 @@ public class Fragment_menu_coffee extends Fragment implements TextWatcher {
             case "topping":
                 query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
+            case "topping1":
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                break;
         }
         theloai = query;
         db.collection(query).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

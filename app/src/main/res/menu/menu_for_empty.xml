@@ -6,5 +6,5 @@
         android:icon="@drawable/ic_baseline_free_breakfast_24" />
     <item android:id="@+id/xoaBan"
         android:title="Xóa bàn"
-        android:icon="@drawable/ic_baseline_horizontal_rule_24" />
+        android:icon="@drawable/ic_baseline_delete_30" />
 </menu>

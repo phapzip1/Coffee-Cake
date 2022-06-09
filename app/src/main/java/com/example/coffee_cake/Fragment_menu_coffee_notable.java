@@ -124,6 +124,9 @@ public class Fragment_menu_coffee_notable extends Fragment implements TextWatche
             case "topping":
                 query = "/SANPHAM/TRANGMIENG/DANHSACHTRANGMIENG";
                 break;
+            case "topping1":
+                query = "/SANPHAM/TOPPING/DANHSACHTOPPING";
+                break;
         }
 
         edtcoffeeno.addTextChangedListener(this);

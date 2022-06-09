@@ -203,6 +203,8 @@ public class Fragment_drinks_table extends Fragment {
         tableList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(refreshLayout.isRefreshing()) return;
+
                 menuBuilder = new MenuBuilder(getContext());
                 MenuInflater inflater = new MenuInflater(getContext());
 

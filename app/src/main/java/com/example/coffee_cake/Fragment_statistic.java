@@ -214,15 +214,15 @@ public class Fragment_statistic extends Fragment {
                 for (int i = 0; i < 7; i++)
                 {
                     entries.add(new BarEntry(i, 0));
-                    DATE[i] = instance.get(Calendar.DAY_OF_MONTH) + "/" + instance.get(Calendar.MONTH);
+                    DATE[i] = instance.get(Calendar.DAY_OF_MONTH) + "/" + (instance.get(Calendar.MONTH)+1);
                     instance.add(Calendar.DAY_OF_YEAR, 1);
                 }
 
                 for (DocumentSnapshot data: task.getResult()) {
-
                     long value = data.getLong("TRIGIA");
                     sum += value;
-                    int index = (int) ((data.getLong("NGHD") - start) / 86400);
+                    instance.setTimeInMillis(data.getLong("NGHD"));
+                    int index = instance.get(Calendar.MONTH);
                     entries.get(index).setY(entries.get(index).getY() + value);
                 }
 

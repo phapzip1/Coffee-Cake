@@ -117,7 +117,6 @@ public class Fragment_home extends Fragment {
     }
 
     private void LoadQueue() {
-
         db.collection("/FoodQueue/").orderBy("TIME", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task1) {
@@ -136,7 +135,6 @@ public class Fragment_home extends Fragment {
                             task2.getResult().getReference().getParent().getParent().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task5) {
-                                    String id = task5.getResult().getId();
                                     good.setSoban(Integer.parseInt(task5.getResult().getLong("Index")+""));
                                     adapter.notifyDataSetChanged();
                                 }

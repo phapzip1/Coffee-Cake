@@ -202,11 +202,9 @@ public class Fragment_bill extends Fragment {
                                 }
                             }
                         });
-
                         overal.setText(sum + " đ");
                     }
                 }
-
                 adapter.notifyDataSetChanged();
             }
         });
@@ -264,7 +262,7 @@ public class Fragment_bill extends Fragment {
                                             map.put("GIA", data.getLong("GIA"));
                                             map.put("SIZE", data.getString("SIZE"));
 
-                                            db.collection(task.getResult().getPath() + "/CTHD").add(map)
+                                            task.getResult().getParent().document(task.getResult().getId()).collection("/CTHD").add(map)
                                                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentReference> task3) {
@@ -276,7 +274,7 @@ public class Fragment_bill extends Fragment {
                                                                         Map<String, Object> map = new HashMap<>();
                                                                         map.put("MATOPPING", dataa.getDocumentReference("topping_ref"));
 
-                                                                        db.collection(task3.getResult().getPath() + "/TOPPING").add(map)
+                                                                        task3.getResult().getParent().document(task3.getResult().getId()).collection("/TOPPING").add(map)
                                                                                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                                                                     @Override
                                                                                     public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -292,7 +290,6 @@ public class Fragment_bill extends Fragment {
                                         }
                                     }
                                 });
-
                     }
                 });
                 Navigation.findNavController(getParentFragment().getView()).navigate(R.id.action_fragment_bill_to_menuDrinkTable);
@@ -311,8 +308,6 @@ public class Fragment_bill extends Fragment {
         });
 
     }
-
-
 
     private void getDateTime(View view) {
         String dateTime;

@@ -295,7 +295,7 @@ public class Fragment_order extends Fragment {
                                     tvtopping.setText(stringBuilder.toString());
                                 }
                                 if (bm)
-                                    gia.setText( String.valueOf( sl * bund.getInt("GIA") + tientopping ) );
+                                    gia.setText( String.valueOf( sl * (bund.getInt("GIA") + tientopping) ) );
                                 else
                                     gia.setText(String.valueOf(sl*( bund.getInt("GIA") + tientopping + 5000 ) ));
                             }

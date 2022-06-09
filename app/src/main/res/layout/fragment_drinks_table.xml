@@ -56,13 +56,14 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:id="@+id/swipeLayoutTable">
 
         <GridView
+            android:scrollbars="none"
             android:id="@+id/tableList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
             android:numColumns="2"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">

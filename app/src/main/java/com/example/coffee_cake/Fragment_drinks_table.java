@@ -331,7 +331,6 @@ public class Fragment_drinks_table extends Fragment {
 
                             }
                         });
-
                     }
                     adapter.notifyDataSetChanged();
                 }

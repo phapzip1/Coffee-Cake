@@ -135,9 +135,7 @@ public class Fragment_order extends Fragment {
         m = (TextView) v.findViewById(R.id.sizeM);
         l = (TextView) v.findViewById(R.id.sizeL);
 
-
         image = v.findViewById(R.id.imgOder);
-
 
         bund = getArguments(); // lấy giá trị, có số bàn
 
@@ -153,7 +151,6 @@ public class Fragment_order extends Fragment {
         bm = true;
         bl = false;
         //bl = false;
-
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -366,9 +363,10 @@ public class Fragment_order extends Fragment {
 
                 for(int i = 0; i < toppinglist.size(); i++){
                     Map<String, Object> topping = new HashMap<>();
-                    String link = arraytopping.get(toppinglist.get(i)).getMasp();
-                    topping.put("topping_ref", db.collection("SANPHAM/TOPPING/DANHSACHTOPPING/").document(link));
-                    db.collection(path + "/Topping").add(topping);
+                    //String link = arraytopping.get(toppinglist.get(i)).getMasp();
+                    topping.put("topping_ref", db.collection("SANPHAM/TOPPING/DANHSACHTOPPING/").document(arraytopping.get(toppinglist.get(i)).getMasp()));
+                    //db.collection(  + "/Topping").add(topping);
+                    task.getResult().getParent().document(task.getResult().getId()).collection("Topping").add(topping);
                 }
 
                 Map<String, Object> queue = new HashMap<>();

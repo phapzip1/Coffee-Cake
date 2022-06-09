@@ -126,8 +126,7 @@ public class OrderDrinks {
     }
 }
 
-class  OrderDrinksAdapter extends BaseAdapter
-{
+class  OrderDrinksAdapter extends BaseAdapter {
     TextView tvnametable,tvsoluong,tvtopping,tvtable;
     ImageView daubacham;
     MenuBuilder menuBuilder;
@@ -137,8 +136,7 @@ class  OrderDrinksAdapter extends BaseAdapter
     private Context m_Context;
     private ArrayList<OrderDrinks> m_array;
     private int m_Layout;
-    public OrderDrinksAdapter(Context context, int layout, ArrayList<OrderDrinks> arrayList)
-    {
+    public OrderDrinksAdapter(Context context, int layout, ArrayList<OrderDrinks> arrayList) {
         m_Context = context;
         m_Layout = layout;
         m_array = arrayList;
@@ -174,6 +172,28 @@ class  OrderDrinksAdapter extends BaseAdapter
 
         tvnametable.setText(m_array.get(i).getName());
 
+        ImageView image = (ImageView) view.findViewById(R.id.imageDrink);
+
+        db.collection("FoodQueue").document(m_array.get(i).getId()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        task.getResult().getDocumentReference("food_name").get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task1) {
+                                        task1.getResult().getDocumentReference("sp_ref_name").get()
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task2) {
+                                                        ImageLoader.Load( "/images/goods/"  + task2.getResult().getId() + ".jpg", image);
+
+                                                    }
+                                                });
+                                    }
+                                });
+                    }
+                });
 
         tvsoluong.setText("Số lượng: "+ m_array.get(i).getSoluong() +"(" +  m_array.get(i).getSize() + ")");
 

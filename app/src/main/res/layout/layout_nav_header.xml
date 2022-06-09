@@ -19,8 +19,8 @@
         android:layout_height="wrap_content">
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgProfile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:scaleType="centerCrop"
             android:background="@drawable/round_bg"
             android:src="@drawable/logo_coffee"

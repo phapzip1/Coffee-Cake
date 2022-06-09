@@ -73,7 +73,11 @@ public class Fragment_Menu extends Fragment {
         topping1 = (CardView) v.findViewById(R.id.cvTopping1);
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
-            bundletable = getArguments(); // = NULL: nếu đi từ home -> menu, !=NULL: nếu có giá trị table -> menu
+        {
+            topping1.setVisibility(View.INVISIBLE);
+            bundletable = getArguments();
+        }
+             // = NULL: nếu đi từ trang chủ -> menu, !=NULL: nếu có giá trị Bàn -> menu
 
         if (bundletable!=null)
             tableId = bundletable.getString("soban");
@@ -158,11 +162,12 @@ public class Fragment_Menu extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 }
 
-                else
-                {
-                    bundletable.putString("temp","topping1");
-                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
-                }
+//                else
+//                {
+//                    topping1.setVisibility(View.INVISIBLE);
+//                    bundletable.putString("temp","topping1");
+//                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+//                }
 
             }
         });

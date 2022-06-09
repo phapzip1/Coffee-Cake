@@ -85,7 +85,7 @@
                                 android:paddingRight="16dp"
                                 android:paddingTop="8dp"
                                 android:paddingBottom="8dp"
-                                android:text="Café"
+                                android:text="Cà Phê"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />

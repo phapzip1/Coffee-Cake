@@ -74,7 +74,7 @@ public class Fragment_Menu extends Fragment {
 
         if (getArguments()!=null) // tức là có bundle được chuyển qua
         {
-            topping1.setVisibility(View.INVISIBLE);
+//            topping1.setVisibility(View.INVISIBLE);
             bundletable = getArguments();
         }
              // = NULL: nếu đi từ trang chủ -> menu, !=NULL: nếu có giá trị Bàn -> menu
@@ -162,12 +162,12 @@ public class Fragment_Menu extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee_notable2,bundle);
                 }
 
-//                else
-//                {
+                else
+                {
 //                    topping1.setVisibility(View.INVISIBLE);
-//                    bundletable.putString("temp","topping1");
-//                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
-//                }
+                    bundletable.putString("temp","topping1");
+                    Navigation.findNavController(view).navigate(R.id.action_menuMenu_to_fragment_menu_coffee,bundletable);
+                }
 
             }
         });

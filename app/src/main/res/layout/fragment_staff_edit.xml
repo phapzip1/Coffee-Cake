@@ -109,7 +109,8 @@
                 <!--                    android:layout_height="wrap_content" />-->
                 <EditText
                     android:id="@+id/editPosition"
-                    android:hint="Enter"
+                    android:hint="Nhập vào"
+                    android:background="@null"
                     android:textSize="18sp"
                     android:padding="12dp"
                     android:gravity="center"
@@ -146,21 +147,29 @@
                 <!--   1. Nam-->
                 <!--   2. Nữ-->
                 <!--   3. Khác-->
-                <!--                <Spinner-->
-                <!--                    android:layout_marginTop="8dp"-->
-                <!--                    android:id="@+id/spinner2"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content" />-->
-                <Spinner
-                    android:id="@+id/editGender"
+                <LinearLayout
+                    android:layout_marginTop="12dp"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/dennhat"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/editGender"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/dennhat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:layout_marginLeft="-40dp"
+                        android:src="@drawable/ic_arrow_drop_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+
+                </LinearLayout>
 
             </LinearLayout>
-
 
         </LinearLayout>
 

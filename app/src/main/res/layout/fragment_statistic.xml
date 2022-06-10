@@ -64,13 +64,13 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:orientation="horizontal"
-                        android:weightSum="3">
+                        android:weightSum="5">
 
                         <RadioButton
                             android:id="@+id/one_week"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginRight="12dp"
                             android:layout_weight="1"
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
@@ -84,7 +84,7 @@
                             android:id="@+id/four_week"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginRight="12dp"
                             android:layout_weight="1"
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
@@ -98,7 +98,7 @@
                             android:id="@+id/lastyear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginRight="12dp"
                             android:layout_weight="1"
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
@@ -128,10 +128,10 @@
                             android:background="@drawable/my_radio_button"
                             android:button="@android:color/transparent"
                             android:gravity="center"
-                            android:padding="6dp"
-                            android:text="xxxxxxx"
+                            android:padding="8dp"
+                            android:text="hh"
                             android:textColor="@drawable/radio_text"
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                             android:visibility="invisible" />
                     </RadioGroup>
                 </HorizontalScrollView>

@@ -18,7 +18,7 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageDrink"
                 app:riv_oval="true"
-                android:src="@drawable/ts"
+                android:src="@drawable/imageloadjpg"
                 android:layout_gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

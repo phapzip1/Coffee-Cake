@@ -73,7 +73,7 @@
         app:riv_corner_radius="12dp"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/topping"
+        android:src="@drawable/imageloadjpg"
         android:scaleType="centerCrop">
     </com.makeramen.roundedimageview.RoundedImageView>
     <LinearLayout

@@ -6,6 +6,7 @@ import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class MainActivity_SignUp extends AppCompatActivity {
 
     FirebaseAuth mAuth;
+    ImageView btnBacked;
     EditText edtUser, edtPw, edtPwAgain, edtShopName;
     FirebaseFirestore db;
     @Override
@@ -42,6 +44,11 @@ public class MainActivity_SignUp extends AppCompatActivity {
         edtPw = (EditText) findViewById(R.id.edtNewPw);
         edtPwAgain = (EditText) findViewById(R.id.edtPwAgain);
         edtShopName = (EditText) findViewById(R.id.edtShopName);
+        btnBacked = (ImageView) findViewById(R.id.btnBacked);
+        btnBacked.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity_SignUp.this, MainActivity.class);
+            startActivity(intent);
+        });
 
         ((Button) findViewById(R.id.btnInputSignUp)).setOnClickListener(view -> {
             RegisterUser();

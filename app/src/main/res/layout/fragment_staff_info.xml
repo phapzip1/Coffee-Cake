@@ -129,7 +129,7 @@
             <!--                    android:layout_height="wrap_content" />-->
                 <TextView
                     android:id="@+id/tvPosition"
-                    android:text="Nhân viên bán hàng"
+                    android:text="Nhân viên"
                     android:textSize="18sp"
                     android:lines="2"
                     android:gravity="center"

@@ -15,9 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -70,18 +74,18 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Intent a = new Intent(getApplicationContext(), MainActivity2.class);
                             startActivity(a);
-                            CToast.i(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_LONG);
+                            CToast.i(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT);
                             finish();
 
                         }
                         else {
-                            CToast.e(MainActivity.this, "Sai email hoặc mật khẩu!", Toast.LENGTH_LONG);
+                            CToast.e(MainActivity.this, "Sai email hoặc mật khẩu!", Toast.LENGTH_SHORT);
                         }
                     }
                 });
             }
             else
-                CToast.e(MainActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_LONG);
+                CToast.e(MainActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT);
 
 
 
@@ -96,6 +100,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainActivity_SignUp.class));
+            }
+        });
+
+        ((TextView) findViewById(R.id.forgotPassword)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtUsername.getText().toString().isEmpty()){
+                    CToast.e(MainActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT);
+                    return;
+                }
+                FirebaseAuth.getInstance().sendPasswordResetEmail(edtUsername.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                    CToast.i(MainActivity.this, "Đã gửi email", Toast.LENGTH_SHORT);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if(e.getMessage().equals("FirebaseAuthInvalidUserException"))
+                            CToast.e(MainActivity.this, "Email không tồn tại", Toast.LENGTH_SHORT);
+                        else if(e.getMessage().equals("FirebaseAuthInvalidCredentialsException"))
+                            CToast.e(MainActivity.this, "Email không không hợp lệ", Toast.LENGTH_SHORT);
+                    }
+                });
+
+
             }
         });
     }

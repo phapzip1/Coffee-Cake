@@ -211,18 +211,21 @@ public class Fragment_statistic extends Fragment {
                 ArrayList<BarEntry> entries = new ArrayList<>();
                 long sum = 0, avg, peak;
                 String[] DATE = new String[7];
+                Map<String, Integer> map = new HashMap<>();
                 for (int i = 0; i < 7; i++)
                 {
                     entries.add(new BarEntry(i, 0));
-                    DATE[i] = instance.get(Calendar.DAY_OF_MONTH) + "/" + (instance.get(Calendar.MONTH)+1);
+                    String date = instance.get(Calendar.DAY_OF_MONTH) + "/" + (instance.get(Calendar.MONTH)+1);
+                    DATE[i] = date;
+                    map.put(date, i);
                     instance.add(Calendar.DAY_OF_YEAR, 1);
                 }
 
                 for (DocumentSnapshot data: task.getResult()) {
                     long value = data.getLong("TRIGIA");
                     sum += value;
-                    instance.setTimeInMillis(data.getLong("NGHD"));
-                    int index = instance.get(Calendar.MONTH);
+                    instance.setTimeInMillis(data.getLong("NGHD") * 1000);
+                    int index = (int)map.get(instance.get(Calendar.DAY_OF_MONTH) + "/" + (instance.get(Calendar.MONTH)+1));
                     entries.get(index).setY(entries.get(index).getY() + value);
                 }
 
@@ -400,7 +403,7 @@ public class Fragment_statistic extends Fragment {
     {
         Calendar instance = Calendar.getInstance();
 
-        if (instance.get(Calendar.MONTH) < 2)
+        if (instance.get(Calendar.MONTH) < 1)
         {
             CToast.i(getActivity(), "No Data!", Toast.LENGTH_SHORT);
             return;
@@ -413,19 +416,19 @@ public class Fragment_statistic extends Fragment {
 
         final int maxMonth = instance.get(Calendar.MONTH);
 
-        // back to end of previous year
+        // back to end of previous month
         instance.add(Calendar.SECOND, -1);
 
         //get start tick
-        long start = instance.getTimeInMillis() / 1000;
+        long end = instance.getTimeInMillis() / 1000;
 
-        instance.set(Calendar.MONTH, 1);
+        instance.set(Calendar.MONTH, 0);
         instance.set(Calendar.DAY_OF_MONTH, 1);
         instance.set(Calendar.HOUR_OF_DAY, 0);
         instance.set(Calendar.MINUTE, 0);
         instance.set(Calendar.SECOND, 0);
 
-        long end = instance.getTimeInMillis() / 1000;
+        long start = instance.getTimeInMillis() / 1000;
 
         db.collection("HOADON").whereLessThanOrEqualTo("NGHD", end).whereGreaterThanOrEqualTo("NGHD", start)
                 .orderBy("NGHD", Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

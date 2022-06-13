@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,6 +191,7 @@ public class Fragment_bill extends Fragment {
                                                     public void onComplete(@NonNull Task<DocumentSnapshot> task5) {
                                                         topping.setMasp(task5.getResult().getReference().getId());
                                                         topping.setTensp(task5.getResult().getString("TEN"));
+                                                        Log.i("Id", task5.getResult().getReference().getId() + "/nTen" + task5.getResult().getString("TEN"));
                                                         topping.setGia(Integer.parseInt(task5.getResult().getLong("GIA") + ""));
 
                                                         adapter.notifyDataSetChanged();
